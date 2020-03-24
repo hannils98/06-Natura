@@ -1,4 +1,4 @@
 # 06-Natura
-geegggggggggggggg
-fefeeeeeeeeee
-feeeeeeeeeeeeeeeeeeeeee
+Spara ner filen
+Kör koden och kör servern
+Öppna webbsidan

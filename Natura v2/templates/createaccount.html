@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+
+{% block main%}
+<form action="/creating" method="POST">
+    {%if info != None:%}
+    <p>{{  info  }}. Prova igen!</p>
+    {%endif%}
+    <fieldset>
+        <legend>Skapa konto</legend>
+        <label for="email">Email:</label>
+        <input type="email" placeholder="Skriv email här..." name="email" required>
+        <br>
+        <label for="usernamne">Användarnamn:</label>
+        <input type="text" placeholder="Ex. Kalle123" name="username" id="username" required>
+        <br>
+        <label for="password">Lösenord:</label>
+        <input type="password" placeholder="Skriv lösenord här..." name="psw" required>
+        <br>
+        <label for="confirmpassword">Bekräfta lösenord:</label>
+        <input type="password" placeholder="Bekräfta lösenord här..." name="psw2" required>
+        <br>
+
+        <input type="submit" value="Skapa konto">
+        <br>
+    </fieldset>
+</form>
+{% endblock%}

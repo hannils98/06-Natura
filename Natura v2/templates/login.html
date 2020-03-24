@@ -1,0 +1,21 @@
+{% extends 'base.html'%}
+
+{% block main%}
+<form action="/loggingin" method="POST">
+    {%if info != None:%}
+    <p>Ops något gick fel. {{  info  }}</p>
+    {%endif%}
+    <fieldset>
+        <legend>Logga in</legend>
+        <label for="usernamne">Användarnamn:</label>
+        <input type="text" placeholder="Ex. Kalle123" name="username" id="username" required>
+        <br>
+        <label for="password">Lösenord:</label>
+        <input type="password" placeholder="Skriv lösenord här..." name="psw" required>
+        <br>
+    
+        <input type="submit" value="Logga in">
+        <br>
+    </fieldset>
+</form>
+{% endblock%}

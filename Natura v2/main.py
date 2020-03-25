@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import psycopg2
 import hashlib
 from datetime import datetime
@@ -9,6 +9,7 @@ conn = psycopg2.connect(dbname="natura", user="ak2195", password="l6kp3gsl", hos
 
 cursor = conn.cursor()
 
+app.config['SECRET_KEY'] = 'SVOqQTpAZETTTd-P8wqtpA'
 loggedin = False
 user = ""
 
@@ -19,8 +20,6 @@ def index():
     if request.args.get('welcome') and loggedin == False:
         return redirect('/login')
     elif request.args.get('accountcreated') and loggedin == False:
-         return redirect('/login')
-    elif request.args.get('info') and loggedin == False:
          return redirect('/login')
     user = request.args.get('welcome')
     newuser = request.args.get('accountcreated')

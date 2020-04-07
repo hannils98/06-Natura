@@ -1,0 +1,33 @@
+########Database guide for ÅÄÖ#############
+
+1. *****CRUICIAL******
+Open CMD and enter:
+
+SET PGCLIENTENCODING=utf-8
+chcp 65001
+
+2. Save the data with the wanted columns in a excel spreadsheet. 
+If data in another spreadsheet (ie. Master Template) then copy sheet to a new book.
+Make sure double precision has "." NOT ","
+Make sure no extra spaces.
+Make sure not double ";"
+
+3. Delete all "extra" empty rows Crtl+Shift+End
+
+3. Save the document as CSV-UTF8
+
+4. Open in Notepad++ and remove ";;;;;;" using Crtl H. Save using Ctrl S.
+
+5. Connect to database and \copy in with delimiter ";"
+\COPY places(name,description,source,latitude,longitude) FROM 'C:\Users\A\OneDrive\Documents\Natura DB\places.csv' DELIMITER ';' CSV HEADER;
+
+#########DATA CHECK#############
+1. \COPY statement 
+\copy places to 'C:\Users\A\OneDrive\Documents\Natura DB\data check\places.csv' csv header;
+
+2. Open with Apache OpenOffice as UTF8
+
+3. Copy column to template 'data sense <scheck'
+OR Open new Excel spreadsheet and copy in imported and exported data and check =column,column == True. 
+
+4. If not all == True then the data needs to be checked, both imported and exported.

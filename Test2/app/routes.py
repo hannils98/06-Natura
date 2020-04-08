@@ -82,7 +82,9 @@ def login():
 
 @app.route('/logout')
 def logout():
+    global loggedin
     logout_user()
+    loggedin=False
     return redirect(url_for('index'))
 
 @app.route('/register', methods=['GET', 'POST'])

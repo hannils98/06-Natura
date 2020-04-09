@@ -4,10 +4,11 @@
 {% block main %} 
 
 
-{%if current_user != None %}
-    <h2>Välkommen {{  current_user.username  }}!</h2>
+{%if current_user.username == null %}
+    <h2>Välkommen till Natura!</h2> 
+
 {%else%}
-    <h2>Välkommen till Natura!</h2>
+    <h2>Välkommen {{  current_user.username  }}!</h2>
 {%endif%}
 
 

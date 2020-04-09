@@ -10,18 +10,18 @@ from app.email import send_password_reset_email
 from app.forms import ResetPasswordForm
 
 
-loggedin = ''
+loggedin = ""
 user = ""
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     global loggedin
-    if request.args.get('welcome') and loggedin == False or '':
+    if request.args.get('welcome') and loggedin == False or "":
         return redirect('/login')
-    elif request.args.get('accountcreated') and loggedin == False or '':
+    elif request.args.get('accountcreated') and loggedin == False or "":
          return redirect('/login')
-    elif request.args.get('info') and loggedin == False or '':
+    elif request.args.get('info') and loggedin == False or "":
          return redirect('/login')
     user = request.args.get('welcome')
     newuser = request.args.get('accountcreated')
@@ -65,6 +65,7 @@ def login():
             flash('Invalid username or password')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
+        loggedin=True
         return redirect(url_for('index'))
         if form.validate_on_submit():
             user = User.query.filter_by(username=form.username.data).first()
@@ -75,6 +76,7 @@ def login():
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
+            loggedin=True
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
     

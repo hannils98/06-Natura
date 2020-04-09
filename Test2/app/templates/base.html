@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="sv">
     <head>
+        
+
         <meta charset="utf-8">
         
         <title>Natura</title>
+        
         <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
         <link href="{{ url_for('static', filename='script.js') }}" type="text/javascript">
         <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
@@ -17,6 +20,7 @@
         </style>
         <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
     </head>
     <body>
         
@@ -40,9 +44,11 @@
             </div>
            
             <main>
+                
                 {%block nav%}
+                
                 {%endblock%}
-
+                
                 {% block content %}
                 
                 {% block app_content %}
@@ -52,11 +58,13 @@
                 {% block main %}
 
                 {% endblock %}
+                
             </main>
+            
             {% block aside %}
 
             {% endblock %}
-
+            
             
             <footer>
                 <h3>Senast uppdaterad: 16/03/2020</h3>

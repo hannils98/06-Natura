@@ -10,18 +10,18 @@ from app.email import send_password_reset_email
 from app.forms import ResetPasswordForm
 
 
-loggedin = False
+loggedin = ''
 user = ""
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     global loggedin
-    if request.args.get('welcome') and loggedin == False:
+    if request.args.get('welcome') and loggedin == False or '':
         return redirect('/login')
-    elif request.args.get('accountcreated') and loggedin == False:
+    elif request.args.get('accountcreated') and loggedin == False or '':
          return redirect('/login')
-    elif request.args.get('info') and loggedin == False:
+    elif request.args.get('info') and loggedin == False or '':
          return redirect('/login')
     user = request.args.get('welcome')
     newuser = request.args.get('accountcreated')

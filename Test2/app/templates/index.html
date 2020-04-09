@@ -2,15 +2,15 @@
 
 
 {% block main %} 
-{%if user != None:%}
-    <h2>Välkommen åter {{  user  }}!</h2>
-{%elif newuser != None:%}
-    <h2>Välkommen {{  newuser  }}! Ditt konto är skapat!</h2>
-{%elif loggedout != None:%}
-    <h2>{{  loggedout  }}!</h2>
-{%else:%}
+
+
+{%if current_user != None %}
+    <h2>Välkommen {{  current_user.username  }}!</h2>
+{%else%}
     <h2>Välkommen till Natura!</h2>
 {%endif%}
+
+
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error repudiandae amet quod ab autem reiciendis, distinctio quaerat magnam hic repellendus odio et nesciunt. Deserunt quaerat beatae laudantium laborum, reiciendis sint. Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quam atque quasi libero! A voluptatem dignissimos vitae deleniti, natus quibusdam aliquam sunt, voluptate consectetur nam omnis libero veniam veritatis dolorum! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis sunt placeat sequi autem inventore repudiandae tempora. Nihil maiores assumenda voluptate, voluptatem, cum delectus quas sequi cupiditate, enim nulla rerum excepturi. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit consequuntur est iure ea dolorum! Facilis nostrum repellat, ratione officia maxime minima debitis doloribus itaque adipisci veniam esse, voluptates, voluptas possimus? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates esse sequi cum in quae! Atque asperiores vel corporis nisi? Laudantium quae ipsum ducimus cumque, aut ullam quasi qui minima hic! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque labore veritatis ut iure officia ducimus, tempore deleniti, laborum consequatur necessitatibus expedita nisi enim animi sit, autem at vel. Commodi, iure?</p>
 {% endblock %}
 

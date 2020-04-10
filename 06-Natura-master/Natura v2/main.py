@@ -31,6 +31,14 @@ photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app) # set maximum file size, default is 16MB
 
+def get_place(pagename):
+    cursor.execute("select name, description, source from places where id = '{}'".format(pagename))
+    place = []
+    for a in cursor:
+        place.append(a)
+
+    return place
+
 @app.route('/', methods=['GET'])
 def index():
     
@@ -139,6 +147,12 @@ def logout():
     global user
     loggedin = False
     return redirect('/?info=Du är nu utloggad ' + user)
+
+@app.route('/place/<pagename>')
+def place(pagename):
+    global loggedin
+
+    return render_template('place.html', loggedin=loggedin, place=get_place(pagename))
 
 @app.route('/category')
 def category():

@@ -34,12 +34,13 @@
                 <a href="/contact">Kontakt</a>
             </nav>
             <div class="login">
-                {%if loggedin == False:%}
-                <p><a href="/login">Logga in</a></p> 
-                <p><a href="/login">Skapa konto</a></p>
-                {%else:%}
+                {%if loggedin == True:%}
                 <p><a href="/myaccount">Mitt konto</a></p> 
                 <p><a href="/logout">Logga ut</a></p>
+                {%else:%}
+                <p><a href="/login">Logga in</a></p> 
+                <p><a href="/login">Skapa konto</a></p>
+                
                 {%endif%}
             </div>
            

@@ -10,7 +10,7 @@ from app.email import send_password_reset_email
 from app.forms import ResetPasswordForm
 
 
-loggedin = ""
+loggedin = False
 user = ""
 
 @app.route('/', methods=['GET', 'POST'])
@@ -33,6 +33,7 @@ def index():
 @app.route('/myaccount',methods=['GET', 'POST'])
 @login_required
 def myaccount():
+    global loggedin
     form = PostForm()
     if form.validate_on_submit():
         post = Post(body=form.post.data, author=current_user)
@@ -49,7 +50,7 @@ def myaccount():
         if posts.has_prev else None
     return render_template('myaccount.html', title='Home', form=form,
                            posts=posts.items, next_url=next_url,
-                           prev_url=prev_url)
+                           prev_url=prev_url, loggedin=True)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -103,6 +104,7 @@ def register():
 @app.route('/user/<username>')
 @login_required
 def user(username):
+    global loggedin
     user = User.query.filter_by(username=username).first_or_404()
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(
@@ -112,7 +114,7 @@ def user(username):
     prev_url = url_for('user', username=user.username, page=posts.prev_num) \
         if posts.has_prev else None
     return render_template('user.html', user=user, posts=posts.items,
-                           next_url=next_url, prev_url=prev_url)
+                           next_url=next_url, prev_url=prev_url, loggedin=True)
 
 @app.before_request
 def before_request():
@@ -123,6 +125,7 @@ def before_request():
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
+    global loggedin
     form = EditProfileForm(current_user.username)
     if form.validate_on_submit():
         current_user.username = form.username.data
@@ -134,7 +137,7 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile',
-                           form=form)
+                           form=form, loggedin=True)
 
 @app.route('/follow/<username>')
 @login_required
@@ -169,6 +172,7 @@ def unfollow(username):
 @app.route('/explore')
 @login_required
 def explore():
+    global loggedin
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, app.config['POSTS_PER_PAGE'], False)
@@ -177,7 +181,7 @@ def explore():
     prev_url = url_for('explore', page=posts.prev_num) \
         if posts.has_prev else None
     return render_template("myaccount.html", title='Explore', posts=posts.items,
-                          next_url=next_url, prev_url=prev_url)
+                          next_url=next_url, prev_url=prev_url, loggedin=True)
 
     
 @app.route('/reset_password_request', methods=['GET', 'POST'])

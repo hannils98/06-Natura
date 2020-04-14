@@ -8,6 +8,7 @@ chcp 65001
 
 2. Save the data with the wanted columns in a excel spreadsheet. 
 If data in another spreadsheet (ie. Master Template) then copy sheet to a new book.
+Delete ID row.
 Make sure double precision has "." NOT ","
 Make sure no extra spaces.
 Make sure not double ";"
@@ -19,7 +20,7 @@ Make sure not double ";"
 4. Open in Notepad++ and remove ";;;;;;" using Crtl H. Save using Ctrl S.
 
 5. Connect to database and \copy in with delimiter ";"
-\COPY places(name,description,source,latitude,longitude) FROM 'C:\Users\A\OneDrive\Documents\Natura DB\places.csv' DELIMITER ';' CSV HEADER;
+\COPY places(name,description,source,latitude,longitude) FROM 'C:\Users\A\OneDrive\Documents\Database natura_v2\temp data\places.csv' DELIMITER ';' CSV HEADER;
 
 #########DATA CHECK#############
 1. \COPY statement 

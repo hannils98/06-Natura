@@ -36,5 +36,43 @@ create table place_has_cat (
 
 );
 
+create table ratings (
+    userid int,
+    placeid int,
+    rating int,
+    datetime timestamptz,
+
+    primary key(userid, placeid),
+    foreign key (userid) references "user"(id),
+    foreign key (placeid) references places(id)
+);
+
+create table user_images (
+    userid int,
+    placeid int,
+    pic bytea,
+    alt text,
+    imageid serial,
+    description text,
+    datetime timestamptz,
+    
+    primary key(userid, imageid),
+    foreign key (userid) references "user"(id),
+    foreign key (placeid) references places(id)
+
+);
+
+create table admin_images (
+    placeid int,
+    pic bytea,
+    alt text,
+    imageid serial,
+    description text,
+    datetime timestamptz,
+    
+    primary key(imageid),
+    foreign key (placeid) references places(id)
+);
+
 
 

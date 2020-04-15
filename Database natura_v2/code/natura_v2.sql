@@ -50,13 +50,11 @@ create table ratings (
 create table user_images (
     userid int,
     placeid int,
-    pic bytea,
+    pic text,
     alt text,
-    imageid serial,
-    description text,
     datetime timestamptz,
     
-    primary key(userid, imageid),
+    primary key(pic),
     foreign key (userid) references "user"(id),
     foreign key (placeid) references places(id)
 
@@ -64,13 +62,12 @@ create table user_images (
 
 create table admin_images (
     placeid int,
-    pic bytea,
+    pic text,
     alt text,
-    imageid serial,
     description text,
     datetime timestamptz,
     
-    primary key(imageid),
+    primary key(pic),
     foreign key (placeid) references places(id)
 );
 

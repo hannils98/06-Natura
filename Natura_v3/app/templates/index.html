@@ -18,110 +18,74 @@
 <aside>
        
 <div id="map"></div>
+<div id="map"></div>
 <script>
-	mapboxgl.accessToken = 'pk.eyJ1IjoiYWsyMjk2IiwiYSI6ImNrN3djMHBjNDAwaXUza3A1NXFhYmxobDEifQ.C_4vQzkwYsHnNV6ogcwZag';
-var map = new mapboxgl.Map({
-container: 'map', // container id
-style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-center: [13.582728,55.893180], // starting position [lng, lat]
-zoom: 7, // starting zoom
-minZoom: 7,
-maxZoom: 16
-});
-
-// Add zoom and rotation controls to the map.
-map.addControl(new mapboxgl.NavigationControl());
-
-
-map.on('load', function() {
-        map.addSource('places', {
-            'type': 'geojson',
-            'data': {
-                'type': 'FeatureCollection',
-                'features': [
-                    {
-                        'type': 'Feature',
-                        'properties': {
-                            'description':
-                                '<strong>Malmöhus slott</strong><p><a href="/category" target="_self" title="Opens in same window">Malmöhus slott</a> är det perfekta stället för dig som vill titta på en massa gamla historiska saker!</p>',
-                            'icon': 'theatre'
-                        },
-                        'geometry': {
-                            'type': 'Point',
-                            'coordinates': [12.988170,55.604800]
-                        
-                        }
-                    },
-                    {
-                        'type': 'Feature',
-                        'properties': {
-                            'description':
-                            '<strong>Söderåsens nationalpark</strong><p><a href="/category" target="_self" title="Opens in same window">I Söderåsens nationalpark</a> finns det väldigt fin natur!</p>',
-                            'icon': 'theatre'
-                        },
-                        'geometry': {
-                            'type': 'Point',
-                            'coordinates': [13.252528,56.039177]
-                        }
-                    }
-                ]
-            }
+    // The map
+	mapboxgl.accessToken = 'pk.eyJ1IjoiaGFubmlsczk4IiwiYSI6ImNrOGgxNGs1ejAydG8zaGxmcjFhNGc3MmsifQ.bmfahnTIFCFL9n9WJAGsYw';
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/hannils98/ck8hfxoua1ftp1ioi5jjggbyj', // stylesheet location
+        center: [13.582728,55.893180], // starting position [lng, lat]
+        zoom: 7, // starting zoom
+        minZoom: 7,
+        maxZoom: 16
         });
 
-        
-        // Add a layer showing the places.
-        map.addLayer({
-            'id': 'places',
-            'type': 'symbol',
-            'source': 'places',
-            'layout': {
-                'icon-image': '{icon}-15',
-                'icon-allow-overlap': true
-            }
+    // Add zoom and rotation controls to the map.
+    map.addControl(new mapboxgl.NavigationControl());
+
+
+    // Add pop-up
+    map.on('click', function(e) {
+        var features = map.queryRenderedFeatures(e.point, {
+            layers: ['places'] 
         });
 
-        
-    });
+        if (!features.length) {
+            return;
+        }
 
-    map.on('click', 'places', function(e) {
-            var coordinates = e.features[0].geometry.coordinates.slice();
-            var description = e.features[0].properties.description;
+        var feature = features[0];
+
+        var popup = new mapboxgl.Popup({ offset: [0, -15] })
+            .setLngLat(feature.geometry.coordinates)
+            .setHTML('<h3><a href="/place/'+ feature.properties.id + '">' + feature.properties.title + '</a></h3><p>'+ feature.properties.description +'</p>')
+            .addTo(map);
+        });
+
+    // get users location    
+    map.addControl(
+    new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true
+        }));     
+
+        // Vet inte vad detta gör har därför inte tagit bort det    
+
+          //  map.on('click', 'places', function(e) {
+  //          var coordinates = e.features[0].geometry.coordinates.slice();
+  //          var description = e.features[0].properties.description;
 
             // Ensure that if the map is zoomed out such that multiple
             // copies of the feature are visible, the popup appears
             // over the copy being pointed to.
-            while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-            }
+  //          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+  //              coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+  //          }
+  //      });
 
-            new mapboxgl.Popup()
-                .setLngLat(coordinates)
-                .setHTML(description)
-                .addTo(map);
-        });
-
-        map.addControl(
-        new mapboxgl.GeolocateControl({
-            positionOptions: {
-                enableHighAccuracy: true
-            },
-            trackUserLocation: true
-        })
-    );
-
-                        
-                    
-
-                    
+   //     map.addControl(
+   //     new mapboxgl.GeolocateControl({
+  //          positionOptions: {
+   //             enableHighAccuracy: true
+   //         },
+   //         trackUserLocation: true
+   //     })
+  //  );               
         
-</script>
- 
-
-    
-    
-
-
-    
+</script>     
     
 </aside>
 

@@ -10,7 +10,7 @@ from app.email import send_password_reset_email
 from app.forms import ResetPasswordForm
 
 global cats
-cats = db.session.query(categories)  
+cats = db.session.query(categories)
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -203,15 +203,14 @@ def reset_password(token):
 
 @app.route('/<category>')
 def category(category):
+    print(category)
     places_cat = db.session.query(places.name).join(place_has_cat).join(categories).filter(categories.name==category)
     return render_template('category.html', cats=cats, category=category, places=places_cat)
     
-@app.route('/category/<name>')
-def place(name):
+@app.route('/<category>/<name>')
+def place(category, name):
     print(name)
-    places_from_db = db.session.query(places.name, places.description, places.source).filter(places.name==name).all()
-    for place in places_from_db:
-        print(place.name)
+    places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
     return render_template('place.html', cats=cats, info=places_from_db, name=name)
     
 

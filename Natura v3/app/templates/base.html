@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="sv">
+    <head>
+        
+
+        <meta charset="utf-8">
+        
+        <title>Natura</title>
+        
+        <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+        <link href="{{ url_for('static', filename='script.js') }}" type="text/javascript">
+        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+        <style>
+            
+            #map { width: 500px; height:450px; }
+        </style>
+        <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    </head>
+    <body>
+        
+        <div id="wrapper">
+            <header><h1>Natura</h1></header>
+            <div class="navbar">
+                <a href="/">Start</a>
+                <a href="/gallery">Galleri</a>
+                <div class="dropdown">
+                <button class="dropbtn" onclick="myFunction()">Kategorier
+                  <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content" id="myDropdown">
+                    {%for cat in cats%}
+                    <a href="{{ url_for('place', name=cat.name) }}">{{ cat.name }}</a>
+                    {%endfor%}
+                
+                </div>
+                </div> 
+                <a href="/info">Info</a>
+                <a href="/contact">Kontakt</a>
+              </div>
+            <!---<nav>
+                <a href="/">Start</a>
+                <a href="/category">Kategorier</a>
+                <a href="/gallery">Galleri</a>
+                <a href="/info">Info</a>
+                <a href="/contact">Kontakt</a>
+            </nav>--->
+            
+            <div class="login">
+                {%if current_user.username == null %}
+                <p><a href="{{ url_for('register') }}">Skapa konto</a></p>
+                <p><a href="{{ url_for('login') }}">Logga in</a></p>
+                {%else%}
+                <p><a href="{{ url_for('myaccount') }}">Mitt konto</a></p>
+                <p><a href="{{ url_for('logout') }}">Logga ut</a></p>
+                {%endif%}
+
+            </div>
+           
+            <main>
+                
+                {%block nav%}
+                
+                {%endblock%}
+               
+                {% block content %}
+                
+                {% block app_content %}
+                {% endblock %}
+                
+                {% endblock %}
+                {% block main %}
+
+                {% endblock %}
+                
+            </main>
+            
+            {% block aside %}
+
+            {% endblock %}
+            
+            
+            <footer>
+                <h3>Senast uppdaterad: 16/03/2020</h3>
+            </footer>
+        </div>
+        <script>
+            /* When the user clicks on the button, 
+            toggle between hiding and showing the dropdown content */
+            function myFunction() {
+              document.getElementById("myDropdown").classList.toggle("show");
+            }
+            
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(e) {
+              if (!e.target.matches('.dropbtn')) {
+              var myDropdown = document.getElementById("myDropdown");
+                if (myDropdown.classList.contains('show')) {
+                  myDropdown.classList.remove('show');
+                }
+              }
+            }
+            </script>
+    </body>
+</html>

@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm
 from flask_login import current_user, login_user
-from app.models import User, Post, categories
+from app.models import User, Post, categories, places, place_has_cat
 from flask_login import logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
@@ -201,26 +201,27 @@ def reset_password(token):
         return redirect(url_for('login'))
     return render_template('reset_password.html', cats=cats, form=form)
 
-@app.route('/category')
-def category():
-    global cats
-    return render_template('category.html')
+@app.route('/<category>')
+def category(category):
+    places_cat = db.session.query(places.name).join(place_has_cat).join(categories).filter(categories.name==category)
+    return render_template('category.html', cats=cats, category=category, places=places_cat)
     
 @app.route('/category/<name>')
 def place(name):
-    global cats
-    return render_template('category.html', cats=cats)
+    print(name)
+    places_from_db = db.session.query(places.name, places.description, places.source).filter(places.name==name).all()
+    for place in places_from_db:
+        print(place.name)
+    return render_template('place.html', cats=cats, info=places_from_db, name=name)
     
 
 @app.route('/info')
 def info():
-    global loggedin
     return render_template('info.html', cats=cats)
     
 
 @app.route('/contact')
 def contact():
-    global loggedin
     return render_template('contact.html', cats=cats)
     
 

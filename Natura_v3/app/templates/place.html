@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+
+{% block main%}
+<h2>{{ name }}</h2>
+<ul>
+{%for i in info%}
+<p> {{ i }} </p>
+{%endfor%}
+</ul>
+{% endblock%}
+<!--<a href="{{ url_for(place, name=place) }}">{{ place }}</a>-->

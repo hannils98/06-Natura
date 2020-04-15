@@ -36,7 +36,7 @@
                 </button>
                 <div class="dropdown-content" id="myDropdown">
                     {%for cat in cats%}
-                    <a href="{{ url_for('place', name=cat.name) }}">{{ cat.name }}</a>
+                    <a href="{{ url_for('category', category=cat.name) }}">{{ cat.name }}</a>
                     {%endfor%}
                 
                 </div>

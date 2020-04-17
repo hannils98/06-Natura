@@ -1,12 +1,11 @@
 {% extends 'base.html'%}
 
 {% block main%}
-<a href="/uploadimage">Ladda upp bilder här</a>
 <h2>Galleri are here</h2>
-{{ dropzone.create(action_view='gallery') }}
+<!--{{ dropzone.create(action_view='gallery') }}
 {% for image in files %}
     <img style="height: 300px; width: 200px; padding: 10px; display: block; "src="/static/uploads/{{image}}">
    
     
-{% endfor %}
+{% endfor %}--->
 {% endblock%} 

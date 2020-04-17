@@ -11,11 +11,12 @@
 {% endblock%}
 
 {% block aside%}
-<a href="/uploadimage">Du kan inte ladda upp bilder här</a>
 <h2>Felplacerade "bilder" är här</h2>
 {{ dropzone.create(action_view='place', category=category, name=name) }}
+{{ dropzone.config(redirect_url=url_for('place', category=category, name=name)) }}
 {% for image in files %}
-    <img style="height: 300px; width: 200px; padding: 10px; display: block; "src="/static/uploads/{{image}}">
+    <img style="height: 300px; width: 200px; padding: 10px; display: block;" src="{{ url_for('static', filename='uploads/' + image) }}">
+    <!---Måste få in kategorier och namn, men hur funkar det när vi har flera kategorier?--->
    
     
 {% endfor %}

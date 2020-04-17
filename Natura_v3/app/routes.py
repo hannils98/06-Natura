@@ -107,7 +107,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', cats=cats, title='Register', form=form)
 
-
+# the profile page of user
 @app.route('/user/<username>')
 @login_required
 def user(username):
@@ -121,13 +121,14 @@ def user(username):
         if posts.has_prev else None
     return render_template('user.html', cats=cats, user=user, posts=posts.items,
                            next_url=next_url, prev_url=prev_url, loggedin=True)
-
+# records the last seen time /date of user
 @app.before_request
 def before_request():
     if current_user.is_authenticated:
         current_user.last_seen = datetime.utcnow()
         db.session.commit()
 
+# edit profile page of the user
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -144,9 +145,9 @@ def edit_profile():
     return render_template('edit_profile.html', cats=cats, title='Edit Profile',
                            form=form, loggedin=True)
 
+# function for following other users posts
 @app.route('/follow/<username>')
 @login_required
-
 def follow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
@@ -160,6 +161,7 @@ def follow(username):
     flash('You are following {}!'.format(username))
     return redirect(url_for('user', username=username))
 
+# to unfollow a user
 @app.route('/unfollow/<username>')
 @login_required
 def unfollow(username):
@@ -175,20 +177,22 @@ def unfollow(username):
     flash('You are not following {}.'.format(username))
     return redirect(url_for('user', username=username))
 
-@app.route('/explore')
+# the page that shows all the posts of users
+@app.route('/posts')
 @login_required
 def explore():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, app.config['POSTS_PER_PAGE'], False)
-    next_url = url_for('explore', page=posts.next_num) \
+    next_url = url_for('posts', page=posts.next_num) \
         if posts.has_next else None
-    prev_url = url_for('explore', page=posts.prev_num) \
+    prev_url = url_for('posts', page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template("myaccount.html", cats=cats, title='Explore', posts=posts.items,
+    return render_template("myaccount.html", cats=cats, title='Posts', posts=posts.items,
                           next_url=next_url, prev_url=prev_url)
 
-    
+
+ # user sends request for changing password
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
     if current_user.is_authenticated:
@@ -204,6 +208,7 @@ def reset_password_request():
                            title='Reset Password', form=form)
 
 
+# user connects through a token to change password
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
@@ -219,12 +224,14 @@ def reset_password(token):
         return redirect(url_for('login'))
     return render_template('reset_password.html', cats=cats, form=form)
 
+# the page that holds category of places
 @app.route('/<category>')
 def category(category):
     print(category)
     places_cat = db.session.query(places.name).join(place_has_cat).join(categories).filter(categories.name==category)
     return render_template('category.html', cats=cats, category=category, places=places_cat)
-    
+
+ # page related to each place
 @app.route('/<category>/<name>', methods=['GET', 'POST'])
 def place(category, name):
     places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
@@ -254,17 +261,17 @@ def place(category, name):
 
     return render_template('place.html', cats=cats, info=places_from_db, name=name, files=files, category=category)
     
-
+# the info page
 @app.route('/info')
 def info():
     return render_template('info.html', cats=cats)
     
-
+# the contacts page
 @app.route('/contact')
 def contact():
     return render_template('contact.html', cats=cats)
     
-
+# the gallery page
 @app.route('/gallery', methods=['GET', 'POST'])
 def gallery():
 

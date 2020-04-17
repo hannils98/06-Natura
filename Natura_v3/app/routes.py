@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm
 from flask_login import current_user, login_user
@@ -8,9 +8,27 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 from app.email import send_password_reset_email
 from app.forms import ResetPasswordForm
+from flask_dropzone import Dropzone
+from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
+import os
 
 global cats
 cats = db.session.query(categories)
+
+dropzone = Dropzone(app)
+
+# Dropzone settings
+app.config['DROPZONE_UPLOAD_MULTIPLE'] = True
+app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
+app.config['DROPZONE_ALLOWED_FILE_TYPE'] = 'image/*'
+app.config['DROPZONE_REDIRECT_VIEW'] = 'gallery'
+
+# Uploads settings
+app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/static/uploads'
+
+photos = UploadSet('photos', IMAGES)
+configure_uploads(app, photos)
+patch_request_class(app) # set maximum file size, default is 16MB
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -75,7 +93,6 @@ def logout():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    global cats
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
@@ -172,7 +189,6 @@ def explore():
     
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
-    global cats
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = ResetPasswordRequestForm()
@@ -207,11 +223,35 @@ def category(category):
     places_cat = db.session.query(places.name).join(place_has_cat).join(categories).filter(categories.name==category)
     return render_template('category.html', cats=cats, category=category, places=places_cat)
     
-@app.route('/<category>/<name>')
+@app.route('/<category>/<name>', methods=['GET', 'POST'])
 def place(category, name):
     print(name)
     places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
-    return render_template('place.html', cats=cats, info=places_from_db, name=name)
+
+    # set session for image results
+    if "file_urls" not in session:
+        session['file_urls'] = []
+    # list to hold our uploaded image urls
+    file_urls = session['file_urls']
+
+    # handle image upload from Dropzone
+    if request.method == 'POST':
+        file_obj = request.files
+        for f in file_obj:
+            file = request.files.get(f) 
+            print(file)
+            # save the file with to our photo folder
+            filename = photos.save(file, name=file.filename)
+
+            # append image urls
+            file_urls.append(photos.url(filename))
+
+        session['file_urls'] = file_urls
+        return "uploading..."
+        # upload to database
+    files = os.listdir('static/uploads')
+
+    return render_template('place.html', cats=cats, info=places_from_db, name=name, files=files, category=category)
     
 
 @app.route('/info')
@@ -224,8 +264,30 @@ def contact():
     return render_template('contact.html', cats=cats)
     
 
-@app.route('/gallery')
+@app.route('/gallery', methods=['GET', 'POST'])
 def gallery():
-    return render_template('gallery.html', cats=cats)
+    # set session for image results
+    if "file_urls" not in session:
+        session['file_urls'] = []
+    # list to hold our uploaded image urls
+    file_urls = session['file_urls']
+
+    # handle image upload from Dropzone
+    if request.method == 'POST':
+        file_obj = request.files
+        for f in file_obj:
+            file = request.files.get(f) 
+            print(file)
+            # save the file with to our photo folder
+            filename = photos.save(file, name=file.filename)
+
+            # append image urls
+            file_urls.append(photos.url(filename))
+
+        session['file_urls'] = file_urls
+        return "uploading..."
+        # upload to database
+    files = os.listdir('static/uploads')
+    return render_template('gallery.html', cats=cats, files=files)
 
 

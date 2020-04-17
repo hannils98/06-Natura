@@ -9,3 +9,14 @@
 {%endfor%}
 </ul>
 {% endblock%}
+
+{% block aside%}
+<a href="/uploadimage">Du kan inte ladda upp bilder här</a>
+<h2>Felplacerade "bilder" är här</h2>
+{{ dropzone.create(action_view='place', category=category, name=name) }}
+{% for image in files %}
+    <img style="height: 300px; width: 200px; padding: 10px; display: block; "src="/static/uploads/{{image}}">
+   
+    
+{% endfor %}
+{% endblock%} 

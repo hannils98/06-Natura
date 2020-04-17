@@ -11,7 +11,12 @@ from app.forms import ResetPasswordForm
 from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 import os
-
+'''
+PROBLEM!
+1. Vi vill redirecta till 'place'
+2. /static/uploads funkar inte såvida man inte har hela sökvägen (blir lokalt)
+3. Själva bilden sparas inte bara namnet
+'''
 global cats
 cats = db.session.query(categories)
 
@@ -21,10 +26,10 @@ dropzone = Dropzone(app)
 app.config['DROPZONE_UPLOAD_MULTIPLE'] = True
 app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
 app.config['DROPZONE_ALLOWED_FILE_TYPE'] = 'image/*'
-app.config['DROPZONE_REDIRECT_VIEW'] = 'gallery'
+#app.config['DROPZONE_REDIRECT_VIEW'] = 'gallery' #url_for('place', category=category, name=name) #OPS MÅSTE VARA PLACE
 
 # Uploads settings
-app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/static/uploads'
+app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/app/static/uploads'
 
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
@@ -225,7 +230,6 @@ def category(category):
     
 @app.route('/<category>/<name>', methods=['GET', 'POST'])
 def place(category, name):
-    print(name)
     places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
 
     # set session for image results
@@ -239,7 +243,6 @@ def place(category, name):
         file_obj = request.files
         for f in file_obj:
             file = request.files.get(f) 
-            print(file)
             # save the file with to our photo folder
             filename = photos.save(file, name=file.filename)
 
@@ -249,7 +252,8 @@ def place(category, name):
         session['file_urls'] = file_urls
         return "uploading..."
         # upload to database
-    files = os.listdir('static/uploads')
+    files = os.listdir('app/static/uploads')
+
 
     return render_template('place.html', cats=cats, info=places_from_db, name=name, files=files, category=category)
     
@@ -266,28 +270,7 @@ def contact():
 
 @app.route('/gallery', methods=['GET', 'POST'])
 def gallery():
-    # set session for image results
-    if "file_urls" not in session:
-        session['file_urls'] = []
-    # list to hold our uploaded image urls
-    file_urls = session['file_urls']
 
-    # handle image upload from Dropzone
-    if request.method == 'POST':
-        file_obj = request.files
-        for f in file_obj:
-            file = request.files.get(f) 
-            print(file)
-            # save the file with to our photo folder
-            filename = photos.save(file, name=file.filename)
-
-            # append image urls
-            file_urls.append(photos.url(filename))
-
-        session['file_urls'] = file_urls
-        return "uploading..."
-        # upload to database
-    files = os.listdir('static/uploads')
-    return render_template('gallery.html', cats=cats, files=files)
+    return render_template('gallery.html', cats=cats)
 
 

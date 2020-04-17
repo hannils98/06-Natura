@@ -8,7 +8,7 @@ from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 
-app = Flask(__name__, static_url_path='/static')
+app = Flask(__name__, static_url_path='/app/static')
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)

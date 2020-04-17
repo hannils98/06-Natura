@@ -42,7 +42,7 @@ def index():
     return render_template('index.html', cats=cats)
 
 
-
+# to my page
 @app.route('/myaccount',methods=['GET', 'POST'])
 @login_required
 def myaccount():
@@ -64,7 +64,7 @@ def myaccount():
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
 
-
+#the login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 
@@ -86,12 +86,13 @@ def login():
     return render_template('login.html', cats=cats, title='Sign In', form=form)
     
 
-
+# log out function
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
+# registering function
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:

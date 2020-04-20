@@ -1,28 +1,21 @@
 <!DOCTYPE html>
 <html lang="sv">
     <head>
-        
-
         <meta charset="utf-8">
-        
-        <title>Natura</title>
-        
         <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
         <link href="{{ url_for('static', filename='script.js') }}" type="text/javascript">
         <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
-        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
         <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
-        <style>
-            
+        <style> 
             #map { width: 500px; height:450px; }
         </style>
         <link href="https://fonts.googleapis.com/css?family=Titillium+Web&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {{ dropzone.load() }}
         {{ dropzone.style('border: 2px dashed #0087F7; margin: 20%; min-width: 100px; min-height: 50px;') }}
+        <title>Natura</title>
     </head>
     <body>
         

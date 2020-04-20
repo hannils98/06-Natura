@@ -60,7 +60,7 @@ def myaccount():
         if posts.has_next else None
     prev_url = url_for('myaccount', page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template('myaccount.html', cats=cats, title='Home', form=form,
+    return render_template('myaccount.html', cats=cats, title='Mitt Konto', form=form,
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
 
@@ -74,7 +74,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('ogiltig username eller password')
+            flash('Ogiltig username eller password')
             return redirect(url_for('login'))
 
         login_user(user, remember=form.remember_me.data)
@@ -83,7 +83,7 @@ def login():
             next_page = url_for('index')
          
         return redirect(next_page)
-    return render_template('login.html', cats=cats, title='Sign In', form=form)
+    return render_template('login.html', cats=cats, title='Loga In', form=form)
     
 
 # log out function
@@ -105,7 +105,7 @@ def register():
         db.session.commit()
         flash('Grattis, Du är medlem nu!')
         return redirect(url_for('login'))
-    return render_template('register.html', cats=cats, title='Register', form=form)
+    return render_template('register.html', cats=cats, title='Skappa Konto', form=form)
 
 # the profile page of user
 @app.route('/user/<username>')

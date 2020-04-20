@@ -129,7 +129,7 @@ class user_images(db.Model):
     placeid=db.Column(db.Integer, db.ForeignKey('places.id'))
     pic=db.Column(db.LargeBinary, nullable = True)
     alt=db.Column(db.Text)
-    imageid=db.Column(db.text, primary_key=True)
+    imageid=db.Column(db.Text, primary_key=True)
     description=db.Column(db.Text)
     datetime=db.Column(db.DateTime(timezone=True))
 
@@ -138,7 +138,7 @@ class admin_images(db.Model):
     placeid= db.Column(db.Integer,db.ForeignKey('places.id'))
     pic= db.Column(db.LargeBinary, nullable = True)
     alt= db.Column(db.Text)
-    imageid= db.Column(db.text, primary_key=True)
+    imageid= db.Column(db.Text, primary_key=True)
     description= db.Column(db.Text)
     datetime= db.Column(db.DateTime(timezone=True))
 

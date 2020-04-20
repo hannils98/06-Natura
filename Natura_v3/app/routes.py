@@ -51,7 +51,7 @@ def myaccount():
         post = Post(body=form.post.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('Your post is now live!')
+        flash('Din post är skickat!')
         return redirect(url_for('myaccount'))
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(
@@ -74,7 +74,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            flash('ogiltig username eller password')
             return redirect(url_for('login'))
 
         login_user(user, remember=form.remember_me.data)
@@ -103,7 +103,7 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Congratulations, you are now a registered user!')
+        flash('Grattis, Du är medlem nu!')
         return redirect(url_for('login'))
     return render_template('register.html', cats=cats, title='Register', form=form)
 
@@ -137,7 +137,7 @@ def edit_profile():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         db.session.commit()
-        flash('Your changes have been saved.')
+        flash('Dina ändringar har sparats.')
         return redirect(url_for('edit_profile'))
     elif request.method == 'GET':
         form.username.data = current_user.username
@@ -154,11 +154,11 @@ def follow(username):
         flash('User {} not found.'.format(username))
         return redirect(url_for('myaccount'))
     if user == current_user:
-        flash('You cannot follow yourself!')
+        flash('Du kan inte följa dig själv!')
         return redirect(url_for('user', username=username))
     current_user.follow(user)
     db.session.commit()
-    flash('You are following {}!'.format(username))
+    flash('Du följer {}!'.format(username))
     return redirect(url_for('user', username=username))
 
 # to unfollow a user
@@ -167,14 +167,14 @@ def follow(username):
 def unfollow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('User {} not found.'.format(username))
+        flash('Användaren {} hittades inte.'.format(username))
         return redirect(url_for('index'))
     if user == current_user:
-        flash('You cannot unfollow yourself!')
+        flash('Du kan inte sluta följa dig själv!')
         return redirect(url_for('user', username=username))
     current_user.unfollow(user)
     db.session.commit()
-    flash('You are not following {}.'.format(username))
+    flash('Du följer inte {}.'.format(username))
     return redirect(url_for('user', username=username))
 
 # the page that shows all the posts of users
@@ -202,7 +202,7 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-        flash('Check your email for the instructions to reset your password')
+        flash('Kontrollera din e-post för instruktioner för att återställa ditt lösenord')
         return redirect(url_for('login'))
     return render_template('reset_password_request.html', cats=cats,
                            title='Reset Password', form=form)
@@ -220,7 +220,7 @@ def reset_password(token):
     if form.validate_on_submit():
         user.set_password(form.password.data)
         db.session.commit()
-        flash('Your password has been reset.')
+        flash('ditt lösenord har blivit återställt.')
         return redirect(url_for('login'))
     return render_template('reset_password.html', cats=cats, form=form)
 

@@ -151,7 +151,7 @@ def edit_profile():
 def follow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('User {} not found.'.format(username))
+        flash('Användaren {} hittades inte.'.format(username))
         return redirect(url_for('myaccount'))
     if user == current_user:
         flash('Du kan inte följa dig själv!')

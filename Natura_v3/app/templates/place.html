@@ -2,6 +2,15 @@
 
 {% block main%}
 <h2>{{ name }}</h2>
+<div class="rating-box">
+        <div class = "ratings">
+            <span class="fa fa-star-o"></span>
+            <span class="fa fa-star-o"></span>
+            <span class="fa fa-star-o"></span>
+            <span class="fa fa-star-o"></span>
+            <span class="fa fa-star-o"></span>
+        </div>
+</div>
 <ul>
 {%for i in info%}
 <p> {{ i.description }} </p>

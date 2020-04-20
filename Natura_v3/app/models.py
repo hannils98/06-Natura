@@ -127,7 +127,6 @@ class user_images(db.Model):
     __tablename__ = 'user_images'
     userid= db.Column(db.Integer,Sequence('user_images_seq'), db.ForeignKey('user.id') ,primary_key=True)
     placeid=db.Column(db.Integer, db.ForeignKey('places.id'))
-    pic=db.Column(db.LargeBinary, nullable = True)
     alt=db.Column(db.Text)
     imageid=db.Column(db.Text, primary_key=True)
     description=db.Column(db.Text)
@@ -136,7 +135,6 @@ class user_images(db.Model):
 class admin_images(db.Model):
     __tablename__ = 'admin_images'
     placeid= db.Column(db.Integer,db.ForeignKey('places.id'))
-    pic= db.Column(db.LargeBinary, nullable = True)
     alt= db.Column(db.Text)
     imageid= db.Column(db.Text, primary_key=True)
     description= db.Column(db.Text)

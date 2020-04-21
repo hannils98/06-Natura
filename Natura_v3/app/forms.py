@@ -59,3 +59,10 @@ class ResetPasswordForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Request Password Reset')
+
+class DeleteUserForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Lösenord', validators=[DataRequired()])
+    delete = SubmitField('Ta Bort')
+
+    

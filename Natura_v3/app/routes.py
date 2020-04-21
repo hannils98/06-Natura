@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm
 from flask_login import current_user, login_user
 from app.models import User, Post, categories, places, place_has_cat
 from flask_login import logout_user, login_required
@@ -106,6 +106,25 @@ def register():
         flash('Grattis, Du är medlem nu!')
         return redirect(url_for('login'))
     return render_template('register.html', cats=cats, title='Skappa Konto', form=form)
+
+
+@app.route('/delete', methods=['GET', 'POST'])
+@login_required
+def delete():
+    form = DeleteUserForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(form.password.data):
+            db.session.delete(user)
+            db.session.commit
+            flash('Ditt konto har raderats. Hoppas att vi ses igen.', 'success')
+            return redirect(url_for('logout'))
+        else:
+            flash('Ogiltig username eller password')
+
+    return render_template('delete.html', cats=cats, form=form)
+
+
 
 # the profile page of user
 @app.route('/user/<username>')

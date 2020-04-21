@@ -180,7 +180,7 @@ def unfollow(username):
 # the page that shows all the posts of users
 @app.route('/posts')
 @login_required
-def explore():
+def posts():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, app.config['POSTS_PER_PAGE'], False)

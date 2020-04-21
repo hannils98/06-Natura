@@ -36,7 +36,7 @@
                   <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content" id="myDropdown">
-                    {%for cat in cats%}
+                    {%for cat in drop_down_cats%}
                     <a href="{{ url_for('category', category=cat.name) }}">{{ cat.name }}</a>
                     {%endfor%}
                 

@@ -113,12 +113,12 @@ class categories(db.Model):
 class place_has_cat(db.Model):
     __tablename__ = 'place_has_cat'
     cat_id= db.Column(db.Integer,db.ForeignKey('categories.id'), primary_key=True)
-    place_id= db.Column(db.Integer, db.ForeignKey('places.id') ,primary_key=True)
+    place_id= db.Column(db.Integer, db.ForeignKey('places.id'), primary_key=True)
 
 class ratings(db.Model):
     __tablename__ = 'ratings'
-    userid= db.Column(db.Integer, db.ForeignKey('user.id') , primary_key=True)
-    placeis=db.Column(db.Integer, db.ForeignKey('places.id') ,primary_key=True)
+    userid= db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    placeid=db.Column(db.Integer, db.ForeignKey('places.id'), primary_key=True)
     ratings=db.Column(db.Integer)
     datetime=db.Column(db.DateTime(timezone=True))
 

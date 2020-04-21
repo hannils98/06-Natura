@@ -232,8 +232,9 @@ def category(category):
 @app.route('/<category>/<name>', methods=['GET', 'POST'])
 def place(category, name):
     places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
-    user_rating = request.args.get('rating')
-    save_user_rating(user_rating)
+    if request.args.get('rating'):
+        user_rating = request.args.get('rating')
+        save_user_rating(user_rating, name)
     files = image_upload()
     return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category)
     

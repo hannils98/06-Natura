@@ -106,13 +106,14 @@ def register():
     return render_template('register.html', drop_down_cats=drop_down_cats, title='Skappa Konto', form=form)
 
 
-@app.route('/delete', methods=['GET', 'POST'])
+@app.route('/delete/<int:id>', methods=['GET', 'POST'])
 @login_required
-def delete():
+def delete(id):
     form = DeleteUserForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user and user.check_password(form.password.data):
+            
             db.session.delete(user)
             db.session.commit
             flash('Ditt konto har raderats. Hoppas att vi ses igen.', 'success')
@@ -120,7 +121,7 @@ def delete():
         else:
             flash('Ogiltig username eller password')
 
-    return render_template('delete.html', cats=cats, form=form)
+    return render_template('delete.html', form=form)
 
 
 
@@ -197,7 +198,7 @@ def unfollow(username):
 # the page that shows all the posts of users
 @app.route('/posts')
 @login_required
-def explore():
+def posts():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, app.config['POSTS_PER_PAGE'], False)

@@ -15,7 +15,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('E-post', validators=[DataRequired(), Email()])
     password = PasswordField('lösenord', validators=[DataRequired(), Length(min=6, message='Välj minst 6 tecken.')])
     password2 = PasswordField(
-        'Repetera lösenord', validators=[DataRequired(), EqualTo('lösenord', message='Lösenorden måste matcha.')])
+        'Repetera lösenord', validators=[DataRequired(), EqualTo('password', message='Lösenorden måste matcha.')])
     submit = SubmitField('Registrera')
 
     def validate_username(self, username):

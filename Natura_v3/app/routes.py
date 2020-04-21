@@ -106,20 +106,19 @@ def register():
     return render_template('register.html', drop_down_cats=drop_down_cats, title='Skappa Konto', form=form)
 
 
-@app.route('/delete/<int:id>', methods=['GET', 'POST'])
+@app.route('/delete', methods=['GET', 'POST'])
 @login_required
-def delete(id):
+def delete():
     form = DeleteUserForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user and user.check_password(form.password.data):
+        delete_user = User.query.filter_by(username=form.username.data).first()
             
-            db.session.delete(user)
-            db.session.commit
-            flash('Ditt konto har raderats. Hoppas att vi ses igen.', 'success')
-            return redirect(url_for('logout'))
-        else:
-            flash('Ogiltig username eller password')
+        db.session.delete(delete_user)
+        db.session.commit()
+        flash('Ditt konto har raderats. Hoppas att vi ses igen.', 'success')
+        return redirect(url_for('logout'))
+    else:
+        flash('Ogiltig username eller password')
 
     return render_template('delete.html', form=form)
 

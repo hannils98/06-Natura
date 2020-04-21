@@ -10,15 +10,13 @@ from app.email import send_password_reset_email
 from app.forms import ResetPasswordForm
 from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
+from app.rating import save_user_rating, average_rating
+from app.image_upload import image_upload
 import os
-'''
-PROBLEM!
-1. Vi vill redirecta till 'place'
-2. /static/uploads funkar inte såvida man inte har hela sökvägen (blir lokalt)
-3. Själva bilden sparas inte bara namnet
-'''
-global cats
-cats = db.session.query(categories)
+
+
+global drop_down_cats
+drop_down_cats = db.session.query(categories)
 
 dropzone = Dropzone(app)
 
@@ -39,7 +37,7 @@ patch_request_class(app) # set maximum file size, default is 16MB
 @app.route('/', methods=['GET', 'POST'])
 def index():
     
-    return render_template('index.html', cats=cats)
+    return render_template('index.html', drop_down_cats=drop_down_cats)
 
 
 # to my page
@@ -60,7 +58,7 @@ def myaccount():
         if posts.has_next else None
     prev_url = url_for('myaccount', page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template('myaccount.html', cats=cats, title='Mitt Konto', form=form,
+    return render_template('myaccount.html', drop_down_cats=drop_down_cats, title='Mitt Konto', form=form,
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
 
@@ -83,7 +81,7 @@ def login():
             next_page = url_for('index')
          
         return redirect(next_page)
-    return render_template('login.html', cats=cats, title='Loga In', form=form)
+    return render_template('login.html', drop_down_cats=drop_down_cats, title='Loga In', form=form)
     
 
 # log out function
@@ -105,7 +103,7 @@ def register():
         db.session.commit()
         flash('Grattis, Du är medlem nu!')
         return redirect(url_for('login'))
-    return render_template('register.html', cats=cats, title='Skappa Konto', form=form)
+    return render_template('register.html', drop_down_cats=drop_down_cats, title='Skappa Konto', form=form)
 
 # the profile page of user
 @app.route('/user/<username>')
@@ -119,7 +117,7 @@ def user(username):
         if posts.has_next else None
     prev_url = url_for('user', username=user.username, page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template('user.html', cats=cats, user=user, posts=posts.items,
+    return render_template('user.html', drop_down_cats=drop_down_cats, user=user, posts=posts.items,
                            next_url=next_url, prev_url=prev_url, loggedin=True)
 # records the last seen time /date of user
 @app.before_request
@@ -142,7 +140,7 @@ def edit_profile():
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
-    return render_template('edit_profile.html', cats=cats, title='Edit Profile',
+    return render_template('edit_profile.html', drop_down_cats=drop_down_cats, title='Edit Profile',
                            form=form, loggedin=True)
 
 # function for following other users posts
@@ -180,7 +178,7 @@ def unfollow(username):
 # the page that shows all the posts of users
 @app.route('/posts')
 @login_required
-def posts():
+def explore():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, app.config['POSTS_PER_PAGE'], False)
@@ -188,7 +186,7 @@ def posts():
         if posts.has_next else None
     prev_url = url_for('posts', page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template("myaccount.html", cats=cats, title='Posts', posts=posts.items,
+    return render_template("myaccount.html", drop_down_cats=drop_down_cats, title='Posts', posts=posts.items,
                           next_url=next_url, prev_url=prev_url)
 
 
@@ -204,7 +202,7 @@ def reset_password_request():
             send_password_reset_email(user)
         flash('Kontrollera din e-post för instruktioner för att återställa ditt lösenord')
         return redirect(url_for('login'))
-    return render_template('reset_password_request.html', cats=cats,
+    return render_template('reset_password_request.html', drop_down_cats=drop_down_cats,
                            title='Reset Password', form=form)
 
 
@@ -222,59 +220,37 @@ def reset_password(token):
         db.session.commit()
         flash('Ditt lösenord har blivit återställt.')
         return redirect(url_for('login'))
-    return render_template('reset_password.html', cats=cats, form=form)
+    return render_template('reset_password.html', drop_down_cats=drop_down_cats, form=form)
 
 # the page that holds category of places
 @app.route('/<category>')
 def category(category):
-    print(category)
     places_cat = db.session.query(places.name).join(place_has_cat).join(categories).filter(categories.name==category)
-    return render_template('category.html', cats=cats, category=category, places=places_cat)
+    return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_cat)
 
  # page related to each place
 @app.route('/<category>/<name>', methods=['GET', 'POST'])
 def place(category, name):
     places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
-
-    # set session for image results
-    if "file_urls" not in session:
-        session['file_urls'] = []
-    # list to hold our uploaded image urls
-    file_urls = session['file_urls']
-
-    # handle image upload from Dropzone
-    if request.method == 'POST':
-        file_obj = request.files
-        for f in file_obj:
-            file = request.files.get(f) 
-            # save the file with to our photo folder
-            filename = photos.save(file, name=file.filename)
-
-            # append image urls
-            file_urls.append(photos.url(filename))
-
-        session['file_urls'] = file_urls
-        return "uploading..."
-        # upload to database
-    files = os.listdir('app/static/uploads')
-
-
-    return render_template('place.html', cats=cats, info=places_from_db, name=name, files=files, category=category)
+    user_rating = request.args.get('rating')
+    save_user_rating(user_rating)
+    files = image_upload()
+    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category)
     
 # the info page
 @app.route('/info')
 def info():
-    return render_template('info.html', cats=cats)
+    return render_template('info.html', drop_down_cats=drop_down_cats)
     
 # the contacts page
 @app.route('/contact')
 def contact():
-    return render_template('contact.html', cats=cats)
+    return render_template('contact.html', drop_down_cats=drop_down_cats)
     
 # the gallery page
 @app.route('/gallery', methods=['GET', 'POST'])
 def gallery():
 
-    return render_template('gallery.html', cats=cats)
+    return render_template('gallery.html', drop_down_cats=drop_down_cats)
 
 

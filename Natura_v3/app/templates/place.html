@@ -2,6 +2,9 @@
 
 {% block main%}
 <h2>{{ name }}</h2>
+{%if current_user.username == null %}
+<p>Här kommer 'average' betyg finnas. Du måste vara inloggad för att ge betyg.</p>
+{%else%}
 <div class="rating-box">
         <div class = "ratings">
             <span class="fa fa-star-o"></span>
@@ -11,6 +14,7 @@
             <span class="fa fa-star-o"></span>
         </div>
 </div>
+{%endif%}
 <ul>
 {%for i in info%}
 <p> {{ i.description }} </p>

@@ -1,8 +1,9 @@
+import os
 from datetime import datetime
 import jwt
-from sqlalchemy import Sequence, create_engine, Column, Integer, String
+from sqlalchemy import Sequence, create_engine, Column, Integer, String, event
 from sqlalchemy.ext.declarative import declarative_base
-from geoalchemy2 import Geometry
+from geoalchemy2 import Geometry, exc
 from app import db, app, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -143,4 +144,18 @@ class admin_images(db.Model):
 
 db_url = 'postgresql://ak2195:l6kp3gsl@pgserver.mah.se/natura_v2'
 engine = create_engine(db_url, echo=True)
+@event.listens_for(engine, "connect")
+def connect(dbapi_connection, connection_record):
+    connection_record.info['pid'] = os.getpid()
+
+@event.listens_for(engine, "checkout")
+def checkout(dbapi_connection, connection_record, connection_proxy):
+    pid = os.getpid()
+    if connection_record.info['pid'] != pid:
+        connection_record.connection = connection_proxy.connection = None
+        raise exc.DisconnectionError(
+                "Connection record belongs to pid %s, "
+                "attempting to check out in pid %s" %
+                (connection_record.info['pid'], pid)
+        )
 Base.metadata.create_all(engine)

@@ -228,7 +228,7 @@ def reset_password(token):
 # the page that holds category of places
 @app.route('/<category>')
 def category(category):
-    places_cat = db.session.query(places.name).join(place_has_cat).join(categories).filter(categories.name==category)
+    places_cat = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category)
     return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_cat)
 
  # page related to each place

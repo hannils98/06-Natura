@@ -18,16 +18,6 @@ import os
 global drop_down_cats
 drop_down_cats = db.session.query(categories)
 
-dropzone = Dropzone(app)
-
-# Dropzone settings
-app.config['DROPZONE_UPLOAD_MULTIPLE'] = True
-app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
-app.config['DROPZONE_ALLOWED_FILE_TYPE'] = 'image/*'
-#app.config['DROPZONE_REDIRECT_VIEW'] = 'gallery' #url_for('place', category=category, name=name) #OPS MÅSTE VARA PLACE
-
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     
@@ -241,17 +231,20 @@ def category(category):
     return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_cat)
 
  # page related to each place
-@app.route('/<category>/<name>', methods=['GET', 'POST'])
-def place(category, name):
-    places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
-    saved_rating = show_user_rating(name)
-    print(saved_rating)
-    if request.args.get('rating'):
-        user_rating = request.args.get('rating')
-        save_user_rating(user_rating, name)
-    files = image_upload()
-    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, saved_rating=saved_rating)
-    
+@app.route('/<category>/<name>/<placeid>', methods=['GET', 'POST'])
+    def place(category, name, placeid):
+        places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
+        if current_user.is_authenticated:
+            saved_rating = show_user_rating(name)
+            if request.args.get('rating'):
+                user_rating = request.args.get('rating')
+                save_user_rating(user_rating, name)
+            files = image_upload(placeid)
+            return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating)
+        else:
+            files = image_upload(placeid)
+            return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid)
+
 # the info page
 @app.route('/info')
 def info():

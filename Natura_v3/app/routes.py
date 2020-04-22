@@ -10,13 +10,23 @@ from app.email import send_password_reset_email
 from app.forms import ResetPasswordForm
 from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
-from app.rating import save_user_rating, average_rating
+from app.rating import show_user_rating, save_user_rating, average_rating
 from app.image_upload import image_upload
 import os
 
 
 global drop_down_cats
 drop_down_cats = db.session.query(categories)
+
+dropzone = Dropzone(app)
+
+# Dropzone settings
+app.config['DROPZONE_UPLOAD_MULTIPLE'] = True
+app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
+app.config['DROPZONE_ALLOWED_FILE_TYPE'] = 'image/*'
+#app.config['DROPZONE_REDIRECT_VIEW'] = 'gallery' #url_for('place', category=category, name=name) #OPS MÅSTE VARA PLACE
+
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -209,18 +219,20 @@ def reset_password(token):
 # the page that holds category of places
 @app.route('/<category>')
 def category(category):
-    places_cat = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category)
+    places_cat = db.session.query(places.name).join(place_has_cat).join(categories).filter(categories.name==category)
     return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_cat)
 
  # page related to each place
-@app.route('/<category>/<name>/<placeid>', methods=['GET', 'POST'])
-def place(category, name, placeid):
+@app.route('/<category>/<name>', methods=['GET', 'POST'])
+def place(category, name):
     places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
+    saved_rating = show_user_rating(name)
+    print(saved_rating)
     if request.args.get('rating'):
         user_rating = request.args.get('rating')
         save_user_rating(user_rating, name)
-    files = image_upload(placeid)
-    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid)
+    files = image_upload()
+    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, saved_rating=saved_rating)
     
 # the info page
 @app.route('/info')

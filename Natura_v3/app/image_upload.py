@@ -16,7 +16,7 @@ configure_uploads(app, photos)
 patch_request_class(app) # set maximum file size, default is 16MB
 
 
-def image_upload():
+def image_upload(placeid):
     # set session for image results
     if "file_urls" not in session:
         session['file_urls'] = []
@@ -31,6 +31,11 @@ def image_upload():
             filename = photos.save(file, name=file.filename)
             # append image urls
             file_urls.append(photos.url(filename))
+            # save to database
+            date = datetime.utcnow()
+            image = user_images(userid=current_user.id, placeid=placeid, alt=filename, datetime=date)
+            db.session.add(image)
+            db.session.commit()
         session['file_urls'] = file_urls
         return "uploading..."
         # upload to database

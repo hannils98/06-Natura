@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm
 from flask_login import current_user, login_user
 from app.models import User, Post, categories, places, place_has_cat
 from flask_login import logout_user, login_required
@@ -99,24 +99,6 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', drop_down_cats=drop_down_cats, title='Skappa Konto', form=form)
 
-
-@app.route('/delete', methods=['GET', 'POST'])
-@login_required
-def delete():
-    form = DeleteUserForm()
-    if form.validate_on_submit():
-        delete_user = User.query.filter_by(username=form.username.data).first()
-
-        db.session.delete(delete_user)
-        db.session.commit()
-        flash('Ditt konto har raderats. Hoppas att vi ses igen.', 'success')
-        return redirect(url_for('logout'))
-    else:
-        flash('Ogiltig username eller password')
-
-    return render_template('delete.html', form=form)
-
-
 # the profile page of user
 @app.route('/user/<username>')
 @login_required
@@ -190,7 +172,7 @@ def unfollow(username):
 # the page that shows all the posts of users
 @app.route('/posts')
 @login_required
-def posts():
+def explore():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, app.config['POSTS_PER_PAGE'], False)
@@ -237,20 +219,23 @@ def reset_password(token):
 # the page that holds category of places
 @app.route('/<category>')
 def category(category):
-    places_cat = db.session.query(places.name).join(place_has_cat).join(categories).filter(categories.name==category)
+    places_cat = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category)
     return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_cat)
 
  # page related to each place
-@app.route('/<category>/<name>', methods=['GET', 'POST'])
-def place(category, name):
+@app.route('/<category>/<name>/<placeid>', methods=['GET', 'POST'])
+def place(category, name, placeid):
     places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
-    saved_rating = show_user_rating(name)
-    print(saved_rating)
-    if request.args.get('rating'):
-        user_rating = request.args.get('rating')
-        save_user_rating(user_rating, name)
-    files = image_upload()
-    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, saved_rating=saved_rating)
+    if current_user.is_authenticated:
+        saved_rating = show_user_rating(name)
+        if request.args.get('rating'):
+            user_rating = request.args.get('rating')
+            save_user_rating(user_rating, name)
+        files = image_upload(placeid)
+        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating)
+    else:
+        files = image_upload(placeid)
+        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid)
     
 # the info page
 @app.route('/info')

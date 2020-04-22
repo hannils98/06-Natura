@@ -8,11 +8,13 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('index') }}">Tillbacka</a></li>
+                    <li><a href="{{ url_for('index') }}">Tillbaka</a></li>
                     <li><a href="{{ url_for('posts') }}">Alla Inlägg</a></li>
                 </ul>
                     <li><a href="{{ url_for('user', username=current_user.username) }}">Profil</a></li>
-
+                    
+                  
+                </ul>
             </div>
         </div>
     </nav>

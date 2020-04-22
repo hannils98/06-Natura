@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm
 from flask_login import current_user, login_user
 from app.models import User, Post, categories, places, place_has_cat
 from flask_login import logout_user, login_required
@@ -89,6 +89,24 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', drop_down_cats=drop_down_cats, title='Skappa Konto', form=form)
 
+
+@app.route('/delete', methods=['GET', 'POST'])
+@login_required
+def delete():
+    form = DeleteUserForm()
+    if form.validate_on_submit():
+        delete_user = User.query.filter_by(username=form.username.data).first()
+
+        db.session.delete(delete_user)
+        db.session.commit()
+        flash('Ditt konto har raderats. Hoppas att vi ses igen.', 'success')
+        return redirect(url_for('logout'))
+    else:
+        flash('Ogiltig username eller password')
+
+    return render_template('delete.html', form=form)
+
+
 # the profile page of user
 @app.route('/user/<username>')
 @login_required
@@ -162,7 +180,7 @@ def unfollow(username):
 # the page that shows all the posts of users
 @app.route('/posts')
 @login_required
-def explore():
+def posts():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, app.config['POSTS_PER_PAGE'], False)

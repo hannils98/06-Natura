@@ -4,27 +4,23 @@
 <nav class="prof_navbar-nav">
         <div class="container">
             <div class="navbar-header">
-               <a class="navbar-brand" href="{{ url_for('myaccount') }}">My Page</a>
+               <h2>Mitt Konto</h2>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('index') }}">Home</a></li>
-                    <li><a href="{{ url_for('explore') }}">Posts</a></li>
+                    <li><a href="{{ url_for('index') }}">Tillbacka</a></li>
+                    <li><a href="{{ url_for('posts') }}">Alla Inlägg</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {% if current_user.is_anonymous %}
-                    <li><a href="{{ url_for('login') }}">Login</a></li>
-                    {% else %}
-                    <li><a href="{{ url_for('user', username=current_user.username) }}">Profile</a></li>
-                    
-                    {% endif %}
+                    <li><a href="{{ url_for('user', username=current_user.username) }}">Profil</a></li>
+
+
                 </ul>
             </div>
         </div>
     </nav>
 {%endblock%}
 {% block app_content %}
-    <h1>{{ current_user.username }}'s Page</h1>
+    <h1>{{ current_user.username }}s Sida</h1>
     {% if form %}
     {{ wtf.quick_form(form) }}
     <br>
@@ -36,12 +32,12 @@
         <ul class="pager">
             <li class="previous{% if not prev_url %} disabled{% endif %}">
                 <a href="{{ prev_url or '#' }}">
-                    <span aria-hidden="true">&larr;</span> Newer posts
+                    <span aria-hidden="true">&larr;</span> Nyare inlägg
                 </a>
             </li>
             <li class="next{% if not next_url %} disabled{% endif %}">
                 <a href="{{ next_url or '#' }}">
-                    Older posts <span aria-hidden="true">&rarr;</span>
+                    Äldre inlägg <span aria-hidden="true">&rarr;</span>
                 </a>
             </li>
         </ul>

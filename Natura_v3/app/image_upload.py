@@ -8,6 +8,14 @@ from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 import os
 
+dropzone = Dropzone(app)
+
+# Dropzone settings
+app.config['DROPZONE_UPLOAD_MULTIPLE'] = True
+app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
+app.config['DROPZONE_ALLOWED_FILE_TYPE'] = 'image/*'
+#app.config['DROPZONE_REDIRECT_VIEW'] = 'gallery' #url_for('place', category=category, name=name) #OPS MÅSTE VARA PLACE
+
 # Uploads settings
 app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/app/static/uploads'
 
@@ -15,8 +23,7 @@ photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app) # set maximum file size, default is 16MB
 
-
-def image_upload():
+def image_upload(placeid):
     # set session for image results
     if "file_urls" not in session:
         session['file_urls'] = []
@@ -31,9 +38,13 @@ def image_upload():
             filename = photos.save(file, name=file.filename)
             # append image urls
             file_urls.append(photos.url(filename))
+            # save to database
+            date = datetime.utcnow()
+            image = user_images(userid=current_user.id, placeid=placeid, alt=filename, datetime=date)
+            db.session.add(image)
+            db.session.commit()
         session['file_urls'] = file_urls
         return "uploading..."
-        # upload to database
     files = os.listdir('app/static/uploads')
     return files
         

@@ -49,7 +49,7 @@
 
         var popup = new mapboxgl.Popup({ offset: [0, -15] })
             .setLngLat(feature.geometry.coordinates)
-            .setHTML('<h3><a href="/'+ feature.properties.category +'/' + feature.properties.name +'/'+ feature.properties.id + '">' + feature.properties.name + '</a></h3><p>'+ feature.properties.description +'</p>')
+            .setHTML('<h3><a href="/place/'+ feature.properties.id + '">' + feature.properties.title + '</a></h3><p>'+ feature.properties.description +'</p>')
             .addTo(map);
         });
 

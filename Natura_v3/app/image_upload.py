@@ -8,6 +8,7 @@ from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 import os
 
+
 def image_upload():
     # set session for image results
     if "file_urls" not in session:

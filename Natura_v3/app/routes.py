@@ -233,18 +233,18 @@ def category(category):
 
  # page related to each place
 @app.route('/<category>/<name>/<placeid>', methods=['GET', 'POST'])
-    def place(category, name, placeid):
-        places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
-        if current_user.is_authenticated:
-            saved_rating = show_user_rating(name)
-            if request.args.get('rating'):
-                user_rating = request.args.get('rating')
-                save_user_rating(user_rating, name)
-            files = image_upload(placeid)
-            return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating)
-        else:
-            files = image_upload(placeid)
-            return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid)
+def place(category, name, placeid):
+    places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
+    if current_user.is_authenticated:
+        saved_rating = show_user_rating(name)
+        if request.args.get('rating'):
+            user_rating = request.args.get('rating')
+            save_user_rating(user_rating, name)
+        files = image_upload(placeid)
+        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating)
+    else:
+        files = image_upload(placeid)
+        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid)
 
 # the info page
 @app.route('/info')

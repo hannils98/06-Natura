@@ -10,7 +10,7 @@ from app.email import send_password_reset_email
 from app.forms import ResetPasswordForm
 from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
-from app.rating import show_user_rating, save_user_rating, average_rating
+from app.rating import show_user_rating, save_user_rating, show_average_rating
 from app.image_upload import image_upload
 import os
 
@@ -235,17 +235,16 @@ def category(category):
 @app.route('/<category>/<name>/<placeid>', methods=['GET', 'POST'])
 def place(category, name, placeid):
     places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
+    
+    files = image_upload(placeid)
     if current_user.is_authenticated:
-        saved_rating = show_user_rating(name)
         if request.args.get('rating'):
             user_rating = request.args.get('rating')
-            save_user_rating(user_rating, name)
-        files = image_upload(placeid)
-        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating)
-    else:
-        files = image_upload(placeid)
-        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid)
-
+            save_user_rating(user_rating, placeid)
+        saved_rating = show_user_rating(placeid)# Done after save_user_rating, so value is shown from start
+    average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
+        
+    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating)
 # the info page
 @app.route('/info')
 def info():

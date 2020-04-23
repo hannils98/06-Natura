@@ -242,6 +242,8 @@ def place(category, name, placeid):
             user_rating = request.args.get('rating')
             save_user_rating(user_rating, placeid)
         saved_rating = show_user_rating(placeid)# Done after save_user_rating, so value is shown from start
+    else:
+        saved_rating = None
     average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
         
     return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating)

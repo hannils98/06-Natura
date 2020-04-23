@@ -181,10 +181,6 @@ blockquote {
     font-style: italic;
 }
 
-#wrapper > main > img {
-    float: right;
-}
-
 #wrapper > main > h2 {
     color: rgb(31, 92, 121); 
     margin-top: 5px;

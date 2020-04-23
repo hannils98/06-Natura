@@ -46,6 +46,4 @@ def image_upload(placeid):
             db.session.commit()
         session['file_urls'] = file_urls
         return "uploading..."
-    files = os.listdir('app/static/uploads')
-    return files
         

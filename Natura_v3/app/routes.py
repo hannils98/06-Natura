@@ -12,6 +12,7 @@ from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from app.rating import show_user_rating, save_user_rating, average_rating
 from app.image_upload import image_upload
+from app.get_images import get_user_images, get_admin_images, get_all_images
 import os
 
 
@@ -240,11 +241,14 @@ def place(category, name, placeid):
         if request.args.get('rating'):
             user_rating = request.args.get('rating')
             save_user_rating(user_rating, name)
-        files = image_upload(placeid)
-        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating)
+        image_upload(placeid)
+        user_images = get_user_images(placeid)
+        admin_images = get_admin_images(placeid)
+        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, category=category, placeid=placeid, saved_rating=saved_rating, user_images=user_images, admin_images=admin_images)
     else:
-        files = image_upload(placeid)
-        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid)
+        user_images = get_user_images(placeid)
+        admin_images = get_admin_images(placeid)
+        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, category=category, placeid=placeid, user_images=user_images, admin_images=admin_images)
 
 # the info page
 @app.route('/info')
@@ -257,9 +261,8 @@ def contact():
     return render_template('contact.html', drop_down_cats=drop_down_cats)
     
 # the gallery page
-@app.route('/gallery', methods=['GET', 'POST'])
+@app.route('/gallery')
 def gallery():
-
-    return render_template('gallery.html', drop_down_cats=drop_down_cats)
-
+    all_images = get_all_images()
+    return render_template('gallery.html', drop_down_cats=drop_down_cats, all_images=all_images)
 

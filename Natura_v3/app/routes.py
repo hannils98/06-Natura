@@ -12,6 +12,7 @@ from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from app.rating import show_user_rating, save_user_rating, show_average_rating
 from app.image_upload import image_upload
+from app.get_images import get_user_images, get_admin_images, get_all_images
 import os
 
 
@@ -240,13 +241,25 @@ def place(category, name, placeid):
     if current_user.is_authenticated:
         if request.args.get('rating'):
             user_rating = request.args.get('rating')
+
             save_user_rating(user_rating, placeid)
         saved_rating = show_user_rating(placeid)# Done after save_user_rating, so value is shown from start
+        image_upload(placeid)
+        user_images = get_user_images(placeid)
+        admin_images = get_admin_images(placeid)
     else:
         saved_rating = None
+        user_images = get_user_images(placeid)
+        admin_images = get_admin_images(placeid)
     average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
         
-    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating)
+    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, admin_images=admin_images)
+
+            
+        
+        
+
+
 # the info page
 @app.route('/info')
 def info():
@@ -258,9 +271,8 @@ def contact():
     return render_template('contact.html', drop_down_cats=drop_down_cats)
     
 # the gallery page
-@app.route('/gallery', methods=['GET', 'POST'])
+@app.route('/gallery')
 def gallery():
-
-    return render_template('gallery.html', drop_down_cats=drop_down_cats)
-
+    all_images = get_all_images()
+    return render_template('gallery.html', drop_down_cats=drop_down_cats, all_images=all_images)
 

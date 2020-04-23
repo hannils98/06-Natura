@@ -2,6 +2,12 @@
 
 {% block main%}
 <h2>{{ name }}</h2>
+{%for image in admin_images%}
+<img style="height: 300px; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}" alt="{{image}}">
+{%endfor%}
+{%for image in user_images%}
+<img style="height: 300px; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}" alt="{{image}}">
+{%endfor%}
 {%if current_user.username == null %}
 <p>Här kommer 'average' betyg finnas. Du måste vara inloggad för att ge betyg.</p>
 <p>Medelbetyget för platsen är {{ average_rating }}</p>
@@ -28,16 +34,13 @@
 
 {% block aside%}
 <h2>Felplacerade "bilder" är här</h2>
-{% if current_user.is_authenticated %}
 
+
+
+
+{% if current_user.username != null %}
 {{ dropzone.create(action_view='place', category=category, name=name, placeid=placeid) }}
 {{ dropzone.config(redirect_url=url_for('place', category=category, name=name, placeid=placeid)) }}
-{%endif%}
-{% for image in files %}
-    <img style="height: 300px; width: 200px; padding: 10px; display: block;" src="{{ url_for('static', filename='uploads/' + image) }}">
-    <!---Måste få in kategorier och namn, men hur funkar det när vi har flera kategorier?--->
-   
-    
-{% endfor %}
+{% endif %}
 
 {% endblock%} 

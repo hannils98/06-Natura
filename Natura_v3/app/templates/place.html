@@ -10,6 +10,7 @@
 {%endfor%}
 {%if current_user.username == null %}
 <p>Här kommer 'average' betyg finnas. Du måste vara inloggad för att ge betyg.</p>
+<p>Medelbetyget för platsen är {{ average_rating }}</p>
 {%else%}
 <div class="rating-box">
         <div class = "ratings">
@@ -21,6 +22,7 @@
         </div>
 </div>
 <p>Du har gett betyg {{  saved_rating }} (hämtat från DB) OBS SKA INTE SE UT SÅHÄR</p>
+<p>Medelbetyg för platsen är {{  average_rating }} (hämtat från DB) OBS SKA INTE SE UT SÅHÄR</p>
 {%endif%}
 <ul>
 {%for i in info%}
@@ -32,8 +34,13 @@
 
 {% block aside%}
 <h2>Felplacerade "bilder" är här</h2>
+
+
+
+
 {% if current_user.username != null %}
 {{ dropzone.create(action_view='place', category=category, name=name, placeid=placeid) }}
 {{ dropzone.config(redirect_url=url_for('place', category=category, name=name, placeid=placeid)) }}
 {% endif %}
+
 {% endblock%} 

@@ -10,7 +10,7 @@ from app.email import send_password_reset_email
 from app.forms import ResetPasswordForm
 from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
-from app.rating import show_user_rating, save_user_rating, average_rating
+from app.rating import show_user_rating, save_user_rating, show_average_rating
 from app.image_upload import image_upload
 from app.get_images import get_user_images, get_admin_images, get_all_images
 import os
@@ -236,19 +236,29 @@ def category(category):
 @app.route('/<category>/<name>/<placeid>', methods=['GET', 'POST'])
 def place(category, name, placeid):
     places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
+    
+    files = image_upload(placeid)
     if current_user.is_authenticated:
-        saved_rating = show_user_rating(name)
         if request.args.get('rating'):
             user_rating = request.args.get('rating')
-            save_user_rating(user_rating, name)
+
+            save_user_rating(user_rating, placeid)
+        saved_rating = show_user_rating(placeid)# Done after save_user_rating, so value is shown from start
         image_upload(placeid)
         user_images = get_user_images(placeid)
         admin_images = get_admin_images(placeid)
-        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, category=category, placeid=placeid, saved_rating=saved_rating, user_images=user_images, admin_images=admin_images)
     else:
+        saved_rating = None
         user_images = get_user_images(placeid)
         admin_images = get_admin_images(placeid)
-        return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, category=category, placeid=placeid, user_images=user_images, admin_images=admin_images)
+    average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
+        
+    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, admin_images=admin_images)
+
+            
+        
+        
+
 
 # the info page
 @app.route('/info')

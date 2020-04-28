@@ -8,22 +8,30 @@
 {%for image in user_images%}
 <img style="height: 300px; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}" alt="{{image}}">
 {%endfor%}
-{%if current_user.username == null %}
-<p>Här kommer 'average' betyg finnas. Du måste vara inloggad för att ge betyg.</p>
-<p>Medelbetyget för platsen är {{ average_rating }}</p>
-{%else%}
-<div class="rating-box">
-        <div class = "ratings">
+<div class="show_ratings">
+    <h4>Betyg</h4>
+    <p>Medelbetyg:</p>
+    <div class = "average_ratings">
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span>{{ average_rating }}</span>
+        <input type=hidden id="ave_rating" name="ave_rating" value="{{ average_rating }}">
+    </div>
+    {%if current_user.is_authenticated%}
+    <p>Ditt betyg:</p>
+        <div class = "user_rating">
             <span class="fa fa-star-o"></span>
             <span class="fa fa-star-o"></span>
             <span class="fa fa-star-o"></span>
             <span class="fa fa-star-o"></span>
             <span class="fa fa-star-o"></span>
+            <input type=hidden id="user_rating" name="user_rating" value="{{ saved_rating }}">
         </div>
+    {%endif%}
 </div>
-<p>Du har gett betyg {{  saved_rating }} (hämtat från DB) OBS SKA INTE SE UT SÅHÄR</p>
-<p>Medelbetyg för platsen är {{  average_rating }} (hämtat från DB) OBS SKA INTE SE UT SÅHÄR</p>
-{%endif%}
 <ul>
 {%for i in info%}
 <p> {{ i.description }} </p>

@@ -48,21 +48,16 @@ function show_average_rating() {
 function show_user_rating() {
     var saved_user_rating = Number(document.getElementById('user_rating').value);
     const stars=document.querySelector(".user_rating").children;
-    console.log(saved_user_rating);
     if(saved_user_rating >= 0 && saved_user_rating <= 5){
-        console.log('hej')
         for(let i=0; i<stars.length; i++){
             for(let j=0; j<saved_user_rating; j++){
                 stars[j].classList.remove("fa-star-o");
                 stars[j].classList.add("fa-star");
-                console.log(stars)
             }
         }
     }else{
         user_ratings();
     }
-    
-
 }
 
 show_average_rating();

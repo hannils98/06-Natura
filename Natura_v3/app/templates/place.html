@@ -3,10 +3,10 @@
 {% block main%}
 <h2>{{ name }}</h2>
 {%for image in admin_images%}
-<img style="height: 300px; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}" alt="{{image}}">
+<img style="max-height: 300px; max-width: 500px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}" alt="{{image}}">
 {%endfor%}
 {%for image in user_images%}
-<img style="height: 300px; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}" alt="{{image}}">
+<img style="max-height: 300px; max-width: 500px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}" alt="{{image}}">
 {%endfor%}
 <div class="show_ratings">
     <h4>Betyg</h4>

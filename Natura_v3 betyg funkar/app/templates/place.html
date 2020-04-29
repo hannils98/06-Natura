@@ -1,0 +1,54 @@
+{% extends 'base.html'%}
+
+{% block main%}
+<h2>{{ name }}</h2>
+{%for image in admin_images%}
+<img style="height: 300px; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}" alt="{{image}}">
+{%endfor%}
+{%for image in user_images%}
+<img style="height: 300px; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}" alt="{{image}}">
+{%endfor%}
+<div class="show_ratings">
+    <h4>Betyg</h4>
+    <p>Medelbetyg:</p>
+    <div class = "average_ratings">
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span>{{ average_rating }}</span>
+        <input type=hidden id="ave_rating" name="ave_rating" value="{{ average_rating }}">
+    </div>
+    {%if current_user.is_authenticated%}
+    <p>Ditt betyg:</p>
+        <div class = "user_rating">
+            <span class="fa fa-star-o"></span>
+            <span class="fa fa-star-o"></span>
+            <span class="fa fa-star-o"></span>
+            <span class="fa fa-star-o"></span>
+            <span class="fa fa-star-o"></span>
+            <input type=hidden id="user_rating" name="user_rating" value="{{ saved_rating }}">
+        </div>
+    {%endif%}
+</div>
+<ul>
+{%for i in info%}
+<p> {{ i.description }} </p>
+<p> Läs mer: <a href="{{ i.source }}">{{ i.source }} </a></p>
+{%endfor%}
+</ul>
+{% endblock%}
+
+{% block aside%}
+<h2>Felplacerade "bilder" är här</h2>
+
+
+
+
+{% if current_user.username != null %}
+{{ dropzone.create(action_view='place', category=category, name=name, placeid=placeid) }}
+{{ dropzone.config(redirect_url=url_for('place', category=category, name=name, placeid=placeid)) }}
+{% endif %}
+
+{% endblock%} 

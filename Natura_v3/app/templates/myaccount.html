@@ -1,24 +1,19 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
-{%block nav%}
-<nav class="prof_navbar-nav">
-        <div class="container">
-            <div class="navbar-header">
-               <h2>Mitt Konto</h2>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('index') }}">Tillbacka</a></li>
-                    <li><a href="{{ url_for('explore') }}">Alla Inlägg</a></li>
-                </ul>
-                    <li><a href="{{ url_for('user', username=current_user.username) }}">Profil</a></li>
 
-            </div>
-        </div>
-    </nav>
-{%endblock%}
+{% block nav %}
+    <div  id="local-bar">
+
+        <a href="{{ url_for('explore') }}">Alla Inlägg</a>
+        <a id="profile-link" href="{{ url_for('user', username=current_user.username) }}">Profil</a>
+    </div>
+{% endblock nav %}
+
 {% block app_content %}
-    <h1>{{ current_user.username }}s Sida</h1>
+<a href="{{ url_for('myaccount') }}" id="get-margin">Till Konton</a>
+
+    <div id="profile-page">
+    <h1>{{ current_user.username }}s Blogg</h1>
     {% if form %}
     {{ wtf.quick_form(form) }}
     <br>
@@ -40,4 +35,5 @@
             </li>
         </ul>
     </nav>
+    </div>
 {% endblock %}

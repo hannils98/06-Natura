@@ -4,6 +4,7 @@ from app.models import User, places, ratings
 from flask_login import current_user, login_user
 from datetime import datetime
 from sqlalchemy import exc, func
+from flask import jsonify
 
 def show_user_rating(place_id):
     try:

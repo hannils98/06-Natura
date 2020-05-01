@@ -1,23 +1,37 @@
+/*==========NAV===========*/
+img#logo{
+    display: block;
+    width:20%;
+    min-width: 160px;
+    margin:10px 10px 0;
+}
+
 .navbar {
-    grid-area: nav;
     display: flex;
-justify-content: space-evenly;
-  overflow: hidden;
-  background-color: rgba(57,130,53,1);
-  font-family: Arial, Helvetica, sans-serif;
+    justify-content: space-evenly;
+    overflow: auto;
+    height:60px;
+    width:100%;
+    background-color: rgba(47, 160, 8,1);
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    margin-bottom: 0;
 }
 
 .navbar a {
-  float: left;
   font-size: 16px;
   color: white;
   text-align: center;
   text-decoration: none;
+  vertical-align: middle;
+  padding: 20px;
+    width:20%;
 }
 
 .dropdown {
   float: left;
   overflow: hidden;
+
 }
 
 .dropdown .dropbtn {
@@ -26,14 +40,18 @@ justify-content: space-evenly;
   border: none;
   outline: none;
   color: white;
-  margin: 0 10% 0 10%;
+  margin: 0 ;
   background-color: inherit;
   font-family: inherit;
-  margin: 0;
+  padding: 20px 30px;
+
+
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
-  background-color: rgb(92, 199, 87);
+  background-color: #2a7000;
+  color: rgb(135, 240, 132);
+
 }
 
 .dropdown-content {
@@ -42,7 +60,7 @@ justify-content: space-evenly;
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
+  z-index: 1000;
 }
 
 .dropdown-content a {
@@ -60,107 +78,142 @@ justify-content: space-evenly;
 
 .show {
   display: block;
+  overflow: visible;
 }
 
-body {
-  background-color: white;  
-  font-family: 'Titillium Web', sans-serif;
-  color: black;
-}
-
-#wrapper {
-    display: grid;
-    max-width: 1300px;
-    min-height: calc(100vh - 16px);
-    grid-template-rows: 73px 24px auto 50px;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    /*grid-gap:*/
-    box-shadow: 0 0 10px rgb(190, 190, 190);
-    margin: auto;
-    border-radius: 5px;
-    grid-template-areas: 
-        "header header header div"
-        "nav nav nav nav"
-        "main main aside aside"
-        "footer footer footer footer" 
-}
-
-#wrapper > header {
-    grid-area: header;
-    color: rgb(255, 255, 255);
-    height: 73px;
-    padding-left: 2em;
-    font-size: 1.5em;
-    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#c9de96+0,8ab66b+44,398235+100;Green+3D+%233 */
-    background: rgb(201,222,150); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(201,222,150,1) 0%, rgba(138,182,107,1) 44%, rgba(57,130,53,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=0 ); /* IE6-9 */
-
-}
-
-*{
-    box-sizing: border-box;
-}
 
 .fa-star, .fa-star-o {
     color: #FF9800;
 }
 
-#wrapper > header > h1 {
-    margin: 0px;
-    text-shadow: 1px 1px 2px rgb(6, 131, 48);
-
-}
 
 .login {
-    grid-area: div;
-    display: flex;
-    justify-content: space-evenly;
-    text-shadow: 1px 1px 2px rgb(6, 131, 48);
-    padding-top: 3%;
-    background: rgb(201,222,150); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(201,222,150,1) 0%, rgba(138,182,107,1) 44%, rgba(57,130,53,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=0 ); /* IE6-9 */
+
+    display: block;
+    float :right;
+    width: 240px;
+    margin: 5px;
 
 }
 
-.login > p > a:link {
-    color: rgb(255, 255, 255);
+.login >  a:link {
+    color:rgba(57,130,53,1);
+    cursor: pointer;
+    text-decoration: none;
+    padding:0 20px;
+    text-align: right;
+    font-size: 16px;
+}
+
+.login >  a:visited {
+    color:rgba(57,130,53,1);
     cursor: pointer;
     text-decoration: none;
 }
 
-.login > p > a:visited {
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    text-decoration: none;
+.login >  a:hover {
+    text-shadow: 1px 2px 8px #426a5a;
 }
-
-
-/*#wrapper > nav {
-    grid-area: nav;
-    display: flex;
-    justify-content: space-between;
-    height: 24px;
-    background-color: rgba(57,130,53,1);
-    margin-top: 1px;
-    color: white;
-}*/
-
 a:hover {
     color: rgb(135, 240, 132);
     cursor: pointer;
 }
 
-#wrapper > nav > a {
-    padding: 0 2em 0 6em;
-    text-decoration: none;
+#local-bar{
+    display: flex;
+    justify-content: space-evenly;
+    height:30px;
+    width:100%;
+    background-color:#2a7000;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    border-radius: 4px;
+
+}
+
+#local-bar  a {
+    display:inline;
     color: white;
-    font-weight: bold;
+    text-decoration: none;
+    padding: 5px;
+    width: 50%;
+    text-align: center;
+}
+#local-bar a:hover {
+    color: rgb(135, 240, 132);
+    background-color: #154400;
+    cursor: pointer;
+}
+#profile-link {
+
+
+}
+
+/*===========Profile==============*/
+#profile-page{
+    margin:20px;
+    min-height: 500px;
+}
+
+#delete{
+    float:right;
+}
+#user{
+     margin:20px;
+    min-height: 500px;
+}
+
+#user li {
+    list-style-type: none;
+
+}
+#user a {
+     padding: 10px;
+}
+
+#get-margin{
+    margin:10px;
+    font-size: 16px;
+}
+/*==========body===========*/
+body {
+  background-color: white;
+  font-family: 'Titillium Web', sans-serif;
+  color: black;
+
+}
+
+body >h1{
+    padding: 0 0 0 20px;
+}
+
+body .row{
+    padding: 0 0 0 20px;
+}
+
+#sub_nav{
+    margin-left: 20px;
+
+}
+
+a{
+    color: rgba(47, 160, 8,1);
+}
+#main_text{
+    display: block;
+    float: left;
+    margin: 40px 20px;
+    max-width:520px;
+}
+
+#wrapper {
+    display:block;
+    max-width: 1300px;
+    min-height: calc(100vh - 16px);
+    box-shadow: 0 0 10px rgb(190, 190, 190);
+    margin: auto;
+    border-radius: 5px;
+
 }
 
 #wrapper > nav > a:hover {
@@ -168,12 +221,8 @@ a:hover {
     cursor: pointer;
 }
 
-#wrapper > main {
-    grid-area: main;
-    padding: 20px 40px;
-}
 
-#wrapper > main > p > a {
+#wrapper >  p > a {
     text-decoration: none;
 }
 
@@ -181,81 +230,78 @@ blockquote {
     font-style: italic;
 }
 
-#wrapper > main > h2 {
-    color: rgb(31, 92, 121); 
+#main_text > p {
+    color: rgb(31, 92, 121);
+    padding: 10px 40px;
+
+    text-align: justify;
+}
+#main_text > h2 {
+    color: rgb(31, 92, 121);
     margin-top: 5px;
+    padding: 10px 50px;
 }
 
-#wrapper > aside {
-    grid-area: aside;
-    background-color: rgb(255, 255, 255);
-    border-radius: 10px;
-    margin: 5em 1em;
-    box-shadow: 0 0 5px rgb(201, 200, 200);
-    height: 20em;
-    width: 12em;
+
+#footer {
+    clear: both;
+    height: 40px;
+    background: rgba(47, 160, 8,1);
+    text-align: center;
+    border-radius: 4px;
 }
 
-#wrapper > footer {
-    grid-area: footer;
-    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#c9de96+0,8ab66b+44,398235+100;Green+3D+%233 */
-    background: rgb(201,222,150); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(201,222,150,1) 0%, rgba(138,182,107,1) 44%, rgba(57,130,53,1) 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  rgba(201,222,150,1) 0%,rgba(138,182,107,1) 44%,rgba(57,130,53,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=0 ); /* IE6-9 */
-
-text-align: center;
-
-}
-
-#wrapper > footer > h3 {
+#footer > h3 {
     margin: 10px;
     color: white;
 }
 
-/*==========MAP===========*/
+#page-whole{
+    margin:20px;
+}
 
-#map { width: 500px; height:450px; }
+/*===========Bootstrap manipulations===========*/
 
+.alert-warning {
+    color: #426a5a;
+    background-color: #eeefa8;
+    border-color: #7fb685;
+}
+.alert-info {
+    color: #08266d;
+    background-color: #47cbe0;
+    border-color: #238ce1;
+}
+.alert {
+    margin: 20px;
+}
 /*==========IMAGE NOT FLOAT=========*/
 @media screen and (min-width:590px) and (max-width:790px) {
-    #wrapper > main > img {
+    #main > img {
         float: none;
         }
 }
 
 /*==========PHONE===========*/
 @media screen and (min-width:200px) and (max-width:590px) {
-    
+
     #wrapper {
         width: 100%;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto 75px auto auto 50px;
-        grid-template-areas: 
-        "header"
-        "div"
-        "nav"
-        "main"
-        "aside"
-        "footer"
+
     }
 
-    #wrapper > header {
-        padding: 0px;
-    }
-    
-    #wrapper > header > h1 {
+
+    #main > h1 {
         text-align: center;
     }
 
-    #wrapper > nav {
-        display: flex;
+    #nav {
+
         flex-direction: column;
-        height: 75px;
+
     }
 
-    #wrapper > nav > a {
+    #nav > a {
         display: flex;
         justify-content: center;
         padding: 0;
@@ -266,12 +312,12 @@ text-align: center;
         margin: 0.5em;
     }
 
-    #wrapper > main {
+    #main {
         padding: 0px 20px;
         margin: 0.5em;
     }
 
-    #wrapper > aside {
+    #map {
         margin: 0em auto 1.5em auto;
     }
 
@@ -289,9 +335,9 @@ text-align: center;
 
     }
 
-    #wrapper > main > img {
+    #wrapper > img {
     float: none;
     }
-    
+
 }
 

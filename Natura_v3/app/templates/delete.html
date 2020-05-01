@@ -3,11 +3,11 @@
 
 {% block app_content %}
 <li><a href="{{ url_for('myaccount') }}">Tillbacka</a></li>
-<h1>Radera Konton</h1>
-<div class="row">
-    <div class="col-md-4">
-        {{ wtf.quick_form(form) }}
+    <h1>Radera Konton</h1>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
     </div>
-</div>
 
 {%endblock%}

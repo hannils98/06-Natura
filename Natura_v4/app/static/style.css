@@ -163,8 +163,9 @@ a:hover {
     width:100%;
     height:auto;
 }
-
-
+.alert {
+    margin-top: 5px;
+}
 
 /*============FOOTER===========*/
 .text-center {

@@ -21,9 +21,7 @@
 
     {% block navbar %}
     <div id="nav">
-        <img src="{{ url_for('static',filename='Logo1.jpg') }} " id="logo" />
         <div class="login">
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -43,32 +41,34 @@
             </li>
 
         </div>
-
-        <ul class="nav nav-tabs">
-            <li class="nav-item  ">
-                <a class="nav-link " href="{{ url_for('index') }}"><i class="fa fa-home " aria-hidden="true"> Start</i></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="{{ url_for('gallery') }}"> <i class="fa fa-picture-o " aria-hidden="true"> Galleri</i></a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                    aria-expanded="false"><i class="fa fa-list " aria-hidden="true"> Kategorier</i>
-                    </a>
-                <div class="dropdown-menu">
-                    {%for cat in drop_down_cats%}
-                    <a href="{{ url_for('category', category=cat.name) }}">{{ cat.name }}</a>
-                    {%endfor%}
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('info') }}"><i class="fa fa-info-circle " aria-hidden="true"> Info</i></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('contact') }}"><i class="fa fa-address-card-o " aria-hidden="true"> Kontakt</i>
-                    </a>
-            </li>
-        </ul>
+        <nav class="navbar">
+            <a class="navbar-brand" href="/"><img id="logo" src="{{ url_for('static',filename='Logo1.jpg') }}" alt="natura logga"></a>
+            <ul class="nav nav-tabs">
+                <li class="nav-item  ">
+                    <a class="nav-link " href="{{ url_for('index') }}"><i class="fa fa-home " aria-hidden="true"> Start</i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ url_for('gallery') }}"> <i class="fa fa-picture-o " aria-hidden="true"> Galleri</i></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                        aria-expanded="false"><i class="fa fa-list " aria-hidden="true"> Kategorier</i>
+                        </a>
+                    <div class="dropdown-menu">
+                        {%for cat in drop_down_cats%}
+                        <a href="{{ url_for('category', category=cat.name) }}">{{ cat.name }}</a>
+                        {%endfor%}
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('info') }}"><i class="fa fa-info-circle " aria-hidden="true"> Info</i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('contact') }}"><i class="fa fa-address-card-o " aria-hidden="true"> Kontakt</i>
+                        </a>
+                </li>
+            </ul>
+        </nav>
         
     </div>
     {%endblock navbar%}
@@ -122,7 +122,6 @@
     <footer class="page-footer ">
         <div class="footer-copyright text-center py-3">
             <p>Senast uppdaterad: 28/04/2020</p>
-            <h4>Natura</h4>
         </div>
     </footer>
 

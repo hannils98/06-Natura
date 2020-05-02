@@ -5,47 +5,18 @@
 {{ super() }}
 <div id="main_text">
     {%if current_user.username == null %}
-    <h2>Välkommen till Natura!</h2>
+    <h2>Kom ut i naturen!</h2>
     {%else%}
-    <h2>Välkommen {{  current_user.username  }}!</h2>
+    <h2>Kom ut i naturen {{  current_user.username  }}!</h2>
     {%endif%}
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Error repudiandae amet quod ab autem reiciendis, distinctio quaerat magnam hic repellendus odio et nesciunt.
-        Deserunt quaerat beatae laudantium laborum, reiciendis sint. Lorem ipsum dolor sit amet consectetur adipisicing
-        elit.
-        Qui quam atque quasi libero! A voluptatem dignissimos vitae deleniti,
-        natus quibusdam aliquam sunt, voluptate consectetur nam omnis libero veniam veritatis dolorum!
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis sunt placeat sequi autem inventore repudiandae
-        tempora.
-        Nihil maiores assumenda voluptate, voluptatem, cum delectus quas sequi cupiditate, enim nulla rerum excepturi.
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit consequuntur est iure ea dolorum!
-        Facilis nostrum repellat,
-        ratione officia maxime minima debitis doloribus itaque adipisci veniam esse, voluptates, voluptas possimus?
-        Lorem ipsum dolor sit amet,
-        consectetur adipisicing elit. Voluptates esse sequi cum in quae! Atque asperiores vel corporis nisi?</p>
-        <div class="card" style="width: 18rem;">
-            <img src="/app/static/uploads/The-Kitten-Checklist-1_1.png" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Plats 1</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-success">Till Platsen</a>
-            </div>
-          </div>
-          <div class="card" style="width: 18rem;">
-            <img src="/app/static/uploads/The-Kitten-Checklist-1_1.png" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Plats 2</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-success">Till Platsen</a>
-            </div>
-          </div>
+    <p>Använd kartan för att hitta naturupplevelser nära dig</p>
         
 </div>
 
 {% endblock content %}
 
 {% block map %}
-<div id='map' style='width: 500px; height: 400px;'>
+<div id='map'>
 
 </div>
 <script>

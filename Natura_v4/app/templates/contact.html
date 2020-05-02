@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
 
-{% block main %}
-<h1>Detta är vår kontaktsida!</h1>
+{% block app_content %}
+<h1>Kontakt</h1>
+    <h3>Kom i kontakt med oss!</h3>
+    <div class="row">
+        <div class="col-md-4">
+            {{ wtf.quick_form(form) }}
+        </div>
+    </div>
 {% endblock %}

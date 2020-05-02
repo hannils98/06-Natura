@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm, SendQueryForm
 from flask_login import current_user, login_user
 from app.models import User, Post, categories, places, place_has_cat
 from flask_login import logout_user, login_required
@@ -17,7 +17,7 @@ import os
 
 
 global drop_down_cats
-drop_down_cats = db.session.query(categories)
+drop_down_cats = db.session.query(categories).order_by(categories.name)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -228,7 +228,7 @@ def reset_password(token):
 # the page that holds category of places
 @app.route('/<category>')
 def category(category):
-    places_cat = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category)
+    places_cat = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category).order_by(places.name)
     return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_cat)
 
  # page related to each place
@@ -254,10 +254,6 @@ def place(category, name, placeid):
         
     return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, admin_images=admin_images)
 
-            
-        
-        
-
 
 # the info page
 @app.route('/info')
@@ -267,8 +263,9 @@ def info():
 # the contacts page
 @app.route('/contact')
 def contact():
-    return render_template('contact.html', drop_down_cats=drop_down_cats)
-    
+    form = SendQueryForm()
+    return render_template('contact.html', drop_down_cats=drop_down_cats, form=form)
+
 # the gallery page
 @app.route('/gallery')
 def gallery():

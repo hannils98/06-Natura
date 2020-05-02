@@ -12,8 +12,8 @@ from hashlib import md5
 
 
 followers = db.Table('followers',
-    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id',ondelete="CASCADE")),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id',ondelete="CASCADE"))
 )
 Base = declarative_base()
 
@@ -118,7 +118,7 @@ class place_has_cat(db.Model):
 
 class ratings(db.Model):
     __tablename__ = 'ratings'
-    userid= db.Column(db.Integer, db.ForeignKey('user.id'), primary_key=True)
+    userid= db.Column(db.Integer, db.ForeignKey('user.id',ondelete="CASCADE"), primary_key=True)
     placeid=db.Column(db.Integer, db.ForeignKey('places.id'), primary_key=True)
     ratings=db.Column(db.Integer)
     datetime=db.Column(db.DateTime(timezone=True))
@@ -126,7 +126,7 @@ class ratings(db.Model):
 
 class user_images(db.Model):
     __tablename__ = 'user_images'
-    userid= db.Column(db.Integer,Sequence('user_images_seq'), db.ForeignKey('user.id') ,primary_key=True)
+    userid= db.Column(db.Integer,Sequence('user_images_seq'), db.ForeignKey('user.id',ondelete="CASCADE") ,primary_key=True)
     placeid=db.Column(db.Integer, db.ForeignKey('places.id'))
     alt=db.Column(db.Text)
     imageid=db.Column(db.Text, primary_key=True)

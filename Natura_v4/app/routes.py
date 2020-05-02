@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm, SendQueryForm
 from flask_login import current_user, login_user
 from app.models import User, Post, categories, places, place_has_cat
 from flask_login import logout_user, login_required
@@ -267,8 +267,9 @@ def info():
 # the contacts page
 @app.route('/contact')
 def contact():
-    return render_template('contact.html', drop_down_cats=drop_down_cats)
-    
+    form = SendQueryForm()
+    return render_template('contact.html', drop_down_cats=drop_down_cats, form=form)
+
 # the gallery page
 @app.route('/gallery')
 def gallery():

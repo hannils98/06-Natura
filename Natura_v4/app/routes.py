@@ -17,7 +17,7 @@ import os
 
 
 global drop_down_cats
-drop_down_cats = db.session.query(categories)
+drop_down_cats = db.session.query(categories).order_by(categories.name)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -228,7 +228,7 @@ def reset_password(token):
 # the page that holds category of places
 @app.route('/<category>')
 def category(category):
-    places_cat = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category)
+    places_cat = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category).order_by(places.name)
     return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_cat)
 
  # page related to each place
@@ -253,10 +253,6 @@ def place(category, name, placeid):
     average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
         
     return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, admin_images=admin_images)
-
-            
-        
-        
 
 
 # the info page

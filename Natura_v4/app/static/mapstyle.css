@@ -1,0 +1,17 @@
+
+	
+#map {
+    position: relative;
+    display: block;
+    float:right;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    margin: 5em 2em;
+    box-shadow: 0 0 5px rgb(201, 200, 200);
+    
+}
+
+.mapboxgl-popup {
+    max-width: 400px;
+    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}

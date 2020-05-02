@@ -1,0 +1,12 @@
+{% extends 'base.html'%}
+
+{% block main%}
+<h2>Galleri</h2>
+<section id="photos">
+    
+{% for image in all_images %}
+<img src="/app/static/uploads/{{image}}" class="rounded float-left" alt="{{image}}">
+
+{%endfor%}
+</section>
+{% endblock%} 

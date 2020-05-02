@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{{ super() }}
+<div id="main_text">
+    {%if current_user.username == null %}
+    <h2>Välkommen till Natura!</h2>
+    {%else%}
+    <h2>Välkommen {{  current_user.username  }}!</h2>
+    {%endif%}
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Error repudiandae amet quod ab autem reiciendis, distinctio quaerat magnam hic repellendus odio et nesciunt.
+        Deserunt quaerat beatae laudantium laborum, reiciendis sint. Lorem ipsum dolor sit amet consectetur adipisicing
+        elit.
+        Qui quam atque quasi libero! A voluptatem dignissimos vitae deleniti,
+        natus quibusdam aliquam sunt, voluptate consectetur nam omnis libero veniam veritatis dolorum!
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis sunt placeat sequi autem inventore repudiandae
+        tempora.
+        Nihil maiores assumenda voluptate, voluptatem, cum delectus quas sequi cupiditate, enim nulla rerum excepturi.
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit consequuntur est iure ea dolorum!
+        Facilis nostrum repellat,
+        ratione officia maxime minima debitis doloribus itaque adipisci veniam esse, voluptates, voluptas possimus?
+        Lorem ipsum dolor sit amet,
+        consectetur adipisicing elit. Voluptates esse sequi cum in quae! Atque asperiores vel corporis nisi?</p>
+        <div class="card" style="width: 18rem;">
+            <img src="/app/static/uploads/The-Kitten-Checklist-1_1.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Plats 1</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-success">Till Platsen</a>
+            </div>
+          </div>
+          <div class="card" style="width: 18rem;">
+            <img src="/app/static/uploads/The-Kitten-Checklist-1_1.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Plats 2</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-success">Till Platsen</a>
+            </div>
+          </div>
+        
+</div>
+
+{% endblock content %}
+
+{% block map %}
+<div id='map' style='width: 500px; height: 400px;'>
+
+</div>
+<script>
+    // The map
+    mapboxgl.accessToken =
+        'pk.eyJ1IjoiaGFubmlsczk4IiwiYSI6ImNrOGgxNGs1ejAydG8zaGxmcjFhNGc3MmsifQ.bmfahnTIFCFL9n9WJAGsYw';
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/hannils98/ck8hfxoua1ftp1ioi5jjggbyj', // stylesheet location
+        center: [13.582728, 55.893180], // starting position [lng, lat]
+        zoom: 7, // starting zoom
+        minZoom: 7,
+        maxZoom: 16
+    });
+</script>
+
+{% endblock map %}
+
+{% block scripts %}
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+{{ super() }}
+{% endblock scripts %}

@@ -22,7 +22,7 @@
     {% block navbar %}
     <div id="nav">
         <nav class="navbar">
-            <a class="navbar-brand" href="/"><img id="logo" src="{{ url_for('static',filename='Logo1.jpg') }}"
+            <a class="navbar-brand" href="/"><img id="logo" src="{{ url_for('static',filename='LogoHQ.jpg') }}"
                     alt="natura logga"></a>
         <div class="login">
             <li class="nav-item dropdown">
@@ -62,6 +62,7 @@
                         {%for cat in drop_down_cats%}
                         <a href="{{ url_for('category', category=cat.name) }}">{{ cat.name }}</a>
                         {%endfor%}
+                        <a href="{{ url_for('places_index') }}">Platser A-Ö</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -116,10 +117,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
-    <script type="text/javascript">
-        var v = "{{ saved_rating }}";
-        console.log(v);
-    </script>
 
     {{ super() }}
     {% endblock scripts %}

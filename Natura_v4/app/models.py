@@ -94,7 +94,7 @@ def load_user(id):
 class places(db.Model):
     __tablename__ = 'places'
     id = db.Column(db.Integer,primary_key=True )
-    name = db.Column( db.Text)
+    name = db.Column(db.Text)
     description= db.Column(db.Text)
     source = db.Column(db.Text)
     latitude = db.Column(db.Float)
@@ -143,7 +143,7 @@ class admin_images(db.Model):
 
 
 db_url = 'postgresql://ak2195:l6kp3gsl@pgserver.mah.se/natura_v2'
-engine = create_engine(db_url, echo=True)
+engine = create_engine(db_url, client_encoding='utf8', echo=True)
 @event.listens_for(engine, "connect")
 def connect(dbapi_connection, connection_record):
     connection_record.info['pid'] = os.getpid()

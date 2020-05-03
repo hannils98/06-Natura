@@ -255,6 +255,11 @@ def place(category, name, placeid):
         
     return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, admin_images=admin_images)
 
+# the index places page
+@app.route('/index')
+def places_index():
+    all_places = db.session.query(places.name).order_by(places.name).all()
+    return render_template('places_index.html', drop_down_cats=drop_down_cats, places=all_places)
 
 # the info page
 @app.route('/info')

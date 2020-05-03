@@ -2,7 +2,8 @@
     display: block;
     width:20%;
     min-width: 160px;
-    margin-top: -5px;
+    max-width: 295px;
+    margin-top: -10px;
 }
 
 .activ{
@@ -170,16 +171,18 @@ a:hover {
 .text-center {
     color:rgba(47, 160, 8,1);
 }
+
 .footer-copyright
 {
-    box-shadow: 0 -2px  5px -2px rgb(22, 77, 4);
+    box-shadow: 0 -2px  3px -2px rgb(22, 77, 4);
    
 }
 .page-footer{
-    position: absolute;
+    position: relative;
     bottom: 0;
     width:100% ;
     height:30px;
+    margin-top:2%;
     
 }
 

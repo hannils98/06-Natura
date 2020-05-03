@@ -69,7 +69,7 @@ class DeleteUserForm(FlaskForm):
     password = PasswordField('Lösenord', validators=[DataRequired()])
     delete = SubmitField('Ta Bort')
 
-class SendQueryForm(FlaskForm):
+class ContactForm(FlaskForm):
     name = StringField('Namn', validators=[DataRequired()])
     email = StringField('E-post', validators=[DataRequired(), Email()])
     post = TextAreaField('Vad vill du säga till oss?', validators=[DataRequired(), Length(min=1, max=140)])

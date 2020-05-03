@@ -2,6 +2,7 @@ from threading import Thread
 from flask import render_template
 from flask_mail import Message
 from app import app, mail
+from app.forms import ContactForm
 
 
 def send_async_email(app, msg):
@@ -25,3 +26,12 @@ def send_password_reset_email(user):
                                          user=user, token=token),
                html_body=render_template('email/reset_password.html',
                                          user=user, token=token))
+
+def contact_send_email():
+    form = ContactForm()
+
+    send_email('Contacts Message',
+               sender=[form.email.data],
+               recipients=app.config['ADMINS'][0],
+               text_body=form.post.data,
+               html_body='')

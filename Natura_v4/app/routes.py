@@ -1,12 +1,12 @@
 from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm, SendQueryForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm, ContactForm
 from flask_login import current_user, login_user
 from app.models import User, Post, categories, places, place_has_cat
 from flask_login import logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
-from app.email import send_password_reset_email
+from app.email import send_password_reset_email,contact_send_email
 from app.forms import ResetPasswordForm
 from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
@@ -14,6 +14,7 @@ from app.rating import show_user_rating, save_user_rating, show_average_rating
 from app.image_upload import image_upload
 from app.get_images import get_user_images, get_admin_images, get_all_images
 import os
+from flask_mail import Mail, Message
 
 
 global drop_down_cats
@@ -261,9 +262,17 @@ def info():
     return render_template('info.html', drop_down_cats=drop_down_cats)
     
 # the contacts page
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
-    form = SendQueryForm()
+    form = ContactForm()
+    if form.validate() == False:
+        flash('All fields are required.')
+        return render_template('contact.html', form=form)
+    else:
+        contact_send_email()
+        flash('epost Skickade.')
+        return redirect(url_for('index'))
+    
     return render_template('contact.html', drop_down_cats=drop_down_cats, form=form)
 
 # the gallery page

@@ -276,7 +276,6 @@ def contact():
         flash('Tack för ditt meddelande. Vi kommer återkomma så fort vi kan!')
         return redirect(url_for('index'))
     else:
-        flash('Du måste fylla i alla fält.')
         return render_template('contact.html', form=form)
     
     return render_template('contact.html', drop_down_cats=drop_down_cats, form=form)

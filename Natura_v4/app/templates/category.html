@@ -3,12 +3,13 @@
 {% block main%}
 <div id="page-whole">
 <h2>{{ category }}</h2>
-<ul>
 {%for place in places%}
-<li>
-    <a href="{{ url_for('place', category=category, name=place.name, placeid=place.id) }}">{{ place.name }}</a>
-</li>
+<div class="card" style="width: 18rem;">
+    <img src="/app/static/uploads/The-Kitten-Checklist-1_1.png" class="card-img-top" alt="...">
+    <div class="card-body">
+      <a href="{{ url_for('place', category=category, name=place.name, placeid=place.id) }}" class="btn btn-success">{{ place.name }}</a>
+    </div>
+  </div>
 {%endfor%}
-</ul>
 </div>
 {% endblock%}

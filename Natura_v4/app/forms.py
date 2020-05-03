@@ -6,7 +6,7 @@ from app.models import User
 
 class LoginForm(FlaskForm):
     username = StringField('Användarnamn', validators=[DataRequired()])
-    password = PasswordField('lösenord', validators=[DataRequired()])
+    password = PasswordField('Lösenord', validators=[DataRequired()])
     remember_me = BooleanField('Kom ihåg mig')
     submit = SubmitField('Logga in')
 
@@ -16,13 +16,13 @@ class RegistrationForm(FlaskForm):
     email = StringField('E-post', validators=[DataRequired(), Email()])
     password = PasswordField('lösenord', validators=[DataRequired(), Length(min=6, message='Välj minst 6 tecken.')])
     password2 = PasswordField(
-        'Repetera lösenord', validators=[DataRequired(), EqualTo('password', message='Lösenorden måste matcha.')])
+        'Bekräfta lösenord', validators=[DataRequired(), EqualTo('password', message='Lösenorden måste matcha.')])
     submit = SubmitField('Registrera')
 
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationError('Använd ett annat användarnamn.')
+            raise ValidationError('Välj ett annat användarnamn.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -32,8 +32,8 @@ class RegistrationForm(FlaskForm):
 
 class EditProfileForm(FlaskForm):
     username = StringField('Användarnamn', validators=[DataRequired()])
-    about_me = TextAreaField('Om Mig', validators=[Length(min=0, max=140)])
-    submit = SubmitField('Skicka in')
+    about_me = TextAreaField('Om mig', validators=[Length(min=0, max=140)])
+    submit = SubmitField('Skicka')
 
     def __init__(self, original_username, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -43,13 +43,13 @@ class EditProfileForm(FlaskForm):
         if username.data != self.original_username:
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
-                raise ValidationError('Använd ett annat användarnamn.')
+                raise ValidationError('Välj ett annat användarnamn.')
 
 
 class PostForm(FlaskForm):
-    post = TextAreaField('Din Inlägg/Förslag', validators=[
+    post = TextAreaField('Gör ett nytt inlägg:', validators=[
         DataRequired(), Length(min=1, max=140)])
-    submit = SubmitField('Skicka in')
+    submit = SubmitField('Skicka')
 
 
 class ResetPasswordRequestForm(FlaskForm):
@@ -60,7 +60,7 @@ class ResetPasswordRequestForm(FlaskForm):
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Lösenord', validators=[DataRequired()])
     password2 = PasswordField(
-        'Repetera lösenord', validators=[DataRequired(), EqualTo('Lösenord')])
+        'Bekräfta lösenord', validators=[DataRequired(), EqualTo('Lösenord')])
     submit = SubmitField('Begär återställning av lösenord')
 
 

@@ -35,7 +35,7 @@ def myaccount():
         post = Post(body=form.post.data, author=current_user)
         db.session.add(post)
         db.session.commit()
-        flash('Din post är skickat!')
+        flash('Du har gjort ett inlägg!')
         return redirect(url_for('myaccount'))
     page = request.args.get('page', 1, type=int)
     posts = current_user.followed_posts().paginate(
@@ -58,7 +58,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Ogiltig username eller password')
+            flash('Ogiltig användarnamn eller lösenord. Försök igen!')
             return redirect(url_for('login'))
 
         login_user(user, remember=form.remember_me.data)
@@ -67,7 +67,7 @@ def login():
             next_page = url_for('index')
          
         return redirect(next_page)
-    return render_template('login.html', drop_down_cats=drop_down_cats, title='Loga In', form=form)
+    return render_template('login.html', drop_down_cats=drop_down_cats, title='Logga In', form=form)
     
 
 # log out function
@@ -87,9 +87,9 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        flash('Grattis, Du är medlem nu!')
+        flash('Grattis, ditt konto är nu skapat!')
         return redirect(url_for('login'))
-    return render_template('register.html', drop_down_cats=drop_down_cats, title='Skappa Konto', form=form)
+    return render_template('register.html', drop_down_cats=drop_down_cats, title='Skapa Konto', form=form)
 
 
 @app.route('/delete', methods=['GET', 'POST'])
@@ -100,10 +100,10 @@ def delete():
         delete_user = User.query.filter_by(username=form.username.data).first()
         db.session.delete(delete_user)
         db.session.commit()
-        flash('Ditt konto har raderats. Hoppas att vi ses igen.', 'success')
+        flash('Ditt konto har raderats. Hoppas att vi ses igen!', 'success')
         return redirect(url_for('logout'))
     elif user is None or not user:
-            flash('Ogiltig username eller password')
+            flash('Ogiltig användarnamn eller lösenord')
 
     return render_template('delete.html', form=form)
 
@@ -121,7 +121,8 @@ def user(username):
     prev_url = url_for('user', username=user.username, page=posts.prev_num) \
         if posts.has_prev else None
     return render_template('user.html', drop_down_cats=drop_down_cats, user=user, posts=posts.items,
-                           next_url=next_url, prev_url=prev_url, loggedin=True)
+                           next_url=next_url, prev_url=prev_url)
+
 # records the last seen time /date of user
 @app.before_request
 def before_request():
@@ -138,7 +139,7 @@ def edit_profile():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         db.session.commit()
-        flash('Dina ändringar har sparats.')
+        flash('Dina profil har uppdaterats!')
         return redirect(url_for('edit_profile'))
     elif request.method == 'GET':
         form.username.data = current_user.username
@@ -152,14 +153,14 @@ def edit_profile():
 def follow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('Användaren {} hittades inte.'.format(username))
+        flash('Användaren {} hittas inte.'.format(username))
         return redirect(url_for('myaccount'))
     if user == current_user:
         flash('Du kan inte följa dig själv!')
         return redirect(url_for('user', username=username))
     current_user.follow(user)
     db.session.commit()
-    flash('Du följer {}!'.format(username))
+    flash('Du följer nu {}!'.format(username))
     return redirect(url_for('user', username=username))
 
 # to unfollow a user
@@ -168,14 +169,14 @@ def follow(username):
 def unfollow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash('Användaren {} hittades inte.'.format(username))
+        flash('Användaren {} hittas inte.'.format(username))
         return redirect(url_for('index'))
     if user == current_user:
         flash('Du kan inte sluta följa dig själv!')
         return redirect(url_for('user', username=username))
     current_user.unfollow(user)
     db.session.commit()
-    flash('Du följer inte {}.'.format(username))
+    flash('Du följer inte längre {}.'.format(username))
     return redirect(url_for('user', username=username))
 
 # the page that shows all the posts of users
@@ -270,13 +271,13 @@ def info():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm()
-    if form.validate() == False:
-        flash('All fields are required.')
-        return render_template('contact.html', form=form)
-    else:
+    if form.validate_on_submit():
         contact_send_email()
-        flash('epost Skickade.')
+        flash('Tack för ditt meddelande. Vi kommer återkomma så fort vi kan!')
         return redirect(url_for('index'))
+    else:
+        flash('Du måste fylla i alla fält.')
+        return render_template('contact.html', form=form)
     
     return render_template('contact.html', drop_down_cats=drop_down_cats, form=form)
 

@@ -170,6 +170,22 @@ a:hover {
     margin-top: 5px;
 }
 
+.show_ratings {
+    float: right;
+    margin-right: 15%;
+    padding-left: 5%;
+}
+
+#addimage {
+    float: right;
+    margin-right: 5%;
+    
+}
+
+#addimage > h3 {
+    margin-left: 20%;
+}
+
 /*============FOOTER===========*/
 .text-center {
     color:rgba(47, 160, 8,1);

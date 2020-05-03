@@ -8,10 +8,13 @@
     <img style="height: auto; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}"
         alt="{{image}}">
     {%endfor%}
-    {%for image in user_images%}
-    <img style="height: auto; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}"
-        alt="{{image}}">
-    {%endfor%}
+    <div id="addimage">
+        {% if current_user.username != null %}
+        <h3>Lägg upp bild:</h3>
+        {{ dropzone.create(action_view='place', category=category, name=name, placeid=placeid) }}
+        {{ dropzone.config(redirect_url=url_for('place', category=category, name=name, placeid=placeid)) }}
+        {% endif %}
+    </div>
     <div class="show_ratings">
         <h4>Betyg</h4>
         <p>Medelbetyg:</p>
@@ -43,24 +46,20 @@
         {%endfor%}
     </ul>
 
+
 {% endblock %}
 
 {% block map%}
 
-    <h2>Felplacerade "bilder" är här</h2>
-
-    {% if current_user.username != null %}
-    {{ dropzone.create(action_view='place', category=category, name=name, placeid=placeid) }}
-    {{ dropzone.config(redirect_url=url_for('place', category=category, name=name, placeid=placeid)) }}
-    {% endif %}
-
+    <h2>Bilder:</h2>
+    {%for image in user_images%}
+    <img style="height: auto; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}"
+        alt="{{image}}">
+    {%endfor%}
 {% endblock map%}
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='betyg.js') }}" type="text/javascript"></script>
-<script type="text/javascript">
-    var v = "{{ saved_rating }}";
-    console.log(v);
 </script>
 {{super()}}
 {% endblock scripts %}

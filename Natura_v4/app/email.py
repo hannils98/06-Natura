@@ -29,9 +29,8 @@ def send_password_reset_email(user):
 
 def contact_send_email():
     form = ContactForm()
-
     send_email('Contacts Message',
-               sender=[form.email.data],
+               sender=form.name.data,
                recipients=app.config['ADMINS'][0],
-               text_body=[form.post.data],
+               text_body=form.post.data,
                html_body='#')

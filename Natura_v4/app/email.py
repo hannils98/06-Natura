@@ -33,5 +33,5 @@ def contact_send_email():
     send_email('Contacts Message',
                sender=[form.email.data],
                recipients=app.config['ADMINS'][0],
-               text_body=form.post.data,
-               html_body='')
+               text_body=[form.post.data],
+               html_body='#')

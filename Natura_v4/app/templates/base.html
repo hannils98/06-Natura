@@ -2,6 +2,7 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "bootstrap/fixes.html" as fixes %}
 {% block html %}
+    <link rel="icon" href="{{ url_for('static', filename='icon.ico') }}">
  <title>{% block title %}{% endblock title %}</title>
 {% block metas %}
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

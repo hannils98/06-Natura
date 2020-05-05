@@ -236,8 +236,7 @@ def category(category):
  # page related to each place
 @app.route('/<category>/<name>/<placeid>', methods=['GET', 'POST'])
 def place(category, name, placeid):
-    places_from_db = db.session.query(places.description, places.source).filter(places.name==name)
-    
+    places_from_db = db.session.query(places.description, places.source, places.longitude, places.latitude).filter(places.name==name)
     files = image_upload(placeid)
     if current_user.is_authenticated:
         if request.args.get('rating'):
@@ -277,7 +276,6 @@ def contact():
         return redirect(url_for('index'))
     else:
         return render_template('contact.html', form=form)
-    
     return render_template('contact.html', drop_down_cats=drop_down_cats, form=form)
 
 # the gallery page

@@ -48,19 +48,48 @@
 
     <a href="{{ url_for('category', category=category) }}">Tillbaka</a>
 
-{% endblock %}
-
-{% block map%}
-
     <h2>Bilder:</h2>
     {%for image in user_images%}
     <img style="height: auto; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}"
         alt="{{image}}">
     {%endfor%}
+    
+{% endblock content %}
+
+
+
+{% block map%}
+<div id='map'>
+
+</div>
+
+{%for i in info%}
+    <input type=hidden id="longitude" name="longitude" value="{{ i.longitude }}">
+    <input type=hidden id="latitude" name="latitude" value="{{ i.latitude }}">
+{%endfor%}
+
+<script>
+    // The map
+    var longitude = document.getElementById('longitude').value
+    var latitude = document.getElementById('latitude').value
+    mapboxgl.accessToken =
+        'pk.eyJ1IjoiaGFubmlsczk4IiwiYSI6ImNrOGgxNGs1ejAydG8zaGxmcjFhNGc3MmsifQ.bmfahnTIFCFL9n9WJAGsYw';
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/hannils98/ck8hfxoua1ftp1ioi5jjggbyj', // stylesheet location
+        center: [longitude, latitude], // starting position [lng, lat]
+        zoom: 20, // starting zoom
+        minZoom: 7,
+        maxZoom: 16
+    });
+</script>
+
+
 {% endblock map%}
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='betyg.js') }}" type="text/javascript"></script>
-</script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+<script src="{{ url_for( 'static', filename= 'mapplace.js')}}"></script>
 {{super()}}
 {% endblock scripts %}

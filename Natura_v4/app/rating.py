@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
-from app.models import User, places, ratings
+from app.models import User, places, ratings, user_images
 from flask_login import current_user, login_user
 from datetime import datetime
 from sqlalchemy import exc, func
@@ -22,8 +22,15 @@ def show_average_rating(place_id):
     except UnboundLocalError: # This may obsolete when using scalar and not returning avg without setting 
         return None
     except TypeError: # This catches when it is not possible to calculate average(no ratings exist for a place) 
-        return 'kan inte beräknas än'
+        return 'Kan inte beräknas än'
     
+'''def check_image(placeid):
+    try:
+        db.session.query(user_images).filter_by(userid=current_user.id, placeid=placeid)
+        return True
+    except exc.IntegrityError:
+        flash('Du måste lägga upp en bild för att ge betyg!')
+        return False'''
 
 def save_user_rating(user_rating, place_id):
     try:

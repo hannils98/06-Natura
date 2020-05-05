@@ -110,6 +110,34 @@ a:hover {
     float: left;
 }
 /*=========CONTENT AREA==========*/
+/*=======Carosel========*/
+.carousel {
+    position: relative;
+}
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.carousel-item.active {
+    display: block;
+}
+.carousel-item {
+    position: relative;
+    display: none;
+    float: left;
+    width: 100%;
+    margin-right: -100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: -webkit-transform .6s ease-in-out;
+    transition: transform .6s ease-in-out;
+    transition: transform .6s ease-in-out, -webkit-transform .6s ease-in-out;
+}
+.carousel {
+    position: relative;
+}
+/*=======Carosel end========*/
 
 #remove_user{
     float: right;
@@ -226,9 +254,6 @@ a:hover {
 }
 #login{
     margin-top:0;
-}
-#addimage{
-    margin-right: 0;
 }
 
 

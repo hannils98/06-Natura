@@ -2,7 +2,10 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "bootstrap/fixes.html" as fixes %}
 {% block html %}
-
+ <title>{% block title %}{% endblock title %}</title>
+{% block metas %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock metas %}
 {% block styles %}
 {{super()}}
 <link href="{{ url_for( 'static', filename= 'mapstyle.css')}}" rel="stylesheet">
@@ -62,6 +65,7 @@
                         {%for cat in drop_down_cats%}
                         <a href="{{ url_for('category', category=cat.name) }}">{{ cat.name }}</a>
                         {%endfor%}
+                        <div class="dropdown-divider"></div>
                         <a href="{{ url_for('places_index') }}">Platser A-Ö</a>
                     </div>
                 </li>

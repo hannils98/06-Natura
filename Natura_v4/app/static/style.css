@@ -113,6 +113,10 @@ a:hover {
 /*=======Carosel========*/
 .carousel {
     position: relative;
+    max-width: 600px;
+    margin: 20px;
+    margin-top:0px;
+    float:left;
 }
 .carousel-inner {
     position: relative;
@@ -134,8 +138,9 @@ a:hover {
     transition: transform .6s ease-in-out;
     transition: transform .6s ease-in-out, -webkit-transform .6s ease-in-out;
 }
-.carousel {
-    position: relative;
+.carousel img{
+    width: 600px;
+    height: 400px;
 }
 /*=======Carosel end========*/
 
@@ -204,12 +209,6 @@ a:hover {
     margin-top: 5px;
 }
 
-.show_ratings {
-    float: right;
-    margin-right: 15%;
-    padding-left: 5%;
-}
-
 #addimage {
     float: right;
     margin-right: 5%;
@@ -219,7 +218,13 @@ a:hover {
 #addimage > h3 {
     margin-left: 20%;
 }
-
+/*============PLACE===========*/
+#place_name{
+    margin-left: 20px;
+}
+#place_h2{
+    margin-top:290px;
+}
 /*============FOOTER===========*/
 .text-center {
     color:rgba(47, 160, 8,1);

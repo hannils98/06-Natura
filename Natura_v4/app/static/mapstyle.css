@@ -16,6 +16,11 @@
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
+.place_map{
+    width: 250px !important;
+    height: 250px !important;
+    margin:0px !important;
+}
 
 /*=============@Media========*/
 

@@ -4,16 +4,13 @@
 
 
 {% block nav %}
-  <div id="nav2">
+ <div id="nav2">
      <ul class="nav nav-tabs">
-                <li class="nav-item  ">
-                    <a class="nav-link active" href="{{ url_for('myaccount') }}">Konto</a>
+                 <li class="nav-item  ">
+                    <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Profil</a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Profil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('explore') }}">Alla inlägg</a>
+                    <a class="nav-link active" href="{{ url_for('myaccount') }}">Inlägg</a>
                 </li>
      </ul>
   </div>
@@ -22,50 +19,71 @@
 
 {% block content %}
 {{super()}}
-    <div id="remove_user">
-        <a class="btn btn-danger" href="{{ url_for('delete') }}">
-            <i class="fa fa-trash-o fa-lg"></i> Radera ditt konto </a>
-    </div>
+
 
     <table class="table table-hover">
         <tr>
-            <td width="256px"><img src="{{ user.avatar(256) }}"></td>
-            <td>
+            <td id="profile-av" width="220px"><img src="{{ user.avatar(256) }}"></td>
+            <td id="profile-txt">
+                <div >
                 <h1>{{ user.username }}</h1>
-
-                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+             {% if user.about_me %}<h4>{{ user.about_me }}</h4>{% endif %}
                 {% if user.last_seen %}
                 <p>Last seen on: {{ user.last_seen }}</p>
                 {% endif %}
                 <p>{{ user.followers.count() }} följare, {{ user.followed.count() }} följande.</p>
-                {% if user == current_user %}
-                <p><a href="{{ url_for('edit_profile') }}">Redigera din profil</a></p>
+                </div>
+            {% if user == current_user %}
+            </td>
+            <td class="btn-group-vertical">
+
+
+                 <a class="btn btn-success" href="{{ url_for('edit_profile') }}">
+                     <i class="fa fa-id-badge fa-lg"></i>  Redigera Profil</a>
+
+                    <a class="btn btn-success" href="{{ url_for('delete') }}">
+                        <i class="fa fa-picture-o"></i> Mina Bilder </a>
+
+
+                    <a class="btn btn-success" href="{{ url_for('delete') }}">
+                        <i class="fa fa-star"></i> Mina Betyg </a>
+
+                     <a class="btn btn-warning" href="{{ url_for('reset_password_request') }}">
+                        <i class="fa fa-key"></i> Ändra lösenord </a>
+
+                    <a class="btn btn-danger" href="{{ url_for('delete') }}">
+                        <i class="fa fa-trash-o fa-lg"></i> Radera ditt konto </a>
+
+
+
+
                 {% elif not current_user.is_following(user) %}
-                <p><a href="{{ url_for('follow', username=user.username) }}">Följ</a></p>
+                <p><a class="btn btn-success" href="{{ url_for('follow', username=user.username) }}"><i class="fa fa-user-plus"></i>Följ</a></p>
                 {% else %}
-                <p><a href="{{ url_for('unfollow', username=user.username) }}">Sluta följa</a></p>
+                <p><a class="btn btn-danger" href="{{ url_for('unfollow', username=user.username) }}"><i class="fa fa-user-minus"></i>Sluta följa</a></p>
                 {% endif %}
             </td>
         </tr>
     </table>
-
+{% if user != current_user %}
     {% for post in posts %}
-    {% include '_post.html' %}
-    {% endfor %}
+        {% include '_post.html' %}
+        {% endfor %}
 
-    <nav aria-label="...">
-        <ul class="pager">
-            <li class="previous{% if not prev_url %} disabled{% endif %}">
-                <a href="{{ prev_url or '#' }}">
-                    <span aria-hidden="true">&larr;</span> Nyare inlägg
-                </a>
-            </li>
-            <li class="next{% if not next_url %} disabled{% endif %}">
-                <a href="{{ next_url or '#' }}">
-                    Äldre inlägg <span aria-hidden="true">&rarr;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+        <nav aria-label="...">
+            <ul class="pager">
+                <li class="previous{% if not prev_url %} disabled{% endif %}">
+                    <a href="{{ prev_url or '#' }}">
+                        <span aria-hidden="true">&larr;</span> Nyare inlägg
+                    </a>
+                </li>
+                <li class="next{% if not next_url %} disabled{% endif %}">
+                    <a href="{{ next_url or '#' }}">
+                        Äldre inlägg <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
+{% endif %}
 {% endblock content %}

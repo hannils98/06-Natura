@@ -109,6 +109,11 @@ a:hover {
 
     float: left;
 }
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #fff;
+    background-color: rgba(47, 160, 8,1);
+}
 /*=========CONTENT AREA==========*/
 /*=======Carosel========*/
 .carousel {
@@ -144,18 +149,7 @@ a:hover {
 }
 /*=======Carosel end========*/
 
-#remove_user{
-    float: right;
-    margin:10px;
-}
 
-#delete.btn{
-   margin-bottom: 10px;
-  }
-
-  .fa-star, .fa-star-o {
-    color: #FF9800;
-}
 
 #photos {
     /* Prevent vertical gaps */
@@ -218,6 +212,7 @@ a:hover {
 #addimage > h3 {
     margin-left: 20%;
 }
+<<<<<<< Updated upstream
 /*============PLACE===========*/
 #place_name{
     margin-left: 20px;
@@ -228,6 +223,67 @@ a:hover {
 #place_h3{
     margin-top:0px;
 }
+=======
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 18px;
+    line-height: 1.42857143;
+    border-top: none;
+    margin:10px;
+}
+#profile-txt{
+    vertical-align: bottom;
+    width:60%;
+    float:left;
+
+}
+
+
+/*=========BTN=========*/
+.btn-group-vertical{
+
+    float: right;
+    margin:10px;
+    width: 30%;
+    min-width: 200px;
+}
+
+.btn-group-vertical a {
+    text-align: left;
+    padding-left: 28%;
+}
+#profile_btn{
+    float: right;
+    margin:10px;
+}
+
+#delete.btn{
+   margin-bottom: 10px;
+  }
+
+  .fa-star, .fa-star-o {
+    color: #FF9800;
+}
+.btn-outline-success {
+    color: #28a745;
+    background-color: transparent;
+    background-image: none;
+    border-color: #28a745;
+}
+
+.btn-group, .btn-group-vertical a{
+    margin: 5px 0;
+}
+#go-index{
+
+    margin:10px auto;
+    width:200px
+
+}
+
+
+
+>>>>>>> Stashed changes
 /*============FOOTER===========*/
 .text-center {
     color:rgba(47, 160, 8,1);

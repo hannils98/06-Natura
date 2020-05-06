@@ -140,7 +140,7 @@ def edit_profile():
         current_user.about_me = form.about_me.data
         db.session.commit()
         flash('Dina profil har uppdaterats!')
-        return redirect(url_for('edit_profile'))
+        return redirect(url_for('myaccount'))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
@@ -198,8 +198,7 @@ def explore():
  # user sends request for changing password
 @app.route('/reset_password_request', methods=['GET', 'POST'])
 def reset_password_request():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
+
     form = ResetPasswordRequestForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -258,8 +257,14 @@ def place(category, name, placeid):
 # the index places page
 @app.route('/index')
 def places_index():
+<<<<<<< Updated upstream
     all_places = db.session.query(places.name).order_by(places.name).all()
+=======
+    all_places = db.session.query(categories.name, places.name, places.id).select_from(places).join(place_has_cat).join(categories).order_by(places.name).all()
+
+>>>>>>> Stashed changes
     return render_template('places_index.html', drop_down_cats=drop_down_cats, places=all_places)
+
 
 # the info page
 @app.route('/info')

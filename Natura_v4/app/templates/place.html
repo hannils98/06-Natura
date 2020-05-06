@@ -37,7 +37,7 @@
     {%endfor%}
     <div id="addimage">
         {% if current_user.username != null %}
-        <h3>Lägg upp bild:</h3>
+        <h3 id="place_h3">Lägg upp bild:</h3>
         {{ dropzone.create(action_view='place', category=category, name=name, placeid=placeid) }}
         {{ dropzone.config(redirect_url=url_for('place', category=category, name=name, placeid=placeid)) }}
         {% endif %}

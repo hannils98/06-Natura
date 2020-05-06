@@ -225,6 +225,9 @@ a:hover {
 #place_h2{
     margin-top:290px;
 }
+#place_h3{
+    margin-top:0px;
+}
 /*============FOOTER===========*/
 .text-center {
     color:rgba(47, 160, 8,1);

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Natura{% endblock title %}
+
+
+{% block content %}
+
+{{ super() }}
+<div id="main_text">
+    {%if current_user.username == null %}
+    <h2>Kom ut i naturen!</h2>
+    {%else%}
+    <h2>Kom ut i naturen {{  current_user.username  }}!</h2>
+    {%endif%}
+    <p>Använd kartan för att hitta naturupplevelser nära dig</p>
+        
+</div>
+
+{% endblock content %}
+
+{% block map %}
+<div id='map'>
+
+</div>
+<script>
+    // The map
+    mapboxgl.accessToken =
+        'pk.eyJ1IjoiaGFubmlsczk4IiwiYSI6ImNrOGgxNGs1ejAydG8zaGxmcjFhNGc3MmsifQ.bmfahnTIFCFL9n9WJAGsYw';
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/hannils98/ck8hfxoua1ftp1ioi5jjggbyj', // stylesheet location
+        center: [13.582728, 55.893180], // starting position [lng, lat]
+        zoom: 7, // starting zoom
+        minZoom: 7,
+        maxZoom: 16
+    });
+</script>
+
+<p>Gå till <a href="{{ url_for('places_index') }}">alla platser</a></p>
+
+{% endblock map %}
+
+{% block scripts %}
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+<script src="{{ url_for( 'static', filename= 'mapscript.js')}}"></script>
+{{ super() }}
+{% endblock scripts %}

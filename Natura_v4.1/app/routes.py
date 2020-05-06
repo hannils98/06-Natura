@@ -109,10 +109,17 @@ def delete():
 
 
 # the profile page of user
-@app.route('/user/<username>')
+@app.route('/user/<username>', methods=['GET', 'POST'])
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(body=form.post.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Du har gjort ett inlägg!')
+        return redirect(url_for('user', username=user.username))
     page = request.args.get('page', 1, type=int)
     posts = user.posts.order_by(Post.timestamp.desc()).paginate(
         page, app.config['POSTS_PER_PAGE'], False)
@@ -121,7 +128,7 @@ def user(username):
     prev_url = url_for('user', username=user.username, page=posts.prev_num) \
         if posts.has_prev else None
     return render_template('user.html', drop_down_cats=drop_down_cats, user=user, posts=posts.items,
-                           next_url=next_url, prev_url=prev_url)
+                           next_url=next_url, prev_url=prev_url, form=form)
 
 # records the last seen time /date of user
 @app.before_request
@@ -258,10 +265,8 @@ def place(category, name, placeid):
 # the index places page
 @app.route('/index')
 def places_index():
-    all_places = db.session.query(places.name).order_by(places.name).all()
-    cat_for_nav = db.session.query(categories.name, place_has_cat.place_id).join(place_has_cat).merge_result(iterator, load=True)
-    for i in cat_for_nav:
-        print(i)
+    all_places = db.session.query(categories.name, places.name, places.id).select_from(places).join(place_has_cat).join(categories).order_by(places.name).all()
+
     return render_template('places_index.html', drop_down_cats=drop_down_cats, places=all_places)
 
 # the info page

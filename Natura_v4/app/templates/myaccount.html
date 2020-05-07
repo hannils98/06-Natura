@@ -5,18 +5,24 @@
 {% block nav %}
   <div id="nav2">
      <ul class="nav nav-tabs">
-                <li class="nav-item  ">
-                    <a class="nav-link active" href="{{ url_for('myaccount') }}">Konto</a>
+                 <li class="nav-item  ">
+                    <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Profil</a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Profil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('explore') }}">Alla inlägg</a>
+                    <a class="nav-link active" href="{{ url_for('myaccount') }}">Inlägg</a>
                 </li>
      </ul>
   </div>
 
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link active" href="{{ url_for('myaccount') }}">Inlägg</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('explore') }}">Alla Inlägg</a>
+      </li>
+
+    </ul>
 {% endblock nav %}
 
 {% block app_content %}

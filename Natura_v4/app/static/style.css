@@ -94,6 +94,9 @@ a:hover {
 .dropdown-divider{
         border-bottom: 1px solid #ddd;
 }
+.navbar{
+    margin-bottom: 0;
+}
 /*===========MAIN MENU end=========*/
 /*=========INNER MENU==========*/
 #inner_wrap{
@@ -119,10 +122,12 @@ a:hover {
 /*=======CAROUSEL========*/
 .carousel {
     position: relative;
-    max-width: 600px;
-    margin: 20px;
-    margin-top:0px;
-    float:left;
+    clear:both;
+    height:30vh;
+    width: 92vw;
+    max-width: 1300px;
+
+
 }
 .carousel-inner {
     position: relative;
@@ -144,10 +149,14 @@ a:hover {
     transition: transform .6s ease-in-out;
     transition: transform .6s ease-in-out, -webkit-transform .6s ease-in-out;
 }
-.carousel img{
-    width: 600px;
-    height: 400px;
+.carousel-item >img{
+    height:inherit;
+    object-fit: cover;
+    opacity: 0.8;
 }
+
+
+
 /*=======Carousel end========*/
 
 /*=======GALLERY==========*/

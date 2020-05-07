@@ -277,7 +277,7 @@ def contact():
         flash('Tack för ditt meddelande. Vi kommer återkomma så fort vi kan!')
         return redirect(url_for('index'))
     else:
-        return render_template('contact.html', form=form)
+        return render_template('contact.html', drop_down_cats=drop_down_cats, form=form)
     return render_template('contact.html', drop_down_cats=drop_down_cats, form=form)
 
 # the gallery page

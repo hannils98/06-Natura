@@ -12,7 +12,7 @@
     <h2>Kom ut i naturen {{  current_user.username  }}!</h2>
     {%endif%}
     <p>Använd kartan för att hitta naturupplevelser nära dig</p>
-        
+
 </div>
 
 {% endblock content %}
@@ -34,8 +34,9 @@
         maxZoom: 16
     });
 </script>
-    <div id="go-index">
-<a  class="btn btn-success" href="{{ url_for('places_index') }}"><i class="fas fa-route"></i> Gå till Alla Platser</a>
+<div id="go-index">
+    <a class="btn btn-success" href="{{ url_for('places_index') }}"><i class="fas fa-route"></i> Gå till Alla
+        Platser</a>
 </div>
 {% endblock map %}
 

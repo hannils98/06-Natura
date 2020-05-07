@@ -27,10 +27,12 @@ def send_password_reset_email(user):
                html_body=render_template('email/reset_password.html',
                                          user=user, token=token))
 
-def contact_send_email():
+def contact_email(user):
     form = ContactForm()
-    send_email('Contacts Message',
-               sender=form.name.data,
+    email=form.email.data
+    message=form.message.data
+    send_email('Message from{}'.format(email),
+               sender=app.config['ADMINS'][0],
                recipients=app.config['ADMINS'][0],
-               text_body=form.post.data,
+               text_body=message,
                html_body='#')

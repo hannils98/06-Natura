@@ -4,9 +4,7 @@
 
             <a href="{{ url_for('user', username=post.author.username) }}">
 
-                <img src={% if post.author %}"{{post.author.avatar(70) }}"
-
-                {% endif %} />
+                <img src={% if post.author %}"{{post.author.avatar(70) }}" {% endif %} />
 
             </a>
         </td>

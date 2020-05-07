@@ -2,10 +2,10 @@
 {% import "bootstrap/wtf.html" as wtf %}
 {% import "bootstrap/fixes.html" as fixes %}
 {% block html %}
-    <link rel="icon" href="{{ url_for('static', filename='icon.ico') }}">
- <title>{% block title %}{% endblock title %}</title>
+<link rel="icon" href="{{ url_for('static', filename='icon.ico') }}">
+<title>{% block title %}{% endblock title %}</title>
 {% block metas %}
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 {% endblock metas %}
 {% block styles %}
 {{super()}}
@@ -28,27 +28,27 @@
         <nav class="navbar">
             <a class="navbar-brand" href="/"><img id="logo" src="{{ url_for('static',filename='LogoHQ.jpg') }}"
                     alt="natura logga"></a>
-        <div class="login">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-default"
-                    aria-labelledby="navbarDropdownMenuLink-333">
-                    {%if current_user.username == null %}
-                    <a class="dropdown-item" href="{{ url_for('register') }}">Skapa konto</a>
-                    <a class="dropdown-item" href="{{ url_for('login') }}">Logga in</a>
-                    {%else%}
-                    <a class="dropdown-item" href="{{ url_for('myaccount') }}">Mitt konto</a>
-                    <a class="dropdown-item" href="{{ url_for('logout') }}">Logga ut</a>
-                    {%endif%}
+            <div class="login">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-default"
+                        aria-labelledby="navbarDropdownMenuLink-333">
+                        {%if current_user.username == null %}
+                        <a class="dropdown-item" href="{{ url_for('register') }}">Skapa konto</a>
+                        <a class="dropdown-item" href="{{ url_for('login') }}">Logga in</a>
+                        {%else%}
+                        <a class="dropdown-item" href="{{ url_for('myaccount') }}">Mitt konto</a>
+                        <a class="dropdown-item" href="{{ url_for('logout') }}">Logga ut</a>
+                        {%endif%}
 
-                </div>
-            </li>
+                    </div>
+                </li>
 
-        </div>
-        
+            </div>
+
             <ul class="nav nav-tabs">
                 <li class="nav-item  ">
                     <a class="nav-link " href="{{ url_for('index') }}"><i class="fa fa-home " aria-hidden="true">

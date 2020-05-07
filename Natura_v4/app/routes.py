@@ -6,7 +6,7 @@ from app.models import User, Post, categories, places, place_has_cat
 from flask_login import logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
-from app.email import send_password_reset_email,contact_send_email
+from app.email import contact_email, send_password_reset_email
 from app.forms import ResetPasswordForm
 from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
@@ -257,12 +257,9 @@ def place(category, name, placeid):
 # the index places page
 @app.route('/index')
 def places_index():
-<<<<<<< Updated upstream
-    all_places = db.session.query(places.name).order_by(places.name).all()
-=======
-    all_places = db.session.query(categories.name, places.name, places.id).select_from(places).join(place_has_cat).join(categories).order_by(places.name).all()
 
->>>>>>> Stashed changes
+    all_places = db.session.query(places.name).order_by(places.name).all()
+    #all_places = db.session.query(categories.name, places.name, places.id).select_from(places).join(place_has_cat).join(categories).order_by(places.name).all()
     return render_template('places_index.html', drop_down_cats=drop_down_cats, places=all_places)
 
 
@@ -276,7 +273,7 @@ def info():
 def contact():
     form = ContactForm()
     if form.validate_on_submit():
-        contact_send_email()
+        contact_email(user)
         flash('Tack för ditt meddelande. Vi kommer återkomma så fort vi kan!')
         return redirect(url_for('index'))
     else:

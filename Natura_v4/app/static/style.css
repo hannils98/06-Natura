@@ -94,7 +94,7 @@ a:hover {
 .dropdown-divider{
         border-bottom: 1px solid #ddd;
 }
-
+/*===========MAIN MENU end=========*/
 /*=========INNER MENU==========*/
 #inner_wrap{
     padding-left: 20px;
@@ -114,8 +114,9 @@ a:hover {
     color: #fff;
     background-color: rgba(47, 160, 8,1);
 }
+/*=========INNER MENU end==========*/
 /*=========CONTENT AREA==========*/
-/*=======Carosel========*/
+/*=======CAROUSEL========*/
 .carousel {
     position: relative;
     max-width: 600px;
@@ -147,9 +148,9 @@ a:hover {
     width: 600px;
     height: 400px;
 }
-/*=======Carosel end========*/
+/*=======Carousel end========*/
 
-
+/*=======GALLERY==========*/
 
 #photos {
     /* Prevent vertical gaps */
@@ -167,6 +168,8 @@ a:hover {
     width: 100% !important;
     height: auto !important;
   }  
+/*=======Gallery end==========*/
+
 
   #main_text{
     width:100%;
@@ -267,13 +270,13 @@ a:hover {
 #go-index{
 
     margin:10px auto;
-    width:200px
+    width:fit-content;
 
 }
+/*=========BTN end=========*/
 
 
 
->>>>>>> Stashed changes
 /*============FOOTER===========*/
 .text-center {
     color:rgba(47, 160, 8,1);
@@ -292,8 +295,9 @@ a:hover {
     margin-top:2%;
     
 }
+/*============FOOTER end===========*/
 
-/*=============@Media========*/
+/*=============@Media============*/
 
 @media only screen and (max-width: 1090px) {
 #logo{

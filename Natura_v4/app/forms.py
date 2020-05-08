@@ -14,7 +14,7 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     username = StringField('Användarnamn', validators=[DataRequired()])
     email = StringField('E-post', validators=[DataRequired(), Email()])
-    password = PasswordField('lösenord', validators=[DataRequired(), Length(min=6, message='Välj minst 6 tecken.')])
+    password = PasswordField('Lösenord', validators=[DataRequired(), Length(min=6, message='Välj minst 6 tecken.')])
     password2 = PasswordField(
         'Bekräfta lösenord', validators=[DataRequired(), EqualTo('password', message='Lösenorden måste matcha.')])
     submit = SubmitField('Registrera')
@@ -33,7 +33,7 @@ class RegistrationForm(FlaskForm):
 class EditProfileForm(FlaskForm):
     username = StringField('Användarnamn', validators=[DataRequired()])
     about_me = TextAreaField('Om mig', validators=[Length(min=0, max=140)])
-    submit = SubmitField('Skicka')
+    submit = SubmitField('Uppdatera')
 
     def __init__(self, original_username, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
@@ -70,7 +70,7 @@ class DeleteUserForm(FlaskForm):
     delete = SubmitField('Ta Bort')
 
 class ContactForm(FlaskForm):
-    name = StringField('Namn', validators=[DataRequired()])
-    email = StringField('E-post', validators=[DataRequired(), Email()])
+    name = StringField('Ditt Namn', validators=[DataRequired()])
+    email = StringField('Din E-post (ifall du vill att vi kontakta dig)')
     message = TextAreaField('Vad vill du säga till oss?', validators=[DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Skicka')

@@ -232,7 +232,7 @@ def category(category):
     places_cat = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category).order_by(places.name)
     return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_cat)
 
- # page related to each place
+# page related to each place
 @app.route('/<category>/<name>/<placeid>', methods=['GET', 'POST'])
 def place(category, name, placeid):
     places_from_db = db.session.query(places.description, places.source, places.longitude, places.latitude).filter(places.name==name)

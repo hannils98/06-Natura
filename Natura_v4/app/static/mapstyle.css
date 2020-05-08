@@ -6,15 +6,16 @@
     box-shadow: 0 0 5px rgb(201, 200, 200);
     margin-left: auto;
     margin-right: auto;
-    width:50vw;
-    height:42vh;
+    width:700px;
+    height:350px;
     max-width: 700px;
     min-width: 300px;
 }
+
 .mapboxgl-canvas{
     position: absolute;
     width: 50vw;
-    height: 42vh;
+    height: 35vh;
     max-width: 700px;
     min-width: 300px;
 }
@@ -29,7 +30,6 @@
     height: 250px !important;
     margin:0px !important;
 }
-
 /*=============@Media========*/
 
 @media only screen and (max-width: 1090px) {

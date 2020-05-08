@@ -14,7 +14,7 @@
 .mapboxgl-canvas{
     position: absolute;
     width: 50vw;
-    height: 35vh;
+    height: 42vh;
     max-width: 700px;
     min-width: 300px;
 }

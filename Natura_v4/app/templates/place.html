@@ -74,7 +74,9 @@
       
     </ul>
     <div id="is_in">
+    {%if sp_in_p|length > 0 or p_has_sp|length > 0%}
     <p><strong>Se mer:</strong></p>
+    {%endif%}
       {%if sp_in_p|length > 0%}
         <p>{{ name }} ligger i:</p>
         <ul>

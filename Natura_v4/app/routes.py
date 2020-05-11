@@ -235,7 +235,7 @@ def category(category):
  # page related to each place
 @app.route('/<category>/<name>/<placeid>', methods=['GET', 'POST'])
 def place(category, name, placeid):
-    places_from_db = db.session.query(places.description, places.source, places.longitude, places.latitude).filter(places.name==name)
+    places_from_db = db.session.query(places.description, places.source, places.longitude, places.latitude).filter(places.name==name).all()
     subplace_in_place = db.session.query(places.name).join(is_in, places.id==is_in.place_id).filter(placeid==is_in.sub_place_id).all()
     place_has_subplace = db.session.query(places.name).join(is_in, places.id==is_in.sub_place_id).filter(placeid==is_in.place_id).all()
 

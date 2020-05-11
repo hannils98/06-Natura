@@ -66,10 +66,14 @@
         {%endif%}
     </div>
     <ul>
+      
         {%for i in info%}
-        <p> {{ i.description }} </p>
-        <p> Läs mer: <a href="{{ i.source }}">{{ i.source }} </a></p>
+          <p> {{ i.description }} </p>
+          {%if info.source|length > 0%}
+          <p> Läs mer: <a href="{{ i.source }}">{{ i.source }} </a></p>
+          {%endif%}
         {%endfor%}
+      
     </ul>
     <div id="is_in">
     <p><strong>Se mer:</strong></p>

@@ -95,7 +95,8 @@
       </ul>
     {%endif%}
     </div>
-    <a href="{{ url_for('category', category=category) }}">Tillbaka</a>
+    <button type="button" class="btn btn-light"><a href="{{ url_for('category', category=category) }}">Tillbaka</a></button>
+    
 
     <h2 id="place_h2">Hitta hit:</h2>
     {%for image in user_images%}

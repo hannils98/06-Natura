@@ -69,9 +69,7 @@
       
         {%for i in info%}
           <p> {{ i.description }} </p>
-          {%if info.source|length > 0%}
           <p> Läs mer: <a href="{{ i.source }}">{{ i.source }} </a></p>
-          {%endif%}
         {%endfor%}
       
     </ul>

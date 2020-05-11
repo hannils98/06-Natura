@@ -73,7 +73,7 @@
     </ul>
     <div id="is_in">
     <p><strong>Se mer:</strong></p>
-      {%if sp_in_p is defined%}
+      {%if sp_in_p|length > 0%}
         <p>{{ name }} ligger i:</p>
         <ul>
         {%for place in sp_in_p%}
@@ -82,7 +82,7 @@
         </ul>
     {%endif%}
 
-    {%if p_has_sp is defined%}
+    {%if p_has_sp|length > 0%}
       <p>{{ name }} inkluderar:</p>
         <ul>
         {%for place in p_has_sp%}

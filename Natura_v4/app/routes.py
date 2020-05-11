@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm, ContactForm
 from flask_login import current_user, login_user
-from app.models import User, Post, categories, places, place_has_cat
+from app.models import User, Post, categories, places, place_has_cat, is_in
 from flask_login import logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
@@ -236,6 +236,9 @@ def category(category):
 @app.route('/<category>/<name>/<placeid>', methods=['GET', 'POST'])
 def place(category, name, placeid):
     places_from_db = db.session.query(places.description, places.source, places.longitude, places.latitude).filter(places.name==name)
+    subplace_in_place = db.session.query(places.name).join(is_in, places.id==is_in.place_id).filter(placeid==is_in.sub_place_id)
+    place_has_subplace = db.session.query(places.name).join(is_in, places.id==is_in.sub_place_id).filter(placeid==is_in.place_id)
+
     files = image_upload(placeid)
     if current_user.is_authenticated:
         if request.args.get('rating'):
@@ -252,7 +255,7 @@ def place(category, name, placeid):
         admin_images = get_admin_images(placeid)
     average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
         
-    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, admin_images=admin_images)
+    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, admin_images=admin_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace)
 
 # the index places page
 @app.route('/index')

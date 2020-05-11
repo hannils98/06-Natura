@@ -95,6 +95,19 @@ a:hover {
 .navbar{
     margin-bottom: 0;
 }
+#is_in {
+    font-size: smaller;
+}
+
+#is_in > p {
+    margin: 0%;
+}
+#is_in > ul {
+    list-style: none;
+
+}
+
+
 /*===========MAIN MENU end=========*/
 /*=========INNER MENU==========*/
 #inner_wrap{

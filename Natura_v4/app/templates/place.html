@@ -71,7 +71,26 @@
         <p> Läs mer: <a href="{{ i.source }}">{{ i.source }} </a></p>
         {%endfor%}
     </ul>
+    <div id="is_in">
+    <p><strong>Se mer:</strong></p>
+      {%if sp_in_p is defined%}
+        <p>{{ name }} ligger i:</p>
+        <ul>
+        {%for place in sp_in_p%}
+          <li><a href="#">{{ place.name }}</a></li>
+        {%endfor%}
+        </ul>
+    {%endif%}
 
+    {%if p_has_sp is defined%}
+      <p>{{ name }} inkluderar:</p>
+        <ul>
+        {%for place in p_has_sp%}
+          <li><a href="#">{{ place.name }}</a></li>
+        {%endfor%}
+      </ul>
+    {%endif%}
+    </div>
     <a href="{{ url_for('category', category=category) }}">Tillbaka</a>
 
     <h2 id="place_h2">Hitta hit:</h2>

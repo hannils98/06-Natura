@@ -39,7 +39,7 @@
                         <a class="dropdown-item" href="{{ url_for('register') }}">Skapa konto</a>
                         <a class="dropdown-item" href="{{ url_for('login') }}">Logga in</a>
                         {%else%}
-                        <a class="dropdown-item" href="{{ url_for('myaccount') }}">Mitt konto</a>
+                        <a class="dropdown-item" href="{{ url_for('user', username=current_user.username) }}">Mitt konto</a>
                         <a class="dropdown-item" href="{{ url_for('logout') }}">Logga ut</a>
                         {%endif%}
 

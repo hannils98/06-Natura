@@ -50,16 +50,16 @@
 
             <ul class="nav nav-tabs">
                 <li class="nav-item  ">
-                    <a class="nav-link " href="{{ url_for('index') }}"><i class="fa fa-home " aria-hidden="true">
+                    <a class="nav-link " href="{{ url_for('index') }}"><i class="fas fa-home " aria-hidden="true">
                             Start</i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ url_for('gallery') }}"> <i class="fa fa-picture-o "
+                    <a class="nav-link " href="{{ url_for('gallery') }}"> <i class="fas fa-image "
                             aria-hidden="true"> Galleri</i></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                        aria-expanded="false"><i class="fa fa-list " aria-hidden="true"> Kategorier</i>
+                        aria-expanded="false"><i class="fas fa-th-list " aria-hidden="true"> Kategorier</i>
                     </a>
                     <div class="dropdown-menu">
                         {%for cat in drop_down_cats%}
@@ -70,11 +70,11 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('info') }}"><i class="fa fa-info-circle " aria-hidden="true">
+                    <a class="nav-link" href="{{ url_for('info') }}"><i class="fas fa-info-circle " aria-hidden="true">
                             Info</i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('contact') }}"><i class="fa fa-address-card-o "
+                    <a class="nav-link" href="{{ url_for('contact') }}"><i class="fas fa-at "
                             aria-hidden="true"> Kontakt</i>
                     </a>
                 </li>

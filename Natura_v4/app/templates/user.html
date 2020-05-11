@@ -59,10 +59,10 @@
 
             {% elif not current_user.is_following(user) %}
             <p><a class="btn btn-success" href="{{ url_for('follow', username=user.username) }}"><i
-                        class="fas fa-user-plus"></i>Följ</a></p>
+                        class="fas fa-user-plus"></i> Följ</a></p>
             {% else %}
             <p><a class="btn btn-danger" href="{{ url_for('unfollow', username=user.username) }}"><i
-                        class="fas fa-user-minus"></i>Sluta följa</a></p>
+                        class="fas fa-user-slash"></i> Sluta följa</a></p>
             {% endif %}
         </td>
     </tr>

@@ -70,7 +70,7 @@ class DeleteUserForm(FlaskForm):
     delete = SubmitField('Ta Bort')
 
 class ContactForm(FlaskForm):
-    name = StringField('Ditt Namn', validators=[DataRequired()])
-    email = StringField('Din E-post (ifall du vill att vi kontakta dig)')
+    name = StringField('Ditt namn', validators=[DataRequired()])
+    email = StringField('Din e-post (ifall du vill att vi kontakta dig)')
     message = TextAreaField('Vad vill du säga till oss?', validators=[DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Skicka')

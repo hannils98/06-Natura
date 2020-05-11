@@ -2,14 +2,14 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 {% block title %}Mitt Konto{% endblock title %}
 {% block app_content %}
-<div id=" delete">
+<div id="my_ratings">
 <button type="button" class="btn btn-light"><a href="{{ url_for('category', category=category) }}">Tillbaka</a></button>
 
-    <h1>Radera Konton</h1>
-    <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
-        </div>
+    <h1>Mina betyg</h1>
+    <!---{%for rating in my_ratings%}
+    {{ rating.name + str(rating.ratings) }}
+    {%endfor%}--->
+
     </div>
 </div>
 {%endblock%}

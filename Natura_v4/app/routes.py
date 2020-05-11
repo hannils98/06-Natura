@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm, ContactForm
 from flask_login import current_user, login_user
-from app.models import User, Post, categories, places, place_has_cat, is_in
+from app.models import User, Post, categories, places, place_has_cat, is_in, ratings
 from flask_login import logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
@@ -91,6 +91,13 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', drop_down_cats=drop_down_cats, title='Skapa Konto', form=form)
 
+@app.route('/my_ratings', methods=['GET', 'POST'])
+@login_required
+def view_my_ratings():
+    my_ratings = db.session.query(ratings.ratings, places.name).join(places).filter(ratings.userid==current_user.id).all()
+    for i in my_ratings:
+        print(i)
+    return render_template('my_ratings.html', drop_down_cats=drop_down_cats, my_ratings=my_ratings)
 
 @app.route('/delete', methods=['GET', 'POST'])
 @login_required

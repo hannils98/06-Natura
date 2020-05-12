@@ -60,6 +60,33 @@ function show_user_rating() {
     }
 }
 
+function view_my_ratings() {
+    
+    var ratings_list = document.getElementById('my_ratings').getElementsByTagName('span');
+    const numberOfRatings = ratings_list.length;
+    
 
-show_average_rating();
-show_user_rating();
+    for (let i = 0; i < numberOfRatings; i++) {
+        var rating = document.getElementById('rating' + (i+1)).innerHTML;
+        document.getElementById('rating' + (i+1)).innerHTML = "";
+        for (let j = 1; j < 6; j++) {
+            var star = document.createElement('span');
+            star.classList.add('fa');
+            if (rating < j) {
+                console.log(rating + " " +j)
+                star.classList.add('fa-star-o');
+            }else {
+                star.classList.add('fa-star');
+            }
+            
+            document.getElementById('rating' + (i+1)).appendChild(star);
+            
+        }
+    } 
+        
+}
+
+
+
+
+

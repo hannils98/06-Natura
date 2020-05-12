@@ -8,16 +8,17 @@
     <h1>Mina betyg</h1>
     <ul>
         {%for rating in my_ratings%}
-            <li>{{ rating[1] }} <span class="my_rating">{{rating.ratings }}</span></li>
+            <li>{{ rating[1] }} <span class="my_rating" id="rating{{ loop.index }}">{{rating.ratings }}</span></li>
+        
         {%endfor%}
     </ul>
-    
-
-
-    </div>
 </div>
 {%endblock%}
+
 {% block scripts %}
-<script src="{{ url_for('static', filename='betygtemp.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='betyg.js') }}" type="text/javascript"></script>
+<script>
+    view_my_ratings();
+</script>
 {{super()}}
 {% endblock scripts %}

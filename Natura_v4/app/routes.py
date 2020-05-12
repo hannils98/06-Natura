@@ -95,8 +95,12 @@ def register():
 @login_required
 def my_ratings():
     my_ratings = db.session.query(ratings.ratings, places.name).join(places).filter(ratings.userid==current_user.id).all()
-    for i in my_ratings:
-        print(i)
+    
+    i = 0
+    for rating in my_ratings:
+        r = i
+        i += 1
+        print(r)
     return render_template('my_ratings.html', drop_down_cats=drop_down_cats, my_ratings=my_ratings)
 
 @app.route('/delete', methods=['GET', 'POST'])

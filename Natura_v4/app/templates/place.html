@@ -31,10 +31,7 @@
   </div>
 {{super()}}
 
-    {%for image in admin_images%}
-    <img style="height: auto; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}"
-        alt="{{image}}">
-    {%endfor%}
+
     <div id="addimage">
         {% if current_user.username != null %}
         <h3 id="place_h3">Lägg upp bild:</h3>

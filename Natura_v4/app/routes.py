@@ -93,7 +93,7 @@ def register():
 
 @app.route('/my_ratings', methods=['GET', 'POST'])
 @login_required
-def view_my_ratings():
+def my_ratings():
     my_ratings = db.session.query(ratings.ratings, places.name).join(places).filter(ratings.userid==current_user.id).all()
     for i in my_ratings:
         print(i)

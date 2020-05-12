@@ -60,5 +60,6 @@ function show_user_rating() {
     }
 }
 
+
 show_average_rating();
 show_user_rating();

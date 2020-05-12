@@ -6,10 +6,18 @@
 <button type="button" class="btn btn-light"><a href="{{ url_for('category', category=category) }}">Tillbaka</a></button>
 
     <h1>Mina betyg</h1>
-    <!---{%for rating in my_ratings%}
-    {{ rating.name + str(rating.ratings) }}
-    {%endfor%}--->
+    <ul>
+        {%for rating in my_ratings%}
+            <li>{{ rating[1] }} <span class="my_rating">{{rating.ratings }}</span></li>
+        {%endfor%}
+    </ul>
+    
+
 
     </div>
 </div>
 {%endblock%}
+{% block scripts %}
+<script src="{{ url_for('static', filename='betygtemp.js') }}" type="text/javascript"></script>
+{{super()}}
+{% endblock scripts %}

@@ -46,5 +46,5 @@ def image_upload(placeid):
             db.session.add(image)
             db.session.commit()
         session['file_urls'] = file_urls
-        return "uploading..."
+        return "Laddar upp..."
         

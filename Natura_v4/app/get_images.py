@@ -1,4 +1,4 @@
-from app.models import user_images, admin_images
+from app.models import user_images
 from app import app, db
 from flask_login import current_user, login_user, logout_user, login_required
 

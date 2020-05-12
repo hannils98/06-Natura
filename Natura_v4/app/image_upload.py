@@ -29,12 +29,11 @@ def image_upload(placeid):
     if "file_urls" not in session:
         session['file_urls'] = []
     # list to hold our uploaded image urls
-        file_urls = session['file_urls'] # moved it one tab, fix so x doesnt show when uploading
+    file_urls = session['file_urls'] # moved it one tab, fix so x doesnt show when uploading
     # handle image upload from Dropzone
     if request.method == 'POST':
         file_obj = request.files
         for f in file_obj:
-            file_urls = []
             file = request.files.get(f) 
             # save the file with to our photo folder
             filename = photos.save(file, name=file.filename)

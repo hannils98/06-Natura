@@ -31,12 +31,11 @@
   </div>
 {{super()}}
 
-
     <div id="addimage">
         {% if current_user.username != null %}
         <h3 id="place_h3">Lägg upp bild:</h3>
-        {{ dropzone.create(action_view='place', category=category, name=name, placeid=placeid) }}
-        {{ dropzone.config(redirect_url=url_for('place', category=category, name=name, placeid=placeid)) }}
+        {{ dropzone.create(action_view='place', name=name, placeid=placeid) }}
+        {{ dropzone.config(redirect_url=url_for('place', name=name, placeid=placeid)) }}
         {% endif %}
     </div>
     <div class="show_ratings">
@@ -87,18 +86,19 @@
       <p>{{ name }} inkluderar:</p>
         <ul>
         {%for place in p_has_sp%}
-          <li><a href="#">{{ place.name }}</a></li>
+          <li><a href="{{ url_for('place', name=place.name, placeid=place.id) }}">{{ place.name }}</a></li>
         {%endfor%}
       </ul>
     {%endif%}
     </div>
-    <button type="button" class="btn btn-light"><a href="{{ url_for('category', category=category) }}">Tillbaka</a></button>
+    <button type="button" class="btn btn-light"><a href="/">Tillbaka</a></button>
     
+    {%for image in user_images%}
+    <img style="height: auto; width: 200px; padding: 10px; display: block;" src="/app/static/uploads/{{image}}"
+        alt="{{image}}">
+    {%endfor%}
 
     <h2 id="place_h2">Hitta hit:</h2>
-    {%for image in user_images%}
-    
-    {%endfor%}
     
 {% endblock content %}
 

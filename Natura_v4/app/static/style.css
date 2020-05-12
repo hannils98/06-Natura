@@ -95,17 +95,7 @@ a:hover {
 .navbar{
     margin-bottom: 0;
 }
-#is_in {
-    font-size: smaller;
-}
 
-#is_in > p {
-    margin: 0%;
-}
-#is_in > ul {
-    list-style: none;
-
-}
 
 
 /*===========MAIN MENU end=========*/
@@ -170,6 +160,24 @@ a:hover {
 
 #place_h3{
     margin-top:0px;
+}
+
+#is_in {
+    font-size: smaller;
+}
+
+#is_in > p {
+    margin: 0%;
+}
+#is_in > ul {
+    list-style: none;
+
+}
+
+/*=======MY ACCOUNT=======*/
+
+#my_ratings > ul {
+    list-style: none;
 }
 /*=======GALLERY==========*/
 

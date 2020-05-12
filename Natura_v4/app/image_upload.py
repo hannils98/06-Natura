@@ -34,6 +34,7 @@ def image_upload(placeid):
     if request.method == 'POST':
         file_obj = request.files
         for f in file_obj:
+            file_urls = []
             file = request.files.get(f) 
             # save the file with to our photo folder
             filename = photos.save(file, name=file.filename)

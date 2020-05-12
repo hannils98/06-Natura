@@ -91,9 +91,9 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', drop_down_cats=drop_down_cats, title='Skapa Konto', form=form)
 
-@app.route('/my_ratings', methods=['GET', 'POST'])
+@app.route('/user/<username>/my_ratings', methods=['GET', 'POST'])
 @login_required
-def my_ratings():
+def my_ratings(username):
     my_ratings = db.session.query(ratings.ratings, places.name).join(places).filter(ratings.userid==current_user.id).all()
     
     i = 0
@@ -103,9 +103,15 @@ def my_ratings():
         print(r)
     return render_template('my_ratings.html', drop_down_cats=drop_down_cats, my_ratings=my_ratings)
 
-@app.route('/delete', methods=['GET', 'POST'])
+@app.route('/user/<username>/my_images', methods=['GET', 'POST'])
 @login_required
-def delete():
+def my_images(username):
+
+    return render_template('my_images.html')
+
+@app.route('/user/<username>/delete', methods=['GET', 'POST'])
+@login_required
+def delete(username):
     form = DeleteUserForm()
     if form.validate_on_submit():
         delete_user = User.query.filter_by(username=form.username.data).first()

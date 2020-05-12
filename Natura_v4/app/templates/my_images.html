@@ -2,15 +2,10 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 {% block title %}Mitt Konto{% endblock title %}
 {% block app_content %}
-<div id="delete">
+<div id="my_images">
 
-    <h1>Radera Konton</h1>
-    <div class="row">
-        <div class="col-md-4">
-            {{ wtf.quick_form(form) }}
-        </div>
-    </div>
-</div>
+    <h1>Mina bilder</h1>
+    
 <button type="button" class="btn btn-light"><a href="{{ url_for('user', username=current_user.username) }}">Tillbaka</a></button>
 
 {%endblock%}

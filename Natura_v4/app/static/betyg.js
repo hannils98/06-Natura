@@ -73,7 +73,6 @@ function view_my_ratings() {
             var star = document.createElement('span');
             star.classList.add('fa');
             if (rating < j) {
-                console.log(rating + " " +j)
                 star.classList.add('fa-star-o');
             }else {
                 star.classList.add('fa-star');

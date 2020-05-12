@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 
 def get_user_images(placeid):
     images_list = []
-    images = db.session.query(user_images.alt).filter(user_images.placeid==placeid)
+    images = db.session.query(user_images.imageid).filter(user_images.placeid==placeid)
     for image in images:
         for a in image:
             images_list.append(a)
@@ -12,7 +12,7 @@ def get_user_images(placeid):
 
 def get_all_images():
     images_list = []
-    images = db.session.query(user_images.alt)
+    images = db.session.query(user_images.imageid)
     for image in images:
         for a in image:
             images_list.append(a)

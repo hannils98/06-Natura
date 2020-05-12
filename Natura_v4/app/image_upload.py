@@ -42,7 +42,7 @@ def image_upload(placeid):
             file_urls.append(photos.url(filename))
             # save to database
             date = datetime.utcnow()
-            image = user_images(userid=current_user.id, placeid=placeid, alt=filename, datetime=date)
+            image = user_images(userid=current_user.id, placeid=placeid, imageid=filename, datetime=date)
             db.session.add(image)
             db.session.commit()
         session['file_urls'] = file_urls

@@ -265,14 +265,12 @@ def place(category, name, placeid):
         saved_rating = show_user_rating(placeid)# Done after save_user_rating, so value is shown from start
         image_upload(placeid)
         user_images = get_user_images(placeid)
-        admin_images = get_admin_images(placeid)
     else:
         saved_rating = None
         user_images = get_user_images(placeid)
-        admin_images = get_admin_images(placeid)
     average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
         
-    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, admin_images=admin_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace)
+    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace)
 
 # the index places page
 @app.route('/index')

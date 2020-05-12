@@ -247,12 +247,21 @@ a:hover {
 }
 #profile-txt{
     vertical-align: bottom;
-    width:60%;
+    width:20vw;
+    min-width: 160px;
+    height:auto;
     float:left;
 
 }
 
+.table>tbody>tr>td>img {
+    width:100%;
 
+}
+#profile-av{
+    width:18vw;
+    min-width: 220px;
+}
 /*=========BTN=========*/
 .btn-group-vertical{
 
@@ -264,7 +273,7 @@ a:hover {
 
 .btn-group-vertical a {
     text-align: left;
-    padding-left: 28%;
+    padding-left: 3vw;
 }
 #profile_btn{
     float: right;
@@ -286,7 +295,7 @@ a:hover {
 }
 
 .btn-group, .btn-group-vertical a{
-    margin: 5px 0;
+    margin: 3px 0;
 }
 #go-index{
 
@@ -330,19 +339,29 @@ a:hover {
 }
 .navbar-brand{
     float: none;
+    line-height:1.8;
 }
-#login{
-    margin-top:0;
-}
-
-
-
-
+.login{
+    margin:0;
 }
 
-@media only screen and (max-width: 780px) {
 
 
 
-    
 }
+
+
+
+@media only screen and (max-width: 635px) {
+
+
+#profile-av {
+    display:block;
+}
+.table>tbody>tr>td{
+    width:80%;
+}
+.btn-group-vertical{
+    float: none;
+}
+

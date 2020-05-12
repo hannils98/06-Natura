@@ -10,17 +10,17 @@ def get_user_images(placeid):
             images_list.append(a)
     return images_list
 
-def get_admin_images(placeid):
+def get_all_images():
     images_list = []
-    images = db.session.query(admin_images.alt).filter(admin_images.placeid==placeid)
+    images = db.session.query(user_images.alt)
     for image in images:
         for a in image:
             images_list.append(a)
     return images_list
 
-def get_all_images():
+def get_my_images():
     images_list = []
-    images = db.session.query(user_images.alt)
+    images = db.session.query(user_images.imageid).filter(user_images.userid==current_user.id).all()
     print(images)
     for image in images:
         for a in image:

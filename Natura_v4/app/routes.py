@@ -12,7 +12,7 @@ from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from app.rating import show_user_rating, save_user_rating, show_average_rating
 from app.image_upload import image_upload
-from app.get_images import get_user_images, get_admin_images, get_all_images
+from app.get_images import get_user_images, get_all_images, get_my_images
 import os
 from flask_mail import Mail, Message
 
@@ -106,7 +106,7 @@ def my_ratings(username):
 @app.route('/user/<username>/my_images', methods=['GET', 'POST'])
 @login_required
 def my_images(username):
-
+    my_images = get_my_images()
     return render_template('my_images.html')
 
 @app.route('/user/<username>/delete', methods=['GET', 'POST'])

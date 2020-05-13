@@ -62,7 +62,7 @@ function show_user_rating() {
 
 function view_my_ratings() {
     
-    var ratings_list = document.getElementById('my_ratings').getElementsByTagName('span');
+    var ratings_list = document.getElementById('my_ratings').getElementsByClassName('my_rating');
     const numberOfRatings = ratings_list.length;
     
 
@@ -85,7 +85,25 @@ function view_my_ratings() {
         
 }
 
+function change_my_rating() {
+    var placeName = document.getElementById('my_ratings').getElementsByClassName('change_rating');
+    const numberOfPlaces = placeName.length;
+    for (let i = 0; i < numberOfPlaces; i++) {
+        
+        placeName[i].addEventListener("click", function () {
+            var i = 0
+            for (var stars in placeName) {
+                stars = document.getElementById('rating' + (i+1)).getElementsByClassName('fa');
+                i++;
+                console.log(stars)
+            }
+    
+    
 
-
+        })
+    }     
+        
+    
+}
 
 

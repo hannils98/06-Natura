@@ -31,7 +31,7 @@
                 {% if user.last_seen %}
                 <p>Last seen on: {{ user.last_seen }}</p>
                 {% endif %}
-                <p>{{ user.followers.count() }} följare, {{ user.followed.count() }} följande.</p>
+                <p>{{ user.followers.count() }} följare, {{ user.followed.count() }} följer.</p>
             </div>
             {% if user == current_user %}
         </td>

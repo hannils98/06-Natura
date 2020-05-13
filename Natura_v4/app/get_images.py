@@ -21,7 +21,6 @@ def get_all_images():
 def get_my_images():
     images_list = []
     images = db.session.query(user_images.imageid).filter(user_images.userid==current_user.id).all()
-    print(images)
     for image in images:
         for a in image:
             images_list.append(a)

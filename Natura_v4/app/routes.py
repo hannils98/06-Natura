@@ -107,7 +107,7 @@ def my_ratings(username):
 @login_required
 def my_images(username):
     my_images = get_my_images()
-    return render_template('my_images.html')
+    return render_template('my_images.html', images=my_images)
 
 @app.route('/user/<username>/delete', methods=['GET', 'POST'])
 @login_required

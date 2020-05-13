@@ -3,8 +3,10 @@
 {% block title %}Mitt Konto{% endblock title %}
 {% block app_content %}
 <div id="my_images">
-
     <h1>Mina bilder</h1>
+    {%for image in images%}
+        {{ image }}
+    {%endfor%}
     
 <button type="button" class="btn btn-light"><a href="{{ url_for('user', username=current_user.username) }}">Tillbaka</a></button>
 

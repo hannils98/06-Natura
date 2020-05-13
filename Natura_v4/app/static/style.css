@@ -128,7 +128,7 @@ a:hover {
 .carousel {
     position: relative;
     max-width: 600px;
-    margin: 20px;
+    margin-right: 20px;
     margin-top:0px;
     float:left;
 }
@@ -158,26 +158,28 @@ a:hover {
 }
 /*=======Carousel end========*/
 /*============PLACE===========*/
-#place_name{
-    margin-left: 20px;
-}
 
-#place_h3{
+#add_pic_h3{
     margin-top:0px;
 }
-
+#up{
+    height:410px;
+}
 #is_in {
     font-size: smaller;
 }
-
 #is_in > p {
     margin: 0%;
 }
 #is_in > ul {
     list-style: none;
-
 }
 
+.show_ratings{
+    float:right;
+    padding: 20px;
+    padding-top:0;
+}
 /*=======MY ACCOUNT=======*/
 
 #my_ratings > ul {
@@ -241,7 +243,7 @@ a:hover {
 
 #addimage {
     float: right;
-    margin-right: 5%;
+    margin-right: 700px;
     
 }
 

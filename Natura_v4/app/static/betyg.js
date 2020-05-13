@@ -91,19 +91,23 @@ function change_my_rating() {
     for (let i = 0; i < numberOfPlaces; i++) {
         
         placeName[i].addEventListener("click", function () {
-            var i = 0
+            var j = 0
             for (var stars in placeName) {
-                stars = document.getElementById('rating' + (i+1)).getElementsByClassName('fa');
-                i++;
-                console.log(stars)
+                stars = document.getElementById('rating' + (i+1)).getElementsByClassName('fa')
+                
+                for (let i = 0; i < stars.length; i++) {
+                    
+                    
+                    stars[j].classList.remove("fa-star");
+                    stars[j].classList.add("fa-star-o");
+                    
+                }
+                
+                j++;
+
             }
-    
-    
 
-        })
-    }     
-        
-    
+        });
+
+    }   
 }
-
-

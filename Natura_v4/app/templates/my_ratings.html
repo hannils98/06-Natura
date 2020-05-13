@@ -4,6 +4,7 @@
 {% block app_content %}
 <div id="my_ratings">
     <h1>Mina betyg</h1>
+    <p>För att ändra ett betyg så trycker du på namnet på platsen.</p>
     <ul>
         {%for rating in my_ratings%}
             <li><span class="change_rating">{{ rating[1] }}</span> <span class="my_rating" id="rating{{ loop.index }}">{{rating.ratings }}</span></li>

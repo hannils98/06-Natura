@@ -5,24 +5,47 @@
   
 {{super()}}
 <div id="up">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="/app/static/uploads/{{user_images[0]}}" class="d-block w-100" alt="user_images[0]">
-        </div>
-        <div class="carousel-item">
-          <img src="/app/static/uploads/{{user_images[2]}}" class="d-block w-100" alt="user_images[2]">
-        </div>
-        <div class="carousel-item">
-          <img src="/app/static/uploads/{{user_images[4]}}" class="d-block w-100" alt="user_images[4]">
-        </div>
+  <!-- placeholder carousel -->
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/app/static/uploads/ice.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/app/static/uploads/field.jpg" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="/app/static/uploads/flower.jpg" class="d-block w-100" alt="...">
       </div>
     </div>
+  </div>
+  
+  <!-- the 'right' carousel
+  <div id="up">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/app/static/uploads/{{user_images[0]}}" class="d-block w-100" alt="user_images[0]">
+          </div>
+          <div class="carousel-item">
+            <img src="/app/static/uploads/{{user_images[2]}}" class="d-block w-100" alt="user_images[2]">
+          </div>
+          <div class="carousel-item">
+            <img src="/app/static/uploads/{{user_images[4]}}" class="d-block w-100" alt="user_images[4]">
+          </div>
+        </div>
+      </div>
+      -->
     <h2 id="place_name">{{ name }}</h2>
     
     <div class="show_ratings">

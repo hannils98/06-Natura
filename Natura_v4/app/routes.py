@@ -12,7 +12,7 @@ from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from app.rating import show_user_rating, save_user_rating, show_average_rating
 from app.image_upload import image_upload
-from app.get_images import get_user_images, get_admin_images, get_all_images
+from app.get_images import get_user_images, get_all_images, get_my_images
 import os
 from flask_mail import Mail, Message
 
@@ -91,17 +91,27 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', drop_down_cats=drop_down_cats, title='Skapa Konto', form=form)
 
-@app.route('/my_ratings', methods=['GET', 'POST'])
+@app.route('/user/<username>/my_ratings', methods=['GET', 'POST'])
 @login_required
-def view_my_ratings():
+def my_ratings(username):
     my_ratings = db.session.query(ratings.ratings, places.name).join(places).filter(ratings.userid==current_user.id).all()
-    for i in my_ratings:
-        print(i)
+    
+    i = 0
+    for rating in my_ratings:
+        r = i
+        i += 1
+        print(r)
     return render_template('my_ratings.html', drop_down_cats=drop_down_cats, my_ratings=my_ratings)
 
-@app.route('/delete', methods=['GET', 'POST'])
+@app.route('/user/<username>/my_images', methods=['GET', 'POST'])
 @login_required
-def delete():
+def my_images(username):
+    my_images = get_my_images()
+    return render_template('my_images.html', images=my_images)
+
+@app.route('/user/<username>/delete', methods=['GET', 'POST'])
+@login_required
+def delete(username):
     form = DeleteUserForm()
     if form.validate_on_submit():
         delete_user = User.query.filter_by(username=form.username.data).first()
@@ -147,7 +157,7 @@ def edit_profile():
         current_user.about_me = form.about_me.data
         db.session.commit()
         flash('Dina profil har uppdaterats!')
-        return redirect(url_for('myaccount'))
+        return redirect(url_for('user', username=current_user.username))
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
@@ -240,29 +250,26 @@ def category(category):
     return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_cat)
 
  # page related to each place
-@app.route('/<category>/<name>/<placeid>', methods=['GET', 'POST'])
-def place(category, name, placeid):
+@app.route('/<name>/<placeid>', methods=['GET', 'POST'])
+def place(name, placeid):
     places_from_db = db.session.query(places.description, places.source, places.longitude, places.latitude).filter(places.name==name).all()
-    subplace_in_place = db.session.query(places.name).join(is_in, places.id==is_in.place_id).filter(placeid==is_in.sub_place_id).all()
-    place_has_subplace = db.session.query(places.name).join(is_in, places.id==is_in.sub_place_id).filter(placeid==is_in.place_id).all()
+    subplace_in_place = db.session.query(places.name, places.id).join(is_in, places.id==is_in.place_id).filter(placeid==is_in.sub_place_id).all()
+    place_has_subplace = db.session.query(places.name, places.id, ).join(is_in, places.id==is_in.sub_place_id).filter(placeid==is_in.place_id).all()
 
     files = image_upload(placeid)
     if current_user.is_authenticated:
         if request.args.get('rating'):
             user_rating = request.args.get('rating')
-
             save_user_rating(user_rating, placeid)
         saved_rating = show_user_rating(placeid)# Done after save_user_rating, so value is shown from start
         image_upload(placeid)
         user_images = get_user_images(placeid)
-        admin_images = get_admin_images(placeid)
     else:
         saved_rating = None
         user_images = get_user_images(placeid)
-        admin_images = get_admin_images(placeid)
     average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
         
-    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, category=category, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, admin_images=admin_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace)
+    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace)
 
 # the index places page
 @app.route('/index')
@@ -293,4 +300,3 @@ def contact():
 def gallery():
     all_images = get_all_images()
     return render_template('gallery.html', drop_down_cats=drop_down_cats, all_images=all_images)
-

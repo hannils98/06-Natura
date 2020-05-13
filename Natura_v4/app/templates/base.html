@@ -50,16 +50,16 @@
 
             <ul class="nav nav-tabs">
                 <li class="nav-item  ">
-                    <a class="nav-link " href="{{ url_for('index') }}"><i class="fas fa-home " aria-hidden="true">
-                            Start</i></a>
+                    <a class="nav-link " href="{{ url_for('index') }}"><i class="fas fa-home " aria-hidden="true"><span class="fa-icon-innter-text">Start</span>
+                            </i></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="{{ url_for('gallery') }}"> <i class="fas fa-image "
-                            aria-hidden="true"> Galleri</i></a>
+                            aria-hidden="true"><span class="fa-icon-innter-text">Galleri</span></i></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                        aria-expanded="false"><i class="fas fa-th-list " aria-hidden="true"> Kategorier</i>
+                        aria-expanded="false"><i class="fas fa-th-list " aria-hidden="true"><span class="fa-icon-innter-text">Kategorier</span> </i>
                     </a>
                     <div class="dropdown-menu">
                         {%for cat in drop_down_cats%}
@@ -70,12 +70,12 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('info') }}"><i class="fas fa-info-circle " aria-hidden="true">
-                            Info</i></a>
+                    <a class="nav-link" href="{{ url_for('info') }}"><i class="fas fa-info-circle " aria-hidden="true"><span class="fa-icon-innter-text">Info</span> 
+                            </i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('contact') }}"><i class="fas fa-at "
-                            aria-hidden="true"> Kontakt</i>
+                    <a class="nav-link" href="{{ url_for('contact') }}"><i class="fas fa-at"
+                            aria-hidden="true"><span class="fa-icon-innter-text">Kontakt</span></i>
                     </a>
                 </li>
             </ul>
@@ -129,7 +129,11 @@
     {% block footer %}
     <footer class="page-footer ">
         <div class="footer-copyright text-center py-3">
-            <p>Senast uppdaterad: 28/04/2020</p>
+            <i class="contact"><strong>Kontakta oss:</strong></i>
+            <i class="contact">naturaprojekt6@gmail.com</i>
+                <i class="fab fa-facebook fa-2x"></i>
+                <i class="fab fa-instagram fa-2x"></i>
+                <i class="fab fa-linkedin fa-2x"></i>
         </div>
     </footer>
 

@@ -16,7 +16,7 @@
 {% endblock nav %}
 
 {% block app_content %}
-<a href="{{ url_for('myaccount') }}" id="get-margin"></a>
+<a href="{{ url_for('user', username=current_user.username) }}" id="get-margin"></a>
     <h1>Redigera Profil</h1>
     <div class="row">
         <div class="col-md-4">

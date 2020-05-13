@@ -39,19 +39,19 @@
 
 
             <a class="btn btn-success" href="{{ url_for('edit_profile') }}">
-                <i class="fa fa-id-badge fa-lg"></i> Redigera Profil</a>
+                <i class="fa fa-id-badge fa-lg"></i> Redigera profil</a>
 
-            <a class="btn btn-success" href="{{ url_for('delete') }}">
-                <i class="fa fa-picture-o"></i> Mina Bilder </a>
+            <a class="btn btn-success" href="{{ url_for('my_images', username=current_user.username) }}">
+                <i class="fa fa-picture-o"></i> Mina bilder </a>
 
 
-            <a class="btn btn-success" href="{{ url_for('delete') }}">
-                <i class="fa fa-star"></i> Mina Betyg </a>
+            <a class="btn btn-success" href="{{ url_for('my_ratings', username=current_user.username) }}">
+                <i class="fa fa-star"></i> Mina betyg </a>
 
             <a class="btn btn-warning" href="{{ url_for('reset_password_request') }}">
                 <i class="fa fa-key"></i> Ändra lösenord </a>
 
-            <a class="btn btn-danger" href="{{ url_for('delete') }}">
+            <a class="btn btn-danger" href="{{ url_for('delete', username=current_user.username) }}">
                 <i class="fa fa-trash-o fa-lg"></i> Radera ditt konto </a>
 
 

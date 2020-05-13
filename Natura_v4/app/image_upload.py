@@ -29,7 +29,7 @@ def image_upload(placeid):
     if "file_urls" not in session:
         session['file_urls'] = []
     # list to hold our uploaded image urls
-        file_urls = session['file_urls'] # moved it one tab, fix so x doesnt show when uploading
+    file_urls = session['file_urls'] # moved it one tab, fix so x doesnt show when uploading
     # handle image upload from Dropzone
     if request.method == 'POST':
         file_obj = request.files
@@ -41,9 +41,9 @@ def image_upload(placeid):
             file_urls.append(photos.url(filename))
             # save to database
             date = datetime.utcnow()
-            image = user_images(userid=current_user.id, placeid=placeid, alt=filename, datetime=date)
+            image = user_images(userid=current_user.id, placeid=placeid, imageid=filename, datetime=date)
             db.session.add(image)
             db.session.commit()
         session['file_urls'] = file_urls
-        return "uploading..."
+        return "Laddar upp..."
         

@@ -96,6 +96,10 @@ a:hover {
     margin-bottom: 0;
 }
 
+.fa-icon-innter-text {
+    font-family: 'Titillium Web', sans-serif;
+    padding-left: 3%;
+}
 
 
 /*===========MAIN MENU end=========*/

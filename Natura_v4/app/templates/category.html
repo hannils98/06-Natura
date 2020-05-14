@@ -5,9 +5,9 @@
 <h2>{{ category }}</h2>
 {%for place in places%}
 <div class="card" style="width: 18rem;">
-    <img src="/app/static/uploads/The-Kitten-Checklist-1_1.png" class="card-img-top" alt="...">
+    <img src="/app/static/uploads/{{place[2]}}" class="card-img-top" alt="{{place[2]}}">
     <div class="card-body">
-      <a href="{{ url_for('place', category=category, name=place.name, placeid=place.id) }}" class="btn btn-success">{{ place.name }}</a>
+      <a href="/{{place[0]}}/{{place[1]}}" class="btn btn-success">{{place[0]}}</a>
     </div>
   </div>
 {%endfor%}

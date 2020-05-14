@@ -7,7 +7,7 @@
 <ul>
 {%for place in places%}
 <li>
-    <a href="{{ url_for('place', name=place.name, placeid=place.id) }}">{{ place.name + ' ' + place[0] }}</a>
+    <a href="{{ url_for('place', name=place.name, placeid=place.id) }}">{{ place.name }}</a>
 </li>
 {%endfor%}
 </ul>

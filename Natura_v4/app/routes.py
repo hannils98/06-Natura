@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm, ContactForm
 from flask_login import current_user, login_user
-from app.models import User, Post, categories, places, place_has_cat, is_in, ratings
+from app.models import User, Post, categories, places, place_has_cat, is_in, ratings, engine
 from flask_login import logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
@@ -248,8 +248,18 @@ def reset_password(token):
 # the page that holds category of places
 @app.route('/<category>')
 def category(category):
-    places_cat = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category).order_by(places.name)
-    return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_cat)
+    cat = db.session.query(categories.id).filter(categories.name==category)
+    # use the function for double loop
+    for a in cat: 
+        for b in a:
+            catid = b
+    with engine.connect() as con:
+        categories_list = []
+        categories = con.execute("with get_image as (select places.name, places.id as placeid, user_images.imageid as image, row_number() over (partition by place_id order by user_images.datetime asc) as row_number from (places join user_images on places.id=user_images.placeid) join place_has_cat on places.id=place_has_cat.place_id where place_has_cat.cat_id = '{}') select * from get_image where row_number = 1".format(catid))
+        for category in categories:
+            categories_list.append(category)
+
+    return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=categories_list)
 
  # page related to each place
 @app.route('/<name>/<placeid>', methods=['GET', 'POST'])
@@ -276,7 +286,7 @@ def place(name, placeid):
 # the index places page
 @app.route('/index')
 def places_index():
-    all_places = db.session.query(categories.name, places.name, places.id).select_from(places).join(place_has_cat).join(categories).order_by(places.name).all()
+    all_places = db.session.query(places.name, places.id).select_from(places).order_by(places.name).all()
 
     return render_template('places_index.html', drop_down_cats=drop_down_cats, places=all_places)
 

@@ -93,19 +93,31 @@ function change_my_rating() {
         placeName[i].addEventListener("click", function () {
             var j = 0
             for (var stars in placeName) {
-                stars = document.getElementById('rating' + (i+1)).getElementsByClassName('fa')
+                stars = document.getElementById('rating' + (i+1)).getElementsByClassName('fa');
                 
-                for (let i = 0; i < stars.length; i++) {
+                for (let l = 0; l < stars.length; l++) {
                     
                     
-                    stars[j].classList.remove("fa-star");
-                    stars[j].classList.add("fa-star-o");
+                    stars[l].classList.remove("fa-star");
+                    stars[l].classList.add("fa-star-o");
+
+                    stars[l].addEventListener("mouseover", function () {
+                        
+                        stars[l].classList.remove("fa-star-o");
+                        stars[l].classList.add("fa-star");
+
+                       
+                    });
+                    /*stars[l].addEventListener("mouseout", function () {
+                        stars[l].classList.remove("fa-star");
+                        stars[l].classList.add("fa-star-o");
+                    });*/
                     
                 }
-                
                 j++;
 
             }
+            
 
         });
 

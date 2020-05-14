@@ -116,6 +116,16 @@ class place_has_cat(db.Model):
     cat_id= db.Column(db.Integer,db.ForeignKey('categories.id'), primary_key=True)
     place_id= db.Column(db.Integer, db.ForeignKey('places.id'), primary_key=True)
 
+class Symbol(db.Model):
+    __tablename__ = 'symbol'
+    symbol_id= db.Column(db.Text, primary_key=True)
+    symbol_name= db.Column(db.Text)
+
+class PlaceHasSymbol(db.Model):
+    __tablename__ = 'place_has_symbol'
+    symbol_id= db.Column(db.Text, db.ForeignKey('symbol.symbol_id'), primary_key=True)
+    place_id= db.Column(db.Text, primary_key=True)
+
 class ratings(db.Model):
     __tablename__ = 'ratings'
     userid= db.Column(db.Integer, db.ForeignKey('user.id',ondelete="CASCADE"), primary_key=True)

@@ -5,6 +5,10 @@
 {% block content %}
 
 {{ super() }}
+<div id="go-index">
+    <a class="btn btn-success" href="{{ url_for('places_index') }}"><i class="fas fa-route"></i> Gå till Alla
+        Platser</a>
+</div>
 <div id="main_text">
     {%if current_user.username == null %}
     <h2>Kom ut i naturen!</h2>
@@ -34,10 +38,6 @@
         maxZoom: 16
     });
 </script>
-<div id="go-index">
-    <a class="btn btn-success" href="{{ url_for('places_index') }}"><i class="fas fa-route"></i> Gå till Alla
-        Platser</a>
-</div>
 {% endblock map %}
 
 {% block scripts %}

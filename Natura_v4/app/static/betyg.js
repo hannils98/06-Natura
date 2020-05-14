@@ -105,7 +105,6 @@ function change_my_rating() {
                         
                         stars[l].classList.remove("fa-star-o");
                         stars[l].classList.add("fa-star");
-
                        
                     });
                     /*stars[l].addEventListener("mouseout", function () {

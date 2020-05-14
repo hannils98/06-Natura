@@ -5,9 +5,17 @@
 <div id="my_images">
     <h1>Mina bilder</h1>
     {%for image in images%}
-        {{ image }}
+        <img src="/app/static/uploads/{{image}}" class="rounded float-left" alt="{{image}}">
+        <button type="button" class="btn btn-light remove-image"><a href="{{ url_for('my_images', username=current_user.username) }}">Ta bort</a></button>
     {%endfor%}
     
 <button type="button" class="btn btn-light"><a href="{{ url_for('user', username=current_user.username) }}">Tillbaka</a></button>
 
 {%endblock%}
+{% block scripts %}
+<script src="{{ url_for('static', filename='removeimage.js') }}" type="text/javascript"></script>
+<script>
+    remove_my_image();
+</script>
+{{super()}}
+{% endblock scripts %}

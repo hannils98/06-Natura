@@ -212,10 +212,10 @@ a:hover {
 /*=======Gallery end==========*/
 
 
-#main_text{
+  #main_text{
     width:100%;
     text-align: center;
-    padding-right: 145px;
+
 }
 
 .card{
@@ -318,8 +318,10 @@ a:hover {
     margin: 3px 0;
 }
 #go-index{
-    float:left;
+
     margin:10px auto;
+    width:fit-content;
+
 }
 /*=========BTN end=========*/
 

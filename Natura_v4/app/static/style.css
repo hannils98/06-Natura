@@ -300,11 +300,11 @@ a:hover {
     margin:10px;
 }
 
-#delete.btn{
-   margin-bottom: 10px;
+.btn-light{
+   margin-top: 10px;
   }
 
-  .fa-star, .fa-star-o {
+.fa-star, .fa-star-o {
     color: #FF9800;
 }
 .btn-outline-success {

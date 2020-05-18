@@ -94,13 +94,14 @@ def register():
 @app.route('/user/<username>/my_ratings', methods=['GET', 'POST'])
 @login_required
 def my_ratings(username):
-    my_ratings = db.session.query(ratings.ratings, places.name, places.id).join(places).filter(ratings.userid==current_user.id).all()
     
-    i = 0
-    for rating in my_ratings:
-        r = i
-        i += 1
-        print(r)
+    if request.args.get('rating'):
+        new_rating = request.args.get('rating')
+        place_id = request.args.get('placeid')
+        save_user_rating(new_rating, place_id)
+
+    my_ratings = db.session.query(ratings.ratings, places.name, places.id).join(places).filter(ratings.userid==current_user.id).all()
+
     return render_template('my_ratings.html', drop_down_cats=drop_down_cats, my_ratings=my_ratings)
 
 @app.route('/user/<username>/my_images', methods=['GET', 'POST'])
@@ -250,13 +251,14 @@ def reset_password(token):
 def category(category):
     cat = db.session.query(categories.id).filter(categories.name==category)
     # use the function for double loop
+    print(cat)
     for a in cat: 
         for b in a:
             catid = b
     with engine.connect() as con:
         categories_list = []
-        categories = con.execute("with get_image as (select places.name, places.id as placeid, user_images.imageid as image, row_number() over (partition by place_id order by user_images.datetime asc) as row_number from (places join user_images on places.id=user_images.placeid) join place_has_cat on places.id=place_has_cat.place_id where place_has_cat.cat_id = '{}') select * from get_image where row_number = 1".format(catid))
-        for category in categories:
+        cats = con.execute("with get_image as (select places.name, places.id as placeid, user_images.imageid as image, row_number() over (partition by place_id order by user_images.datetime asc) as row_number from (places join user_images on places.id=user_images.placeid) join place_has_cat on places.id=place_has_cat.place_id where place_has_cat.cat_id = '{}') select * from get_image where row_number = 1".format(catid))
+        for category in cats:
             categories_list.append(category)
 
     return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=categories_list)

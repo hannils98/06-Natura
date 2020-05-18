@@ -4,6 +4,7 @@ function user_ratings() {
     let index;
 
     for (let i = 0; i < stars.length; i++) {
+        stars[i].style.cursor="pointer";
         stars[i].addEventListener("mouseover", function () {
             for (let j = 0; j < stars.length; j++) {
                 stars[j].classList.remove("fa-star");
@@ -50,6 +51,7 @@ function show_user_rating() {
     const stars = document.querySelector(".user_rating").children;
     if (saved_user_rating >= 0 && saved_user_rating <= 5) {
         for (let i = 0; i < stars.length; i++) {
+            stars[i].style.cursor='not-allowed';
             for (let j = 0; j < saved_user_rating; j++) {
                 stars[j].classList.remove("fa-star-o");
                 stars[j].classList.add("fa-star");
@@ -111,6 +113,7 @@ function changeRating(i, icon) {
         stars[j].classList.remove("fa-star");
         stars[j].classList.add("fa-star-o");
 
+        stars[j].style.cursor="pointer";
         stars[j].addEventListener("mouseover", function mo() {
             if(!clicked)
                 setNewRating(j, stars);
@@ -146,7 +149,6 @@ function clickRating(newRating, stars, saveIcon) {
     saveIcon[0].classList.add("fa-save");
 
     saveIcon[0].addEventListener("click", function save() {
-        alert("sparar " + saveIcon[0].parentNode.getElementsByClassName("name")[0].id);
         var ratingValue = newRating + 1;
         window.location.href = '?rating=' + ratingValue + "&placeid=" + saveIcon[0].parentNode.getElementsByClassName("name")[0].id;
     

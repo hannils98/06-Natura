@@ -24,13 +24,6 @@ def show_average_rating(place_id):
     except TypeError: # This catches when it is not possible to calculate average(no ratings exist for a place) 
         return 'Kan inte beräknas än'
     
-'''def check_image(placeid):
-    try:
-        db.session.query(user_images).filter_by(userid=current_user.id, placeid=placeid)
-        return True
-    except exc.IntegrityError:
-        flash('Du måste lägga upp en bild för att ge betyg!')
-        return False'''
 
 def save_user_rating(user_rating, place_id):
     try:
@@ -39,7 +32,14 @@ def save_user_rating(user_rating, place_id):
         db.session.commit()
         return flash('Du har gett betyg.')
     except exc.IntegrityError:
+        print(user_rating)
         db.session.rollback()
-        return flash('Du har redan gett betyg för denna plats!')
+        row_tb_changed = db.session.query(ratings).filter_by(placeid=place_id, userid=current_user.id).one()
+        row_tb_changed.ratings = user_rating
+        row_tb_changed.datetime = datetime.utcnow()
+        print(row_tb_changed)
+        db.session.commit()
+        return flash('Du har ändrat ditt betyg!')
+
 
 

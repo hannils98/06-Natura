@@ -94,7 +94,7 @@ def register():
 @app.route('/user/<username>/my_ratings', methods=['GET', 'POST'])
 @login_required
 def my_ratings(username):
-    my_ratings = db.session.query(ratings.ratings, places.name).join(places).filter(ratings.userid==current_user.id).all()
+    my_ratings = db.session.query(ratings.ratings, places.name, places.id).join(places).filter(ratings.userid==current_user.id).all()
     
     i = 0
     for rating in my_ratings:

@@ -86,39 +86,73 @@ function view_my_ratings() {
 }
 
 function change_my_rating() {
-    var placeName = document.getElementById('my_ratings').getElementsByClassName('change_rating');
-    const numberOfPlaces = placeName.length;
+    var icon = document.getElementById('my_ratings').getElementsByClassName('change_rating');
+    const numberOfPlaces = icon.length;
     for (let i = 0; i < numberOfPlaces; i++) {
         
-        placeName[i].addEventListener("click", function () {
-            var j = 0
-            for (var stars in placeName) {
-                stars = document.getElementById('rating' + (i+1)).getElementsByClassName('fa');
-                
-                for (let l = 0; l < stars.length; l++) {
-                    
-                    
-                    stars[l].classList.remove("fa-star");
-                    stars[l].classList.add("fa-star-o");
-
-                    stars[l].addEventListener("mouseover", function () {
-                        
-                        stars[l].classList.remove("fa-star-o");
-                        stars[l].classList.add("fa-star");
-                       
-                    });
-                    /*stars[l].addEventListener("mouseout", function () {
-                        stars[l].classList.remove("fa-star");
-                        stars[l].classList.add("fa-star-o");
-                    });*/
-                    
-                }
-                j++;
-
-            }
-            
-
-        });
+        icon[i].addEventListener("click", function cl() {
+            changeRating (i, icon);
+            icon[i].removeEventListener("click", cl, true);
+        }, true);
 
     }   
 }
+
+function changeRating(i, icon) {
+    console.log(i)
+    var clicked = false;
+
+    var stars = document.getElementById('rating' + (i+1)).getElementsByClassName('fa');
+
+    var saveIcon = icon[i].parentNode.getElementsByClassName('change_rating');
+
+    for (let j = 0; j < stars.length; j++) {
+        
+        stars[j].classList.remove("fa-star");
+        stars[j].classList.add("fa-star-o");
+
+        stars[j].addEventListener("mouseover", function mo() {
+            if(!clicked)
+                setNewRating(j, stars);
+        });
+        stars[j].addEventListener("click", function cl() {
+            clickRating(j, stars, saveIcon);
+            clicked = true;
+            stars[j].removeEventListener('click', cl, true);
+        }, true);
+
+    }
+}
+
+function setNewRating(newRating, stars) {
+    for (let j = 0; j < stars.length; j++) {
+            
+        stars[j].classList.remove("fa-star");
+        stars[j].classList.add("fa-star-o");
+    }
+    for (let i = newRating; i > -1; i--) {
+        stars[i].classList.remove("fa-star-o");
+        stars[i].classList.add("fa-star");
+
+    }
+}
+
+function clickRating(newRating, stars, saveIcon) {
+
+    console.log(newRating);
+    saveIcon[0].classList.remove("fas");
+    saveIcon[0].classList.remove("fa-pencil-alt");
+    saveIcon[0].classList.add("far");
+    saveIcon[0].classList.add("fa-save");
+
+    saveIcon[0].addEventListener("click", function save() {
+        alert("sparar " + saveIcon[0].parentNode.getElementsByClassName("name")[0].id);
+        var ratingValue = newRating + 1;
+        window.location.href = '?rating=' + ratingValue + "&placeid=" + saveIcon[0].parentNode.getElementsByClassName("name")[0].id;
+    
+    });
+
+    
+
+}
+

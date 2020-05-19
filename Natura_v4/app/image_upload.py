@@ -29,7 +29,6 @@ def image_upload(placeid):
         session['file_urls'] = []
     # list to hold our uploaded image urls
     file_urls = session['file_urls'] # moved it one tab, fix so x doesnt show when uploading
-    print(session)
     # handle image upload from Dropzone
     if request.method == 'POST':
         file_obj = request.files
@@ -49,8 +48,8 @@ def image_upload(placeid):
         
 def remove_image(image_id):
     image = db.session.query(user_images).filter(user_images.userid==current_user.id, user_images.imageid==image_id).all()
-    for i in image:    
+    os.remove('app/static/uploads/' + image_id) 
+    for i in image:
         db.session.delete(i)  
-        db.session.commit()  
-    #os.remove('/app/static/uploads')
+        db.session.commit()     
     return flash('Din bild har tagits bort!')

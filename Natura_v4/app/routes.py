@@ -92,6 +92,11 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', drop_down_cats=drop_down_cats, title='Skapa Konto', form=form)
 
+@app.route('/user/<username>/my_places', methods=['GET', 'POST'])
+@login_required
+def my_places(username):
+    return render_template('my_places.html', drop_down_cats=drop_down_cats)
+
 @app.route('/user/<username>/my_ratings', methods=['GET', 'POST'])
 @login_required
 def my_ratings(username):

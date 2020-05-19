@@ -44,11 +44,12 @@
             <a class="btn btn-success" href="{{ url_for('my_images', username=current_user.username) }}">
                 <i class="fa fa-picture-o"></i> Mina bilder </a>
 
-            <a class="btn btn-success" href="{{ url_for('edit_profile') }}">
-                <i class="fas fa-heart" id="heart"></i>Mina platser</a>
-
+        
             <a class="btn btn-success" href="{{ url_for('my_ratings', username=current_user.username) }}">
-                <i class="fa fa-star"></i> Mina betyg </a>
+                <i class="fa fa-star"></i> Mina betyg </a>    
+
+            <a class="btn btn-success" href="{{ url_for('my_places', username=current_user.username) }}">
+                <i class="fas fa-heart" id="heart_btn"></i>Mina platser</a>
 
             <a class="btn btn-warning" href="{{ url_for('reset_password_request') }}">
                 <i class="fa fa-key"></i> Ändra lösenord </a>

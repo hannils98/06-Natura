@@ -67,6 +67,10 @@ a:hover {
     cursor: pointer;
 }
 
+ul {
+    list-style: none;
+}
+
 /*===========MAIN MENU=========*/
 #ham-menu {
     display:none;
@@ -202,9 +206,15 @@ a:hover {
 }
 /*=======MY ACCOUNT=======*/
 
-#my_ratings > ul {
-    list-style: none;
+/*=======INDEX PLACES=====*/
+#index {
+    text-align: center;
 }
+
+#index > h2 {
+    margin-left: 3.5%;
+}
+
 /*=======GALLERY==========*/
 
 #photos {

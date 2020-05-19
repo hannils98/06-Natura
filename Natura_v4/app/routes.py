@@ -293,9 +293,9 @@ def place(name, placeid):
 # the index places page
 @app.route('/index')
 def places_index():
-    places_cat = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category).all()
+    places_ = db.session.query(places.name).all()
 
-    return render_template('places_index.html', drop_down_cats=drop_down_cats, places=places_cat)
+    return render_template('places_index.html', drop_down_cats=drop_down_cats, places=places_)
 
 # the info page
 @app.route('/info')

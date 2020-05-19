@@ -4,7 +4,6 @@ from app.models import User, places, ratings, user_images
 from flask_login import current_user, login_user
 from datetime import datetime
 from sqlalchemy import exc, func
-from flask import jsonify
 
 def show_user_rating(place_id):
     try:
@@ -32,12 +31,10 @@ def save_user_rating(user_rating, place_id):
         db.session.commit()
         return flash('Du har gett betyg.')
     except exc.IntegrityError:
-        print(user_rating)
         db.session.rollback()
         row_tb_changed = db.session.query(ratings).filter_by(placeid=place_id, userid=current_user.id).one()
         row_tb_changed.ratings = user_rating
         row_tb_changed.datetime = datetime.utcnow()
-        print(row_tb_changed)
         db.session.commit()
         return flash('Du har ändrat ditt betyg!')
 

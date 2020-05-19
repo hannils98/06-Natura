@@ -16,7 +16,11 @@ def saved_place(placeid):
         return True
 
 def save_place(placeid):
-    save_place = SavedPlace(placeid=placeid, userid=current_user.id, datetime=datetime.utcnow())
-    db.session.add(save_place)
-    db.session.commit()
-    return flash('Du har nu sparat platsen!')
+    try:
+        save_place = SavedPlace(placeid=placeid, userid=current_user.id, datetime=datetime.utcnow())
+        db.session.add(save_place)
+        db.session.commit()
+        return flash('Du har nu sparat platsen!')
+    except exc.IntegrityError:
+        db.session.rollback()
+        return flash('Du har nu sparat platsen!')

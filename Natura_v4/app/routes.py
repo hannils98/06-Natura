@@ -274,10 +274,9 @@ def place(name, placeid):
         saved_rating = show_user_rating(placeid)# Done after save_user_rating, so value is shown from start
         files = image_upload(placeid)
         user_images = get_user_images(placeid)
-        saved = saved_place(placeid)
-        print(saved)
         if request.args.get('saved'):
             save_place(placeid)
+        saved = saved_place(placeid)
             
     else:
         saved_rating = None

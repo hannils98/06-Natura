@@ -31,14 +31,14 @@ function savePlace(){
         heart.classList.add('fas')
     });
 
+    heart.addEventListener("click", function () {
+        window.location.href = '?saved=True';
+    });
+
     heart.addEventListener("mouseout", function () {
         heart.classList.remove('fas')
         heart.classList.add('far')
     });
 
-    heart.addEventListener("click", function () {
-        window.location.href = '?saved=True';
-        window.location = window.location.pathname;
 
-    });
 }

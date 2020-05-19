@@ -140,7 +140,7 @@ function setNewRating(newRating, stars) {
     }
 }
 
-function clickRating(newRating, stars, saveIcon) {
+function clickRating(newRating, saveIcon) {
 
     saveIcon[0].classList.remove("fas");
     saveIcon[0].classList.remove("fa-pencil-alt");

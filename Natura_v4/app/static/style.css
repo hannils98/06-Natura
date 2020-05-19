@@ -186,6 +186,15 @@ a:hover {
     padding: 20px;
     padding-top:0;
 }
+
+#heart {
+    color: red;
+    margin: 2.3% 3% 0 2%
+}
+
+#nameheart {
+    display: flex;
+}
 /*=======MY ACCOUNT=======*/
 
 #my_ratings > ul {

@@ -258,8 +258,8 @@ def category(category):
     with engine.connect() as con:
         categories_list = []
         cats = con.execute("with get_image as (select places.name, places.id as placeid, user_images.imageid as image, row_number() over (partition by place_id order by user_images.datetime asc) as row_number from (places join user_images on places.id=user_images.placeid) join place_has_cat on places.id=place_has_cat.place_id where place_has_cat.cat_id = '{}') select * from get_image where row_number = 1".format(catid))
-        for category in cats:
-            categories_list.append(category)
+        for a in cats:
+            categories_list.append(a)
 
     return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=categories_list)
 

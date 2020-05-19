@@ -163,14 +163,15 @@ ul {
     transition: transform .6s ease-in-out, -webkit-transform .6s ease-in-out;
 }
 .carousel img{
-    width: 600px;
-    height: 400px;
+    width: 500px;
+    height: 300px;
+    margin-top: 5%
 }
 /*=======Carousel end========*/
 /*============PLACE===========*/
 
-#add_pic_h3{
-    margin: 20% 0 0 20%;
+#addimage {
+    float:left;
 }
 
 
@@ -195,7 +196,7 @@ ul {
 
 #heart {
     color: rgb(199, 60, 60);
-    margin: 2.3% 3% 0 2%
+    margin: 4% 3% 0 2%
 }
 
 #heart_btn {

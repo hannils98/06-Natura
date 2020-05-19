@@ -52,13 +52,34 @@
             <input type=hidden id="user_rating" name="user_rating" value="{{ saved_rating }}">
         </div>
         {%endif%}
-        <div id="addimage">
-          {% if current_user.username != null %}
-          <h3 id="add_pic_h3">Lägg upp bild:</h3>
-          {{ dropzone.create(action_view='place', name=name, placeid=placeid) }}
-          {{ dropzone.config(redirect_url=url_for('place', name=name, placeid=placeid)) }}
-          {% endif %}
-        </div>
+        <h3>Hitta hit:</h3>
+<div id='map' class="place_map">
+
+</div>
+
+{%for i in info%}
+    <input type=hidden id="longitude" name="longitude" value="{{ i.longitude }}">
+    <input type=hidden id="latitude" name="latitude" value="{{ i.latitude }}">
+{%endfor%}
+
+<script>
+    // The map
+    var longitude = document.getElementById('longitude').value
+    var latitude = document.getElementById('latitude').value
+    mapboxgl.accessToken =
+        'pk.eyJ1IjoiaGFubmlsczk4IiwiYSI6ImNrOGgxNGs1ejAydG8zaGxmcjFhNGc3MmsifQ.bmfahnTIFCFL9n9WJAGsYw';
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/hannils98/ck8hfxoua1ftp1ioi5jjggbyj', // stylesheet location
+        center: [longitude, latitude], // starting position [lng, lat]
+        zoom: 12, // starting zoom
+        minZoom: 7,
+        maxZoom: 16
+    });
+</script>
+
+
+
     </div>
     <ul>
       
@@ -97,35 +118,19 @@
 {% endblock content %}
 
 
-{% block map%}
-<h3>Hitta hit:</h3>
-<div id='map' class="place_map">
+{% block main %}
+       
 
+
+<div id="addimage">
+  {% if current_user.username != null %}
+  <h3 id="add_pic_h3">Lägg upp bild:</h3>
+  {{ dropzone.create(action_view='place', name=name, placeid=placeid) }}
+  {{ dropzone.config(redirect_url=url_for('place', name=name, placeid=placeid)) }}
+  {% endif %}
 </div>
 
-{%for i in info%}
-    <input type=hidden id="longitude" name="longitude" value="{{ i.longitude }}">
-    <input type=hidden id="latitude" name="latitude" value="{{ i.latitude }}">
-{%endfor%}
-
-<script>
-    // The map
-    var longitude = document.getElementById('longitude').value
-    var latitude = document.getElementById('latitude').value
-    mapboxgl.accessToken =
-        'pk.eyJ1IjoiaGFubmlsczk4IiwiYSI6ImNrOGgxNGs1ejAydG8zaGxmcjFhNGc3MmsifQ.bmfahnTIFCFL9n9WJAGsYw';
-    var map = new mapboxgl.Map({
-        container: 'map', // container id
-        style: 'mapbox://styles/hannils98/ck8hfxoua1ftp1ioi5jjggbyj', // stylesheet location
-        center: [longitude, latitude], // starting position [lng, lat]
-        zoom: 12, // starting zoom
-        minZoom: 7,
-        maxZoom: 16
-    });
-</script>
-
-
-{% endblock map%}
+{% endblock main %}
 
 </div>
 {% block scripts %}

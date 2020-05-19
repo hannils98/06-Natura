@@ -11,7 +11,7 @@ from app.forms import ResetPasswordForm
 from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from app.rating import show_user_rating, save_user_rating, show_average_rating
-from app.image_upload import image_upload
+from app.image_upload import image_upload, remove_image
 from app.get_images import get_user_images, get_all_images, get_my_images
 import os
 from flask_mail import Mail, Message
@@ -108,6 +108,11 @@ def my_ratings(username):
 @login_required
 def my_images(username):
     my_images = get_my_images()
+    if request.args.get('remove') == 'True':
+        image_id = request.args.get('imageid')
+        remove_image(image_id) 
+
+        
     return render_template('my_images.html', images=my_images)
 
 
@@ -270,7 +275,6 @@ def place(name, placeid):
     subplace_in_place = db.session.query(places.name, places.id).join(is_in, places.id==is_in.place_id).filter(placeid==is_in.sub_place_id).all()
     place_has_subplace = db.session.query(places.name, places.id, ).join(is_in, places.id==is_in.sub_place_id).filter(placeid==is_in.place_id).all()
 
-    files = image_upload(placeid)
     if current_user.is_authenticated:
         if request.args.get('rating'):
             user_rating = request.args.get('rating')

@@ -296,8 +296,9 @@ def info():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm()
+    email=form.email.data
     if form.validate_on_submit():
-        contact_email(user)
+        contact_email(email)
         flash('Tack för ditt meddelande. Vi kommer återkomma så fort vi kan!')
         return redirect(url_for('index'))
     else:

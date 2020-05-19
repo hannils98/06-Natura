@@ -1,0 +1,2 @@
+Meddelande Från {{ email }},
+{{message}}

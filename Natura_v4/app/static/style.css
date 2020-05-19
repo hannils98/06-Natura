@@ -241,7 +241,7 @@ a:hover {
 }
 .card img{
     width:100%;
-    height:auto;
+    height: 100px;
 }
 .alert {
     margin-top: 5px;

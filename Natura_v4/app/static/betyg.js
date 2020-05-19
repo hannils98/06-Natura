@@ -101,7 +101,7 @@ function change_my_rating() {
 }
 
 function changeRating(i, icon) {
-    console.log(i)
+
     var clicked = false;
 
     var stars = document.getElementById('rating' + (i+1)).getElementsByClassName('fa');
@@ -140,9 +140,8 @@ function setNewRating(newRating, stars) {
     }
 }
 
-function clickRating(newRating, stars, saveIcon) {
+function clickRating(newRating, saveIcon) {
 
-    console.log(newRating);
     saveIcon[0].classList.remove("fas");
     saveIcon[0].classList.remove("fa-pencil-alt");
     saveIcon[0].classList.add("far");

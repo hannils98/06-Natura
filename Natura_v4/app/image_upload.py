@@ -14,7 +14,6 @@ dropzone = Dropzone(app)
 app.config['DROPZONE_UPLOAD_MULTIPLE'] = True
 app.config['DROPZONE_ALLOWED_FILE_CUSTOM'] = True
 app.config['DROPZONE_ALLOWED_FILE_TYPE'] = 'image/*'
-#app.config['DROPZONE_REDIRECT_VIEW'] = 'gallery' #url_for('place', category=category, name=name) #OPS MÅSTE VARA PLACE
 
 # Uploads settings
 app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd() + '/app/static/uploads'
@@ -53,4 +52,5 @@ def remove_image(image_id):
     for i in image:    
         db.session.delete(i)  
         db.session.commit()  
+    #os.remove('/app/static/uploads')
     return flash('Din bild har tagits bort!')

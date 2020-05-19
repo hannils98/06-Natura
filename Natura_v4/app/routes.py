@@ -280,7 +280,7 @@ def place(name, placeid):
             user_rating = request.args.get('rating')
             save_user_rating(user_rating, placeid)
         saved_rating = show_user_rating(placeid)# Done after save_user_rating, so value is shown from start
-        image_upload(placeid)
+        files = image_upload(placeid)
         user_images = get_user_images(placeid)
     else:
         saved_rating = None

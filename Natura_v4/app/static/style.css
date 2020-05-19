@@ -301,8 +301,16 @@ a:hover {
 }
 
 .btn-light{
-   margin-top: 10px;
-  }
+   margin: 10px 0 10px 0;
+}
+
+.remove-image {
+    margin-left: 5%;
+}
+
+.remove-image > a {
+    color: white;
+}
 
 .fa-star, .fa-star-o {
     color: #FF9800;

@@ -17,12 +17,13 @@
 {% block app_content %}
 <div id="my_images">
     <h1>Mina bilder</h1>
+    <div><button type="button" class="btn btn-light"><a href="{{ url_for('user', username=current_user.username) }}">Tillbaka</a></button></div>    
+
     {%for image in images%}
-        <img src="/app/static/uploads/{{image}}" class="images" id="{{ image }}" height="100em" class="rounded float-left" alt="{{images[0]}}">
-        <button type="button" class="btn btn-light remove-image"><a href="{{ url_for('my_images', username=current_user.username) }}">Ta bort</a></button>
+        <img src="/app/static/uploads/{{image}}" class="images" id="{{ image }}" height="300em" class="rounded float-left" alt="{{images[0]}}">
+        <button type="button" class="btn btn-danger remove-image"><a href="{{ url_for('my_images', username=current_user.username) }}">Ta bort</a></button>
     {%endfor%}
     
-<button type="button" class="btn btn-light"><a href="{{ url_for('user', username=current_user.username) }}">Tillbaka</a></button>
 
 {%endblock%}
 {% block scripts %}

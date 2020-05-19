@@ -52,6 +52,13 @@
             <input type=hidden id="user_rating" name="user_rating" value="{{ saved_rating }}">
         </div>
         {%endif%}
+        <div id="addimage">
+          {% if current_user.username != null %}
+          <h3 id="add_pic_h3">Lägg upp bild:</h3>
+          {{ dropzone.create(action_view='place', name=name, placeid=placeid) }}
+          {{ dropzone.config(redirect_url=url_for('place', name=name, placeid=placeid)) }}
+          {% endif %}
+        </div>
     </div>
     <ul>
       
@@ -85,14 +92,7 @@
     </div>
     <button type="button" class="btn btn-light"><a href="/">Tillbaka</a></button>
 </div>
-<div id="down">
-    <div id="addimage">
-      {% if current_user.username != null %}
-      <h3 id="add_pic_h3">Lägg upp bild:</h3>
-      {{ dropzone.create(action_view='place', name=name, placeid=placeid) }}
-      {{ dropzone.config(redirect_url=url_for('place', name=name, placeid=placeid)) }}
-      {% endif %}
-    </div>
+
     
 {% endblock content %}
 

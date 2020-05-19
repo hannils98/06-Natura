@@ -170,8 +170,10 @@ ul {
 /*============PLACE===========*/
 
 #add_pic_h3{
-    margin-top:0px;
+    margin: 20% 0 0 20%;
 }
+
+
 #up{
     height:410px;
 }
@@ -272,13 +274,12 @@ ul {
 }
 
 #addimage {
-    float: right;
-    margin-right: 600px;
+ 
     
 }
 
 #addimage > h3 {
-    margin-left: 20%;
+    margin-top: 20%;
 }
 
 

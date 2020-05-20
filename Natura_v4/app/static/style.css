@@ -32,6 +32,7 @@ body {
     margin: auto;
     border-radius: 5px;
     padding-bottom: 5%;
+    overflow: scroll;
 }
 
 #inner-wrap {
@@ -200,11 +201,11 @@ ul {
 /*============PLACE===========*/
 .place-data {
     float: right;
-    margin:10px;
+    margin: 10px;
 }
 
 #addimage {
-    float:right;
+    float: right;
 }
 
 #addimage>h4 {
@@ -226,7 +227,15 @@ ul {
 
 #up {
     height: 410px;
+    margin-bottom:10px;
 }
+
+.place-desc{
+    width: 50vw;
+    float:left;
+    margin-bottom: 20px;
+}
+
 
 #is_in {
     font-size: smaller;
@@ -240,7 +249,7 @@ ul {
     list-style: none;
 }
 
-.show_ratings {
+.show_ratings{
     float: left;
     padding: 20px;
     padding-top: 0;
@@ -330,8 +339,6 @@ ul {
 .alert {
     margin-top: 5px;
 }
-
-
 
 .table>tbody>tr>td {
     padding: 18px;
@@ -483,11 +490,25 @@ i.contact {
 
 
 }
-
+@media only screen and (max-width: 771px) {
+    .place-data {
+        float:left;
+        margin-left: 20vw;
+    }
+    .place-desc{
+        width:80vw;
+    }
+    .carousel{
+        margin-left: 10vw;
+    }
+    .carousel img {
+        width: 100%;
+        height: auto;
+    }
+}
 @media only screen and (max-width: 680px) {
     #profile-av {
-        display: inline-block;
-        float: left;
+        float:left;
     }
 
     #profile-txt {
@@ -497,10 +518,8 @@ i.contact {
     .btn-group-vertical {
         float: none;
         width: 50%;
-
-
     }
-
+}
     @media only screen and (max-width: 530px) {
 
 
@@ -628,4 +647,14 @@ i.contact {
             width: 80vw;
         }
 
+        .place-data {
+            float:left;
+            margin:auto;
+        }
+        
+        .carousel{
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
     }

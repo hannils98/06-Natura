@@ -2,102 +2,109 @@
 {% block title %}Platser{% endblock title %}
 
 {% block content%}
-  
+
 {{super()}}
-  <div id="up">
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="/app/static/uploads/{{user_images[0]}}" class="d-block w-100" alt="user_images[0]">
-          </div>
-          <div class="carousel-item">
-            <img src="/app/static/uploads/{{user_images[1]}}" class="d-block w-100" alt="user_images[1]">
-          </div>
-          <div class="carousel-item">
-            <img src="/app/static/uploads/{{user_images[2]}}" class="d-block w-100" alt="user_images[2]">
-          </div>
-        </div>
+<div id="up">
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="/app/static/uploads/{{user_images[0]}}" class="d-block w-100" alt="user_images[0]">
       </div>
-    {%if current_user.is_authenticated%}
-      <div id="nameheart">
-        <h2 id="place_name">{{ name }}</h2> <span class="far fa-heart fa-2x" id="heart"></span>
-        <input type=hidden id="saved" name="saved" value="{{ saved }}">
+      <div class="carousel-item">
+        <img src="/app/static/uploads/{{user_images[1]}}" class="d-block w-100" alt="user_images[1]">
       </div>
-    {%endif%}
-    
+      <div class="carousel-item">
+        <img src="/app/static/uploads/{{user_images[2]}}" class="d-block w-100" alt="user_images[2]">
+      </div>
+    </div>
+  </div>
+  {%if current_user.is_authenticated%}
+  <div id="nameheart">
+    <h2 id="place_name">{{ name }}</h2> <span class="far fa-heart fa-2x" id="heart"></span>
+    <input type=hidden id="saved" name="saved" value="{{ saved }}">
+  </div>
+  {%endif%}
+  <div class=place-data>
     <div class="show_ratings">
-        <p>Medelbetyg:</p>
-        <div class="average_ratings">
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <span>{{ average_rating }}</span>
-            <input type=hidden id="ave_rating" name="ave_rating" value="{{ average_rating }}">
-        </div>
-        {%if current_user.is_authenticated%}
-        <p>Ditt betyg:</p>
-        <div class="user_rating">
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <input type=hidden id="user_rating" name="user_rating" value="{{ saved_rating }}">
-        </div>
-        {%endif%}
-        <h3>Hitta hit:</h3>
-<div id='map' class="place_map">
+      <p>Medelbetyg:</p>
+      <div class="average_ratings">
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span>{{ average_rating }}</span>
+        <input type=hidden id="ave_rating" name="ave_rating" value="{{ average_rating }}">
+      </div>
+      {%if current_user.is_authenticated%}
+      <p>Ditt betyg:</p>
+      <div class="user_rating">
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <span class="fa fa-star-o"></span>
+        <input type=hidden id="user_rating" name="user_rating" value="{{ saved_rating }}">
+      </div>
+    </div>
+    {%endif%}
 
-</div>
+    <div id="addimage">
+      {% if current_user.username != null %}
+      <h4 id="add_pic_h3">Lägg upp bild:</h4>
+      {{ dropzone.create(action_view='place', name=name, placeid=placeid) }}
+      {{ dropzone.config(redirect_url=url_for('place', name=name, placeid=placeid)) }}
+      {% endif %}
+    </div>
 
-{%for i in info%}
+    <div class="hittahit">
+      <h3>Hitta hit:</h3>
+      <div id='map' class="place_map">
+      </div>
+    </div>
+    {%for i in info%}
     <input type=hidden id="longitude" name="longitude" value="{{ i.longitude }}">
     <input type=hidden id="latitude" name="latitude" value="{{ i.latitude }}">
-{%endfor%}
+    {%endfor%}
 
-<script>
-    // The map
-    var longitude = document.getElementById('longitude').value
-    var latitude = document.getElementById('latitude').value
-    mapboxgl.accessToken =
+    <script>
+      // The map
+      var longitude = document.getElementById('longitude').value
+      var latitude = document.getElementById('latitude').value
+      mapboxgl.accessToken =
         'pk.eyJ1IjoiaGFubmlsczk4IiwiYSI6ImNrOGgxNGs1ejAydG8zaGxmcjFhNGc3MmsifQ.bmfahnTIFCFL9n9WJAGsYw';
-    var map = new mapboxgl.Map({
+      var map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/hannils98/ck8hfxoua1ftp1ioi5jjggbyj', // stylesheet location
         center: [longitude, latitude], // starting position [lng, lat]
         zoom: 12, // starting zoom
         minZoom: 7,
         maxZoom: 16
-    });
-</script>
+      });
+    </script>
 
+  </div>
 
-
-    </div>
-    <ul>
-      
-        {%for i in info%}
-          <p> {{ i.description }} </p>
-          <p> Läs mer: <a href="{{ i.source }}">{{ i.source }} </a></p>
-        {%endfor%}
-      
-    </ul>
-    <div id="is_in">
+  <ul>
+    {%for i in info%}
+    <p> {{ i.description }} </p>
+    <p> Läs mer: <a href="{{ i.source }}">{{ i.source }} </a></p>
+    {%endfor%}
+  </ul>
+  <div id="is_in">
     {%if sp_in_p|length > 0 or p_has_sp|length > 0%}
     <p><strong>Se mer:</strong></p>
     {%endif%}
-      {%if sp_in_p|length > 0%}
-        <p>{{ name }} ligger i:</p>
-        <ul>
-        {%for place in sp_in_p%}
-          <li><a href="{{ url_for('place', name=place.name, placeid=place.id) }}"   ">{{ place.name }}</a></li>
+    {%if sp_in_p|length > 0%}
+    <p>{{ name }} ligger i:</p>
+    <ul>
+      {%for place in sp_in_p%}
+      <li><a href="{{ url_for('place', name=place.name, placeid=place.id) }}" ">{{ place.name }}</a></li>
         {%endfor%}
         </ul>
     {%endif%}
@@ -106,31 +113,17 @@
       <p>{{ name }} inkluderar:</p>
         <ul>
         {%for place in p_has_sp%}
-          <li><a href="{{ url_for('place', name=place.name, placeid=place.id) }}">{{ place.name }}</a></li>
-        {%endfor%}
-      </ul>
+          <li><a href=" {{ url_for('place', name=place.name, placeid=place.id) }}">{{ place.name }}</a></li>
+      {%endfor%}
+    </ul>
     {%endif%}
-    </div>
-    <button type="button" class="btn btn-light"><a href="/">Tillbaka</a></button>
+  </div>
+  <button type="button" class="btn btn-light"><a href="/">Tillbaka</a></button>
 </div>
 
-    
+
 {% endblock content %}
 
-
-{% block main %}
-       
-
-
-<div id="addimage">
-  {% if current_user.username != null %}
-  <h3 id="add_pic_h3">Lägg upp bild:</h3>
-  {{ dropzone.create(action_view='place', name=name, placeid=placeid) }}
-  {{ dropzone.config(redirect_url=url_for('place', name=name, placeid=placeid)) }}
-  {% endif %}
-</div>
-
-{% endblock main %}
 
 </div>
 {% block scripts %}

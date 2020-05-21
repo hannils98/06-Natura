@@ -95,7 +95,8 @@ def register():
 @app.route('/user/<username>/my_places', methods=['GET', 'POST'])
 @login_required
 def my_places(username):
-    return render_template('my_places.html', drop_down_cats=drop_down_cats)
+    my_places = db.session.query(places.name, places.id).join(SavedPlace).filter(SavedPlace.userid==current_user.id).all()
+    return render_template('my_places.html', drop_down_cats=drop_down_cats, places=my_places)
 
 @app.route('/user/<username>/my_ratings', methods=['GET', 'POST'])
 @login_required

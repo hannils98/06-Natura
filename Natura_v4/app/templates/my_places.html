@@ -17,7 +17,7 @@
 {% block app_content %}
 <div id="my_places">
     <h1>Mina platser</h1>
-    <p>Här är dina sparade platser!</p>
+    <p>Här är dina sparade platser! Du kan ta bort en sparad plats genom att trycka på hjärtat.</p>
     <ul>
         {%for place in places%}
             <li><span class="fas fa-heart heart_btn" id="{{ place.id }}"></span><a href="{{ url_for('place', name=place.name, placeid=place.id) }}">{{ place.name }}</a></li>

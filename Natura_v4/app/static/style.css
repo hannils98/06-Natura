@@ -260,7 +260,7 @@ ul {
     margin: 4% 3% 0 2%
 }
 
-#heart_btn {
+.heart_btn {
     color: rgb(199, 60, 60);
     margin-right: 1.5%;
 }

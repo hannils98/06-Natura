@@ -42,3 +42,10 @@ function savePlace(){
 
 
 }
+
+function removeSavedPlace() {
+    heart = document.getElementsByClassName('heart_btn');
+    for (let i = 0; i < heart.length; i++) {
+        console.log(heart[i].id)
+    }
+}

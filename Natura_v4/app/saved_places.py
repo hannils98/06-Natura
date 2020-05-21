@@ -24,3 +24,10 @@ def save_place(placeid):
     except exc.IntegrityError:
         db.session.rollback()
         return flash('Du har nu sparat platsen!')
+
+def unsave_place(place_id):
+    place = db.session.query(SavedPlace).filter_by(placeid=place_id, userid=current_user.id)
+    for p in place:
+        db.session.delete(p)  
+        db.session.commit()     
+    return flash('Platsen är inte längre sparad!')

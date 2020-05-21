@@ -15,7 +15,7 @@ from app.image_upload import image_upload, remove_image
 from app.get_images import get_user_images, get_all_images, get_my_images
 import os
 from flask_mail import Mail, Message
-from app.saved_places import save_place, saved_place
+from app.saved_places import save_place, saved_place, unsave_place
 
 
 global drop_down_cats
@@ -95,7 +95,11 @@ def register():
 @app.route('/user/<username>/my_places', methods=['GET', 'POST'])
 @login_required
 def my_places(username):
+    if request.args.get('saved') == "False":
+        place_id = request.args.get('placeid')
+        unsave_place(place_id)
     my_places = db.session.query(places.name, places.id).join(SavedPlace).filter(SavedPlace.userid==current_user.id).all()
+
     return render_template('my_places.html', drop_down_cats=drop_down_cats, places=my_places)
 
 @app.route('/user/<username>/my_ratings', methods=['GET', 'POST'])
@@ -281,7 +285,7 @@ def place(name, placeid):
             user_rating = request.args.get('rating')
             save_user_rating(user_rating, placeid)
         saved_rating = show_user_rating(placeid)# Done after save_user_rating, so value is shown from start
-
+        average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
         user_images = get_user_images(placeid)
         if request.args.get('saved'):
             save_place(placeid)
@@ -291,7 +295,8 @@ def place(name, placeid):
     else:
         saved_rating = None
         user_images = get_user_images(placeid)
-    average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
+        average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
+
     return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace)
 
 # the index places page

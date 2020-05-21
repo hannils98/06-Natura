@@ -27,8 +27,8 @@ function savedPlace(){
 function savePlace(){
     const heart = document.getElementById('heart');
     heart.addEventListener("mouseover", function () {
-        heart.classList.remove('far')
-        heart.classList.add('fas')
+        heart.classList.remove('far');
+        heart.classList.add('fas');
     });
 
     heart.addEventListener("click", function () {
@@ -36,8 +36,8 @@ function savePlace(){
     });
 
     heart.addEventListener("mouseout", function () {
-        heart.classList.remove('fas')
-        heart.classList.add('far')
+        heart.classList.remove('fas');
+        heart.classList.add('far');
     });
 
 
@@ -46,6 +46,16 @@ function savePlace(){
 function removeSavedPlace() {
     heart = document.getElementsByClassName('heart_btn');
     for (let i = 0; i < heart.length; i++) {
-        console.log(heart[i].id)
+        heart[i].addEventListener("mouseover", function() {
+            heart[i].classList.remove('fas');
+            heart[i].classList.add('far');
+        });
+        heart[i].addEventListener("click", function () {
+            window.location.href = '?placeid=' + heart[i].id + '&saved=False';
+        });
+        heart[i].addEventListener("mouseout", function () {
+            heart[i].classList.remove('far');
+            heart[i].classList.add('fas');
+        });
     }
 }

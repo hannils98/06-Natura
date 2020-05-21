@@ -119,7 +119,7 @@ function changeRating(i, icon) {
                 setNewRating(j, stars);
         });
         stars[j].addEventListener("click", function cl() {
-            clickRating(j, stars, saveIcon);
+            clickRating(j, saveIcon);
             clicked = true;
             stars[j].removeEventListener('click', cl, true);
         }, true);
@@ -141,7 +141,6 @@ function setNewRating(newRating, stars) {
 }
 
 function clickRating(newRating, saveIcon) {
-
     saveIcon[0].classList.remove("fas");
     saveIcon[0].classList.remove("fa-pencil-alt");
     saveIcon[0].classList.add("far");

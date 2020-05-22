@@ -1,13 +1,12 @@
 from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm, ContactForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordForm, ResetPasswordRequestForm, DeleteUserForm, ContactForm, SearchForm
 from flask_login import current_user, login_user
 from app.models import User, Post, categories, places, place_has_cat, is_in, ratings, SavedPlace
 from flask_login import logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app.email import contact_email, send_password_reset_email
-from app.forms import ResetPasswordForm
 from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from app.rating import show_user_rating, save_user_rating, show_average_rating
@@ -145,7 +144,7 @@ def delete(username):
 
 
 # the profile page of user
-@app.route('/user/<username>')
+@app.route('/user/<username>', methods=['GET', 'POST'])
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
@@ -156,7 +155,18 @@ def user(username):
         if posts.has_next else None
     prev_url = url_for('user', username=user.username, page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template('user.html', drop_down_cats=drop_down_cats, user=user, posts=posts.items,
+    form = SearchForm()
+    if form.validate_on_submit():
+        username_search = request.form["search"]
+        check_db = db.session.query(User.username).filter(User.username==username_search).scalar()
+        if check_db == None:
+            flash ('Användaren finns inte!')
+            return render_template('user.html', form=form, drop_down_cats=drop_down_cats, user=user, posts=posts.items,
+                        next_url=next_url, prev_url=prev_url)
+        else:
+            return redirect(url_for('user', username=username_search))
+
+    return render_template('user.html', form=form, drop_down_cats=drop_down_cats, user=user, posts=posts.items,
                            next_url=next_url, prev_url=prev_url)
 
 # records the last seen time /date of user

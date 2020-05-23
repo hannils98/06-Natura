@@ -48,18 +48,6 @@
         </div>
         {%endif%}
     </div>
-    <div>
-      <p>
-        
-      </p>
-      {%for symbol in symbols%}
-      {% set symbol = symbol.replace("'", "").replace("(", "").replace(")","").replace(",", "") %}
-        <span class="{{symbol}}"></span>
-        
-      {%endfor%}
-      
-      
-    </div>
     <ul>
       
         {%for i in info%}

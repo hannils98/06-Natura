@@ -13,7 +13,6 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_cl
 from app.rating import show_user_rating, save_user_rating, show_average_rating
 from app.image_upload import image_upload
 from app.get_images import get_user_images, get_all_images, get_my_images
-from app.symbols import get_symbols_for_place
 import os
 from flask_mail import Mail, Message
 
@@ -280,9 +279,8 @@ def place(name, placeid):
     else:
         saved_rating = None
         user_images = get_user_images(placeid)
-    average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
-    symbols = get_symbols_for_place(placeid)    
-    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace, symbols=symbols)
+    average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average   
+    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace)
 
 # the index places page
 @app.route('/index')

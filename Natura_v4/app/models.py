@@ -141,6 +141,12 @@ class user_images(db.Model):
     imageid=db.Column(db.Text, primary_key=True)
     datetime=db.Column(db.DateTime(timezone=True))
 
+class SavedPlace(db.Model):
+    __tablename__ = 'saved_place'
+    userid= db.Column(db.Integer,Sequence('user_images_seq'), db.ForeignKey('user.id',ondelete="CASCADE"), primary_key=True)
+    placeid=db.Column(db.Integer, db.ForeignKey('places.id'), primary_key=True)
+    datetime=db.Column(db.DateTime(timezone=True))
+
 db_url = 'postgresql://ak2195:l6kp3gsl@pgserver.mah.se/natura_v2'
 engine = create_engine(db_url, client_encoding='utf8', echo=True)
 @event.listens_for(engine, "connect")

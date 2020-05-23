@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
 {% block title %}Mitt Konto{% endblock title %}
 
 
@@ -20,10 +21,9 @@
 {% block content %}
 {{super()}}
 
-
 <table class="table table-hover">
     <tr>
-        <td id="profile-av" ><img src="{{ user.avatar(256) }}"></td>
+        <td id="profile-av"><img src="{{ user.avatar(256) }}"></td>
         <td id="profile-txt">
             <div>
                 <h1>{{ user.username }}</h1>
@@ -44,9 +44,11 @@
             <a class="btn btn-success" href="{{ url_for('my_images', username=current_user.username) }}">
                 <i class="fa fa-picture-o"></i> Mina bilder </a>
 
-
             <a class="btn btn-success" href="{{ url_for('my_ratings', username=current_user.username) }}">
                 <i class="fa fa-star"></i> Mina betyg </a>
+
+            <a class="btn btn-success" href="{{ url_for('my_places', username=current_user.username) }}">
+                <i class="fas fa-heart heart_btn"></i>Mina platser</a>
 
             <a class="btn btn-warning" href="{{ url_for('reset_password_request') }}">
                 <i class="fa fa-key"></i> Ändra lösenord </a>
@@ -67,6 +69,13 @@
         </td>
     </tr>
 </table>
+<div id="inner_wrap">
+        <div class="row">
+            <div class="col-md-4">
+                {{ wtf.quick_form(form) }}
+            </div>
+        </div>
+    <div>
 {% if user != current_user %}
 {% for post in posts %}
 {% include '_post.html' %}

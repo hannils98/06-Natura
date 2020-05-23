@@ -1,20 +1,20 @@
 from flask import render_template, flash, redirect, url_for, request, session
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordRequestForm, DeleteUserForm, ContactForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordForm, ResetPasswordRequestForm, DeleteUserForm, ContactForm, SearchForm
 from flask_login import current_user, login_user
-from app.models import User, Post, categories, places, place_has_cat, is_in, ratings, engine
+from app.models import User, Post, categories, places, place_has_cat, is_in, ratings, SavedPlace
 from flask_login import logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app.email import contact_email, send_password_reset_email
-from app.forms import ResetPasswordForm
 from flask_dropzone import Dropzone
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
 from app.rating import show_user_rating, save_user_rating, show_average_rating
-from app.image_upload import image_upload
+from app.image_upload import image_upload, remove_image
 from app.get_images import get_user_images, get_all_images, get_my_images
 import os
 from flask_mail import Mail, Message
+from app.saved_places import save_place, saved_place, unsave_place
 
 
 global drop_down_cats
@@ -91,22 +91,38 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', drop_down_cats=drop_down_cats, title='Skapa Konto', form=form)
 
+@app.route('/user/<username>/my_places', methods=['GET', 'POST'])
+@login_required
+def my_places(username):
+    if request.args.get('saved') == "False":
+        place_id = request.args.get('placeid')
+        unsave_place(place_id)
+    my_places = db.session.query(places.name, places.id).join(SavedPlace).filter(SavedPlace.userid==current_user.id).all()
+
+    return render_template('my_places.html', drop_down_cats=drop_down_cats, places=my_places)
+
 @app.route('/user/<username>/my_ratings', methods=['GET', 'POST'])
 @login_required
 def my_ratings(username):
-    my_ratings = db.session.query(ratings.ratings, places.name, places.id).join(places).filter(ratings.userid==current_user.id).all()
     
-    i = 0
-    for rating in my_ratings:
-        r = i
-        i += 1
-        print(r)
+    if request.args.get('rating'):
+        new_rating = request.args.get('rating')
+        place_id = request.args.get('placeid')
+        save_user_rating(new_rating, place_id)
+
+    my_ratings = db.session.query(ratings.ratings, places.name, places.id).join(places).filter(ratings.userid==current_user.id).all()
+
     return render_template('my_ratings.html', drop_down_cats=drop_down_cats, my_ratings=my_ratings)
 
 @app.route('/user/<username>/my_images', methods=['GET', 'POST'])
 @login_required
 def my_images(username):
     my_images = get_my_images()
+    if request.args.get('remove') == 'True':
+        image_id = request.args.get('imageid')
+        remove_image(image_id) 
+
+        
     return render_template('my_images.html', images=my_images)
 
 
@@ -128,7 +144,7 @@ def delete(username):
 
 
 # the profile page of user
-@app.route('/user/<username>')
+@app.route('/user/<username>', methods=['GET', 'POST'])
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
@@ -139,7 +155,18 @@ def user(username):
         if posts.has_next else None
     prev_url = url_for('user', username=user.username, page=posts.prev_num) \
         if posts.has_prev else None
-    return render_template('user.html', drop_down_cats=drop_down_cats, user=user, posts=posts.items,
+    form = SearchForm()
+    if form.validate_on_submit():
+        username_search = request.form["search"]
+        check_db = db.session.query(User.username).filter(User.username==username_search).scalar()
+        if check_db == None:
+            flash ('Användaren finns inte!')
+            return render_template('user.html', form=form, drop_down_cats=drop_down_cats, user=user, posts=posts.items,
+                        next_url=next_url, prev_url=prev_url)
+        else:
+            return redirect(url_for('user', username=username_search))
+
+    return render_template('user.html', form=form, drop_down_cats=drop_down_cats, user=user, posts=posts.items,
                            next_url=next_url, prev_url=prev_url)
 
 # records the last seen time /date of user
@@ -248,46 +275,46 @@ def reset_password(token):
 # the page that holds category of places
 @app.route('/<category>')
 def category(category):
-    cat = db.session.query(categories.id).filter(categories.name==category)
-    # use the function for double loop
-    for a in cat: 
-        for b in a:
-            catid = b
-    with engine.connect() as con:
-        categories_list = []
-        categories = con.execute("with get_image as (select places.name, places.id as placeid, user_images.imageid as image, row_number() over (partition by place_id order by user_images.datetime asc) as row_number from (places join user_images on places.id=user_images.placeid) join place_has_cat on places.id=place_has_cat.place_id where place_has_cat.cat_id = '{}') select * from get_image where row_number = 1".format(catid))
-        for category in categories:
-            categories_list.append(category)
+    places_from_db = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category).all()
+    print(places_from_db)
 
-    return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=categories_list)
+    return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_from_db)
 
  # page related to each place
 @app.route('/<name>/<placeid>', methods=['GET', 'POST'])
 def place(name, placeid):
+    
     places_from_db = db.session.query(places.description, places.source, places.longitude, places.latitude).filter(places.name==name).all()
     subplace_in_place = db.session.query(places.name, places.id).join(is_in, places.id==is_in.place_id).filter(placeid==is_in.sub_place_id).all()
     place_has_subplace = db.session.query(places.name, places.id, ).join(is_in, places.id==is_in.sub_place_id).filter(placeid==is_in.place_id).all()
 
-    files = image_upload(placeid)
     if current_user.is_authenticated:
+        files = image_upload(placeid)
+        saved = saved_place(placeid)
         if request.args.get('rating'):
             user_rating = request.args.get('rating')
             save_user_rating(user_rating, placeid)
         saved_rating = show_user_rating(placeid)# Done after save_user_rating, so value is shown from start
-        image_upload(placeid)
+        average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
         user_images = get_user_images(placeid)
+        if request.args.get('saved'):
+            save_place(placeid)
+            return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace, saved=saved)
+            
+
     else:
         saved_rating = None
         user_images = get_user_images(placeid)
-        average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average   
-    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace)
+        average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average
+
+    return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace)
 
 # the index places page
 @app.route('/index')
 def places_index():
-    all_places = db.session.query(places.name, places.id).select_from(places).order_by(places.name).all()
+    places_ = db.session.query(places.name).all()
 
-    return render_template('places_index.html', drop_down_cats=drop_down_cats, places=all_places)
+    return render_template('places_index.html', drop_down_cats=drop_down_cats, places=places_)
 
 # the info page
 @app.route('/info')
@@ -298,8 +325,9 @@ def info():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm()
+    email=form.email.data
     if form.validate_on_submit():
-        contact_email(user)
+        contact_email(email)
         flash('Tack för ditt meddelande. Vi kommer återkomma så fort vi kan!')
         return redirect(url_for('index'))
     else:

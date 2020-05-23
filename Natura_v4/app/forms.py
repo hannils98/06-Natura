@@ -74,3 +74,8 @@ class ContactForm(FlaskForm):
     email = StringField('Din e-post (ifall du vill att vi kontakta dig)')
     message = TextAreaField('Vad vill du säga till oss?', validators=[DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Skicka')
+
+class SearchForm(FlaskForm):
+  search = StringField('Sök efter användare:', [DataRequired()])
+  submit = SubmitField('Sök',
+                       render_kw={'class': 'btn btn-success btn-block'})

@@ -2,14 +2,15 @@
 
 {% block main%}
 <div id="page-whole">
-<h2>Index</h2>
-<p>På natura kan en plats ha flera olika kategorier, här finner du alla platser med respektive kategorier.</p>
-<ul>
-{%for place in places%}
-<li>
-    <a href="{{ url_for('place', name=place.name, placeid=place.id) }}">{{ place.name }}</a>
-</li>
-{%endfor%}
-</ul>
+<div id="index">
+    <h2>Index</h2>
+    <ul>
+    {%for place in places%}
+        <li>
+            <a href="{{ url_for('place', name=place.name, placeid=place.id) }}">{{ place.name }}</a>
+        </li>
+    {%endfor%}
+    </ul>
+    </div>
 </div>
 {% endblock%}

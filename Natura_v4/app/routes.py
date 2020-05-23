@@ -279,7 +279,7 @@ def place(name, placeid):
     else:
         saved_rating = None
         user_images = get_user_images(placeid)
-    average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average   
+        average_rating = show_average_rating(placeid)# Done after save_rating, so value is included i average   
     return render_template('place.html', drop_down_cats=drop_down_cats, info=places_from_db, name=name, files=files, placeid=placeid, saved_rating=saved_rating, average_rating=average_rating, user_images=user_images, sp_in_p=subplace_in_place, p_has_sp=place_has_subplace)
 
 # the index places page

@@ -50,6 +50,13 @@
     </div>
     {%endif%}
 
+    <div id="symbols">
+      {%for symbol in symbols%}
+      {% set symbol = symbol.replace("'", "").replace("(", "").replace(")","").replace(",", "")%}
+        <i class="{{symbol}}"></i>
+      {%endfor%}
+    </div>
+
     <div id="addimage">
       {% if current_user.username != null %}
       <h4 id="add_pic_h3">Lägg upp bild:</h4>

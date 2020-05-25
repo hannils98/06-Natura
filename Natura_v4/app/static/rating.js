@@ -1,4 +1,4 @@
-function user_ratings() {
+function userRatings() {
     const stars = document.querySelector(".user_rating").children;
     let ratingValue;
     let index;
@@ -33,7 +33,7 @@ function user_ratings() {
     }
 }
 
-function show_average_rating() {
+function showAverageRating() {
     var average_rating = Number(Math.round(document.getElementById('ave_rating').value));
     const stars = document.querySelector(".average_ratings").children;
     for (let i = 0; i < stars.length; i++) {
@@ -46,7 +46,7 @@ function show_average_rating() {
 
 }
 
-function show_user_rating() {
+function showUserRating() {
     var saved_user_rating = Number(document.getElementById('user_rating').value);
     const stars = document.querySelector(".user_rating").children;
     if (saved_user_rating >= 0 && saved_user_rating <= 5) {
@@ -58,11 +58,11 @@ function show_user_rating() {
             }
         }
     } else {
-        user_ratings();
+        userRatings();
     }
 }
 
-function view_my_ratings() {
+function viewMyRatings() {
     
     var ratings_list = document.getElementById('my_ratings').getElementsByClassName('my_rating');
     const numberOfRatings = ratings_list.length;
@@ -87,7 +87,7 @@ function view_my_ratings() {
         
 }
 
-function change_my_rating() {
+function changeMyRating() {
     var icon = document.getElementById('my_ratings').getElementsByClassName('change_rating');
     const numberOfPlaces = icon.length;
     for (let i = 0; i < numberOfPlaces; i++) {

@@ -124,7 +124,7 @@ def my_images(username):
         remove_image(image_id) 
 
         
-    return render_template('my_images.html', images=my_images)
+    return render_template('my_images.html', images=my_images, drop_down_cats=drop_down_cats)
 
 
 
@@ -141,7 +141,7 @@ def delete(username):
     elif user is None or not user:
             flash('Ogiltig användarnamn eller lösenord')
 
-    return render_template('delete.html', form=form)
+    return render_template('delete.html', form=form, drop_down_cats=drop_down_cats)
 
 
 # the profile page of user
@@ -315,7 +315,7 @@ def place(name, placeid):
 # the index places page
 @app.route('/index')
 def places_index():
-    places_ = db.session.query(places.name).all()
+    places_ = db.session.query(places.name, places.id).all()
 
     return render_template('places_index.html', drop_down_cats=drop_down_cats, places=places_)
 

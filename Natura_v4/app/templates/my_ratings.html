@@ -29,10 +29,10 @@
 {%endblock%}
 
 {% block scripts %}
-<script src="{{ url_for('static', filename='betyg.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='rating.js') }}" type="text/javascript"></script>
 <script>
-    view_my_ratings();
-    change_my_rating();
+    viewMyRatings();
+    changeMyRating();
 </script>
 {{super()}}
 {% endblock scripts %}

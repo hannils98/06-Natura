@@ -1,4 +1,4 @@
-function remove_my_image() {
+function removeMyImage() {
     var remove = document.getElementsByClassName('remove-image');
     for (let i = 0; i < remove.length; i++) {
         remove[i].addEventListener("click", function () {
@@ -9,7 +9,6 @@ function remove_my_image() {
             }
         })
     }
-    console.log(remove);
 };
 
 function savedPlace(){

@@ -8,7 +8,7 @@ def get_user_images(placeid):
     for image in images:
         for a in image:
             images_list.append(a)
-    images = images_list[0::2]
+    images = images_list
     return images
 
 def get_all_images():
@@ -17,7 +17,7 @@ def get_all_images():
     for image in images:
         for a in image:
             images_list.append(a)
-    images = images_list[0::2]
+    images = images_list
     return images
 
 def get_my_images():

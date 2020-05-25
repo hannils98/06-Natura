@@ -29,7 +29,7 @@
                 <h1>{{ user.username }}</h1>
                 {% if user.about_me %}<h4>{{ user.about_me }}</h4>{% endif %}
                 {% if user.last_seen %}
-                <p>Last seen on: {{ user.last_seen }}</p>
+                <p>Senast inloggad: {{ user.last_seen }}</p>
                 {% endif %}
                 <p>{{ user.followers.count() }} följare, {{ user.followed.count() }} följer.</p>
             </div>

@@ -44,5 +44,8 @@
 {% block scripts %}
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
 <script src="{{ url_for( 'static', filename= 'mapscript.js')}}"></script>
+<script>
+    indexMap();
+</script>
 {{ super() }}
 {% endblock scripts %}

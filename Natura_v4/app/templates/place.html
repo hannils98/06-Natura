@@ -149,6 +149,9 @@
   savedPlace();
 </script>
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
-<script src="{{ url_for( 'static', filename= 'mapplace.js')}}"></script>
+<script src="{{ url_for( 'static', filename= 'mapscript.js')}}"></script>
+<script>
+  placeMap();
+</script>
 {{super()}}
 {% endblock scripts %}

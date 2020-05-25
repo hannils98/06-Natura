@@ -29,11 +29,12 @@ def send_password_reset_email(user):
 
 def contact_email(email):
     form = ContactForm()
-    email=form.email.data
-    message=form.message.data
-    send_email(message,
-               sender=app.config['ADMINS'][0],
+    email = form.email.data
+    message = form.message.data
+    subject = form.subject.data
+    send_email(subject,
+               sender=email,
                recipients=app.config['ADMINS'][0],
                text_body=render_template('email/mail.txt',
-                                         email=email, message=message),
-               html_body=render_template('email/mail.html', email=email,message=message))
+                                         email=email, message=message, subject=subject),
+               html_body=render_template('email/mail.html', email=email, message=message, subject=subject))

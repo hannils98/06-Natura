@@ -1,2 +1,3 @@
 Meddelande Från {{ email }},
+{{subject}}
 {{message}}

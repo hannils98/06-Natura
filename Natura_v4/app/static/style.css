@@ -192,25 +192,16 @@ ul {
 }
 
 .carousel img {
-    width: 500px;
-    height: 300px;
-    margin-top: 5%
+    width: 100%;
+    
 }
 
 /*=======Carousel end========*/
 /*============PLACE===========*/
-.place-data {
-    float: right;
-    margin: 10px;
-}
-
-#addimage {
-    float: right;
-}
 
 #addimage>h4 {
     margin-top: 5px;
-    margin-left: 12%;
+    margin-left: 10%;
 }
 
 .dropzone .dz-message {
@@ -232,8 +223,7 @@ ul {
 }
 
 .place-desc{
-    margin-bottom: 20px;
-    font-size: smaller;
+    padding-left: 5%;
 }
 
 
@@ -246,18 +236,19 @@ ul {
 }
 
 #is_in>ul {
-    list-style: none;
+    list-style: circle;
+    padding-left: 11%;
+    padding-bottom: 10%;
 }
 
 .show_ratings{
-    float: left;
-    padding: 20px;
-    padding-top: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 #heart {
     color: rgb(199, 60, 60);
-    margin: 7.5% 3% 0 2%
+    margin: 23px 3px 0px 13px;
 }
 
 .heart_btn {
@@ -273,9 +264,19 @@ ul {
     font-size: smaller;
 }
 
-#symbols {
-    margin-left: 5%;
+.average_ratings, .user_rating {
+    margin-top: -10px;
+    margin-bottom: 10px;
 }
+
+.symbols {
+    margin-top: 10px;
+}
+
+.symbols > p {
+    margin: 0px;
+}
+
 
 /*=======MY ACCOUNT=======*/
 

@@ -18,15 +18,16 @@
 {{ dropzone.load() }}
 {{ dropzone.style('border: 2px dashed #0087F7; margin: 20%; min-width: 100px; min-height: 50px;') }}
 {% endblock styles %}
-<div id="wrapper">
+<div class="container-fluid">
     {% block body %}
 
 
     {% block navbar %}
-    <div id="nav">
+
+    <div id="nav" class="row">
         <nav class="navbar">
-            <div class="navbar-brand" href="/"><img id="logo" src="{{ url_for('static',filename='LogoHQ.jpg') }}"
-                    alt="natura logga"></div>
+            <div class="navbar-brand"><a href="/"><img id="logo" src="{{ url_for('static',filename='LogoHQ.jpg') }}"
+                    alt="natura logga"></a></div>
             <div class="login">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
@@ -146,7 +147,7 @@
     {% endblock carousel %}
     {% block content %}
 
-    <div id="inner_wrap">
+    <div id="inner_wrap" class="row">
         {% for message in get_flashed_messages() %}
         <div class="alert alert-warning">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -154,20 +155,38 @@
         </div>
         {% endfor %}
         {% endblock content%}
-
-        {% block app_content %}
-        {% endblock app_content%}
-
-        {% block main %}
-        {% endblock main %}
-
-        {% block map %}
-        {% endblock map%}
     </div>
+    {% block app_content %}
+    {% endblock app_content%}
+
+    {% block main %}
+    {% endblock main %}
+
+    {% block map %}
+    {% endblock map%}
+    {% block footer %}
+
+    </div>
+    <footer>
+        
+            <div class="footer-copyright text-center py-3">
+                <i class="contact"><strong>Kontakta oss:</strong></i>
+                <i class="contact">naturaprojekt6@gmail.com</i>
+                <i class="fab fa-facebook fa-2x"></i>
+                <i class="fab fa-instagram fa-2x"></i>
+                <i class="fab fa-linkedin fa-2x"></i>
+            </div>
+       
+    </footer>
+
+    </footer>
+
+
+    {% endblock footer %}
 
     {% block scripts %}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
@@ -181,18 +200,4 @@
     {% endblock scripts %}
 
     {% endblock body %}
-
-    {% block footer %}
-    <footer class="page-footer ">
-        <div class="footer-copyright text-center py-3">
-            <i class="contact"><strong>Kontakta oss:</strong></i>
-            <i class="contact">naturaprojekt6@gmail.com</i>
-            <i class="fab fa-facebook fa-2x"></i>
-            <i class="fab fa-instagram fa-2x"></i>
-            <i class="fab fa-linkedin fa-2x"></i>
-        </div>
-    </footer>
-
-    {% endblock footer %}
-</div>
 {% endblock html %}

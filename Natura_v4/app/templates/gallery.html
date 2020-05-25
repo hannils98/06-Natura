@@ -2,12 +2,24 @@
 {% block title %}Galleri{% endblock title %}
 
 {% block main%}
-<h2>Galleri</h2>
-<section id="photos">
-    
+
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Galleri</h2>
+    </div>
+</div>
+
 {% for image in all_images %}
-<img src="/app/static/uploads/{{image}}" class="rounded float-left" alt="{{image}}">
+    
+    {% if loop.index % 3 == 1 %}
+        </div>
+        <div class="row">
+    {%endif%}
+
+    <div class="col-lg-4 center-block">
+        <img src="/app/static/uploads/{{image}}" class="rounded float-left img-responsive" alt="{{image}}">
+    </div>
 
 {%endfor%}
-</section>
+</div>
 {% endblock%} 

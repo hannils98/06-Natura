@@ -2,13 +2,8 @@ function removeMyImage() {
     var remove = document.getElementsByClassName('remove-image');
     for (let i = 0; i < remove.length; i++) {
         remove[i].addEventListener("click", function () {
-<<<<<<< HEAD
             remove_image = confirm('Är du säker på att du vill ta bort bilden?');
             if(remove_image) {
-=======
-            remove_image = confirm('Är du säker på att du vill ta bort bilden?')
-            if (remove_image) {
->>>>>>> 8f1ece1bdb50ed396b11cdb77c955f58fc3f763e
                 imageID = (document.getElementsByClassName('images')[0].id);
                 window.location.href = '?imageid=' + imageID + "&remove=True";
             }
@@ -18,17 +13,13 @@ function removeMyImage() {
 
 function savedPlace() {
     const saved = document.getElementById('saved').value;
+    console.log(saved)
     if (saved === 'True') {
         const heart = document.getElementById('heart');
         heart.classList.remove('far');
-<<<<<<< HEAD
         heart.classList.add('fas');
 
     }else{
-=======
-        heart.classList.add('fas')
-    } else {
->>>>>>> 8f1ece1bdb50ed396b11cdb77c955f58fc3f763e
         savePlace();
     }
 }

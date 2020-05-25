@@ -17,7 +17,6 @@ function savedPlace() {
         const heart = document.getElementById('heart');
         heart.classList.remove('far');
         heart.classList.add('fas')
-
     } else {
         savePlace();
     }
@@ -29,11 +28,9 @@ function savePlace() {
         heart.classList.remove('far');
         heart.classList.add('fas');
     });
-
     heart.addEventListener("click", function () {
         window.location.href = '?saved=True';
     });
-
     heart.addEventListener("mouseout", function () {
         heart.classList.remove('fas');
         heart.classList.add('far');

@@ -10,6 +10,10 @@
     width: 20vw;
 }
 
+.bold{
+    font-weight: 900;
+}
+
 .activ {
     background-color: rgb(220, 252, 189);
 }
@@ -161,27 +165,16 @@ ul {
 /*==================CONTENT AREA====================*/
 /*=======CAROUSEL========*/
 .carousel {
-    position: relative;
     max-width: 600px;
-    margin-right: 20px;
-    margin-top: 0px;
-    float: left;
 }
 
-.carousel-inner {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-}
-
-.carousel-item.active {
-    display: block;
+#carousel-div{
+    padding:15px;
+    padding-right:0px;
 }
 
 .carousel-item {
-    position: relative;
     display: none;
-    float: left;
     width: 100%;
     margin-right: -100%;
     -webkit-backface-visibility: hidden;
@@ -190,60 +183,52 @@ ul {
     transition: transform .6s ease-in-out;
     transition: transform .6s ease-in-out, -webkit-transform .6s ease-in-out;
 }
-
-.carousel img {
-    width: 100%;
-    
+.carousel_img{
+    padding-left:0px;
+    padding-top:10px;
 }
 
 /*=======Carousel end========*/
 /*============PLACE===========*/
 
-#addimage>h4 {
-    margin-top: 5px;
-    margin-left: 10%;
+#addimage>p {
+    margin-bottom:0px;
+    margin-top:10px;
 }
 
+#add_image_top{
+    margin-top:50px;
+}
 .dropzone .dz-message {
     text-align: center;
     margin: 2px 0 !important;
 }
 
 .dropzone {
-    margin: 10px !important;
+    margin: 0px !important;
     min-width: 120px;
-    min-height: 120px;
-    width: 120px;
-    height: 120px;
+    max-height: 120px;
+    width: 200px;
+    height: 80px;
+}
+#all_see_more{
+    background-color: rgb(238, 238, 238);
+    border-radius: 10px;
+    padding:15px;
+    display: inline-block;
+    margin-top:20px;
 }
 
-#up {
-    height: 410px;
-    margin-bottom:10px;
+#back_button{
+    margin-top:0px;
 }
 
-.place-desc{
-    padding-left: 5%;
-}
-
-
-#is_in {
-    font-size: smaller;
-}
-
-#is_in>p {
-    margin: 0%;
-}
-
-#is_in>ul {
+.is_in > ul {
     list-style: circle;
-    padding-left: 11%;
-    padding-bottom: 10%;
 }
 
-.show_ratings{
-    padding-top: 20px;
-    padding-bottom: 20px;
+.include > ul {
+    list-style: circle;
 }
 
 #heart {
@@ -263,6 +248,9 @@ ul {
 #source {
     font-size: smaller;
 }
+.show_ratings{
+    float:left;
+}
 
 .average_ratings, .user_rating {
     margin-top: -10px;
@@ -275,6 +263,15 @@ ul {
 
 .symbols > p {
     margin: 0px;
+}
+
+.hitta_hit{
+    display:inline-block;
+    padding-left:30px;
+}
+
+#map_heading{
+    margin:0px;
 }
 
 
@@ -508,13 +505,6 @@ i.contact {
     .place-desc{
         width:80vw;
     }
-    .carousel{
-        margin-left: 10vw;
-    }
-    .carousel img {
-        width: 100%;
-        height: auto;
-    }
 }
 @media only screen and (max-width: 680px) {
     #profile-av {
@@ -530,141 +520,141 @@ i.contact {
         width: 50%;
     }
 }
-    @media only screen and (max-width: 530px) {
+@media only screen and (max-width: 530px) {
 
 
-        #logo {
-            margin-top: 5px;
-        }
-
-        #ham-menu {
-            display: block;
-        }
-
-        .nav-tabs {
-            display: none;
-            float: right;
-        }
-
-        .navbar-toggler {
-            width: 100%;
-            background-color: rgba(47, 160, 8, 1);
-            border: 0;
-            margin-top: 10px;
-
-        }
-
-        .navbar-toggler:active {
-            border: none;
-            background-color: rgb(54, 185, 14);
-        }
-
-        .navbar-collapse.in {
-            background-color: rgba(216, 216, 216, 0.322);
-            margin-top: -4px;
-        }
-
-        .white-text {
-            color: white;
-            float: right;
-        }
-
-        .fas {
-            padding: 5px;
-        }
-
-        .nav-item {
-            list-style: none;
-
-        }
-
-        .btn-primary {
-            color: rgba(47, 160, 8, 1);
-            background-color: initial;
-            border: none;
-            padding: 0;
-            font-size: 1.2em
-        }
-
-        .btn-primary:hover {
-            color: rgba(47, 160, 8, 1);
-            background-color: inherit;
-
-        }
-
-        .modal-body {
-            position: relative;
-            padding: 15px;
-            width: 80vw;
-            height: 60vh;
-            background-color: white;
-            border-radius: 10px;
-            margin: auto;
-            top: 100px;
-        }
-
-        .modal-body a {
-            display: block;
-            font-size: 2em;
-            margin-left: 10px;
-
-        }
-
-        .modal-backdrop {
-            position: fixed;
-            top: 90px;
-            right: 20px;
-            bottom: 195px;
-            left: 20px;
-            z-index: 1040;
-            background-color: rgb(14, 49, 3);
-            border-radius: 10px;
-        }
-
-        .modal-open .modal {
-            background-color: rgba(46, 160, 8, 0.021);
-        }
-
-        .modal-content {
-            border: none;
-        }
-
-        .close {
-            opacity: 1;
-            font-size: 50px;
-            color: rgb(26, 95, 3);
-            text-shadow: 0 0 5px white;
-        }
-
-        .nav-item a {
-            font-size: 1.2em;
-        }
-
-        .login {
-
-            margin-bottom: 5px;
-        }
-
-        #login a {
-            font-size: 1em;
-        }
-
-        .table>tbody>tr>td {
-            width: 80vw;
-        }
-
-        #profile-txt {
-            width: 80vw;
-        }
-
-        .place-data {
-            float:left;
-            margin:auto;
-        }
-        
-        .carousel{
-            margin-left: 0;
-            margin-right: 0;
-        }
-        
+    #logo {
+        margin-top: 5px;
     }
+
+    #ham-menu {
+        display: block;
+    }
+
+    .nav-tabs {
+        display: none;
+        float: right;
+    }
+
+    .navbar-toggler {
+        width: 100%;
+        background-color: rgba(47, 160, 8, 1);
+        border: 0;
+        margin-top: 10px;
+
+    }
+
+    .navbar-toggler:active {
+        border: none;
+        background-color: rgb(54, 185, 14);
+    }
+
+    .navbar-collapse.in {
+        background-color: rgba(216, 216, 216, 0.322);
+        margin-top: -4px;
+    }
+
+    .white-text {
+        color: white;
+        float: right;
+    }
+
+    .fas {
+        padding: 5px;
+    }
+
+    .nav-item {
+        list-style: none;
+
+    }
+
+    .btn-primary {
+        color: rgba(47, 160, 8, 1);
+        background-color: initial;
+        border: none;
+        padding: 0;
+        font-size: 1.2em
+    }
+
+    .btn-primary:hover {
+        color: rgba(47, 160, 8, 1);
+        background-color: inherit;
+
+    }
+
+    .modal-body {
+        position: relative;
+        padding: 15px;
+        width: 80vw;
+        height: 60vh;
+        background-color: white;
+        border-radius: 10px;
+        margin: auto;
+        top: 100px;
+    }
+
+    .modal-body a {
+        display: block;
+        font-size: 2em;
+        margin-left: 10px;
+
+    }
+
+    .modal-backdrop {
+        position: fixed;
+        top: 90px;
+        right: 20px;
+        bottom: 195px;
+        left: 20px;
+        z-index: 1040;
+        background-color: rgb(14, 49, 3);
+        border-radius: 10px;
+    }
+
+    .modal-open .modal {
+        background-color: rgba(46, 160, 8, 0.021);
+    }
+
+    .modal-content {
+        border: none;
+    }
+
+    .close {
+        opacity: 1;
+        font-size: 50px;
+        color: rgb(26, 95, 3);
+        text-shadow: 0 0 5px white;
+    }
+
+    .nav-item a {
+        font-size: 1.2em;
+    }
+
+    .login {
+
+        margin-bottom: 5px;
+    }
+
+    #login a {
+        font-size: 1em;
+    }
+
+    .table>tbody>tr>td {
+        width: 80vw;
+    }
+
+    #profile-txt {
+        width: 80vw;
+    }
+
+    .place-data {
+        float:left;
+        margin:auto;
+    }
+    
+    .carousel{
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+}

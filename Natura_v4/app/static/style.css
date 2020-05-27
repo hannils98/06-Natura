@@ -39,6 +39,9 @@ body {
     overflow: scroll;
 }
 
+.container-fluid{
+    min-height:95vh;
+}
 #inner-wrap {
     margin-bottom: 10px;
 }

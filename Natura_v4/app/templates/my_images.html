@@ -21,7 +21,7 @@
 
     {%for image in images%}
         <img src="/app/static/uploads/{{image}}" class="images" id="{{ image }}" height="300em" class="rounded float-left" alt="{{images[0]}}">
-        <button type="button" class="btn btn-danger remove-image"><a href="{{ url_for('my_images', username=current_user.username) }}">Ta bort</a></button>
+        <button type="button" class="btn btn-danger remove-image"><a href="#">Ta bort</a></button>
     {%endfor%}
     
 

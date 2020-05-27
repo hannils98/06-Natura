@@ -26,16 +26,6 @@ function indexMap() {
             .addTo(map);
     });
 
-    // Add geolocate control to the map.
-    map.addControl(
-        new mapboxgl.GeolocateControl({
-            positionOptions: {
-                enableHighAccuracy: true
-            },
-            trackUserLocation: true
-        })
-    );
-
     // Add zoom and rotation controls to the map.
     map.addControl(new mapboxgl.NavigationControl());
 

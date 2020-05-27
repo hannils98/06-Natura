@@ -118,11 +118,11 @@ def my_ratings(username):
 @app.route('/user/<username>/my_images', methods=['GET', 'POST'])
 @login_required
 def my_images(username):
-    my_images = get_my_images()
+    
     if request.args.get('remove') == 'True':
         image_id = request.args.get('imageid')
         remove_image(image_id) 
-
+    my_images = get_my_images()
         
     return render_template('my_images.html', images=my_images, drop_down_cats=drop_down_cats)
 

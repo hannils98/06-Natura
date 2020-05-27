@@ -277,7 +277,6 @@ def reset_password(token):
 @app.route('/<category>')
 def category(category):
     places_from_db = db.session.query(places.name, places.id).join(place_has_cat).join(categories).filter(categories.name==category).all()
-    print(places_from_db)
 
     return render_template('category.html', drop_down_cats=drop_down_cats, category=category, places=places_from_db)
 

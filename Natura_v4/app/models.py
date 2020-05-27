@@ -147,7 +147,7 @@ class SavedPlace(db.Model):
     placeid=db.Column(db.Integer, db.ForeignKey('places.id'), primary_key=True)
     datetime=db.Column(db.DateTime(timezone=True))
 
-db_url = 'postgresql://ak2296:banandel@pgserver.mah.se/natura_v2'
+db_url = 'postgresql://ak2195:l6kp3gsl@pgserver.mah.se/natura_v2'
 engine = create_engine(db_url, client_encoding='utf8', echo=True)
 @event.listens_for(engine, "connect")
 def connect(dbapi_connection, connection_record):

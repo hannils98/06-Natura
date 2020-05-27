@@ -2,10 +2,10 @@ function removeMyImage() {
     var remove = document.getElementsByClassName('remove-image');
     for (let i = 0; i < remove.length; i++) {
         remove[i].addEventListener("click", function () {
-            remove_image = confirm('Är du säker på att du vill ta bort bilden?');
-            if(remove_image) {
-                imageID = (document.getElementsByClassName('images')[0].id);
-                window.location.href = '?imageid=' + imageID + "&remove=True";
+            removeImage = confirm('Är du säker på att du vill ta bort bilden?');
+            if(removeImage) {
+                imageID = (document.getElementsByClassName('images')[i].id);
+                window.location.href = '?imageid=' + imageID + '&remove=True';
             }
         })
     }
@@ -13,7 +13,6 @@ function removeMyImage() {
 
 function savedPlace() {
     const saved = document.getElementById('saved').value;
-    console.log(saved)
     if (saved === 'True') {
         const heart = document.getElementById('heart');
         heart.classList.remove('far');

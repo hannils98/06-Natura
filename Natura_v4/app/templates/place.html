@@ -52,7 +52,7 @@
         <p>Här hittar du:</p>
         {%for symbol in symbols%}
         {% set symbol = symbol.replace("'", "").replace("(", "").replace(")","").replace(",", "")%}
-          <i class="{{symbol}}"></i>
+          <i class="{{symbol}} fa-2x"></i>
         {%endfor%}
       </div>
     </div>

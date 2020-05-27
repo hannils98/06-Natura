@@ -67,7 +67,7 @@ class ResetPasswordForm(FlaskForm):
 class DeleteUserForm(FlaskForm):
     username = StringField('Användarnamn', validators=[DataRequired()])
     password = PasswordField('Lösenord', validators=[DataRequired()])
-    delete = SubmitField('Ta Bort')
+    delete = SubmitField('Ta bort')
 
 class ContactForm(FlaskForm):
     name = StringField('Ditt namn', validators=[DataRequired()])

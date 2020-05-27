@@ -9,6 +9,15 @@ function indexMap() {
         minZoom: 7,
         maxZoom: 16
     });
+    // Add geolocate control to the map.
+    map.addControl(
+        new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+        })
+    );
     // Add pop-up
     map.on('click', function (e) {
         var features = map.queryRenderedFeatures(e.point, {
@@ -46,15 +55,6 @@ function placeMap() {
         maxZoom: 16
     });
 
-    // Add geolocate control to the map.
-    map.addControl(
-        new mapboxgl.GeolocateControl({
-            positionOptions: {
-                enableHighAccuracy: true
-            },
-            trackUserLocation: true
-        })
-    );
 
     // Add zoom and rotation controls to the map.
     map.addControl(new mapboxgl.NavigationControl());

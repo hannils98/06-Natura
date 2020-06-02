@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Natura{% endblock title %}
 
-
 {% block content %}
-
 {{ super() }}
 <div id="main_text">
     {%if current_user.username == null %}
@@ -12,9 +10,7 @@
     <h2>Kom ut i naturen {{  current_user.username  }}!</h2>
     {%endif%}
     <p>Använd kartan för att hitta naturupplevelser nära dig</p>
-
 </div>
-
 
 {% endblock content %}
 

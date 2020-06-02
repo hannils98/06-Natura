@@ -2,16 +2,16 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 {% block title %}Mitt Konto{% endblock title %}
 {% block nav %}
-    <div id="nav2">
-     <ul class="nav nav-tabs">
-                 <li class="nav-item active ">
-                    <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Profil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('myaccount') }}">Inlägg</a>
-                </li>
-     </ul>
-  </div>
+<div id="nav2">
+    <ul class="nav nav-tabs">
+        <li class="nav-item active ">
+            <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Profil</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('myaccount') }}">Inlägg</a>
+        </li>
+    </ul>
+</div>
 
 {% endblock nav %}
 {% block app_content %}
@@ -20,12 +20,13 @@
     <p>Här är dina sparade platser! Du kan ta bort en sparad plats genom att trycka på hjärtat.</p>
     <ul>
         {%for place in places%}
-            <li><span class="fas fa-heart heart_btn" id="{{ place.id }}" style="cursor:pointer"></span><a href="{{ url_for('place', name=place.name, placeid=place.id) }}">{{ place.name }}</a></li>
-        
+        <li><span class="fas fa-heart heart_btn" id="{{ place.id }}" style="cursor:pointer"></span><a
+                href="{{ url_for('place', name=place.name, placeid=place.id) }}">{{ place.name }}</a></li>
         {%endfor%}
     </ul>
 </div>
-<button type="button" class="btn btn-light"><a href="{{ url_for('user', username=current_user.username) }}">Tillbaka</a></button>
+<button type="button" class="btn btn-light"><a
+        href="{{ url_for('user', username=current_user.username) }}">Tillbaka</a></button>
 {%endblock%}
 
 {% block scripts %}

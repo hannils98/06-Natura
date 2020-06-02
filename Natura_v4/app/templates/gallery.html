@@ -8,10 +8,9 @@
         <h2>Galleri</h2>
     </div>
 </div>
-
+<!--------Visar bilder i 3 columner per rad----------->
 <div class="row">
 {% for image in all_images %}
-    
     {% if loop.index % 3 == 1 %}
         </div>
         <div class="row">
@@ -21,8 +20,6 @@
         <img src="/app/static/uploads/{{image}}" class="rounded float-left img-responsive" alt="{{image}}">
     </div>
 
-    
-
 {%endfor%}
 </div>
-{% endblock%} 
+{% endblock%}

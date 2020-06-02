@@ -2,16 +2,16 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 {% block title %}Mitt Konto{% endblock title %}
 {% block nav %}
-    <div id="nav2">
-     <ul class="nav nav-tabs">
-                 <li class="nav-item active ">
-                    <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Profil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('myaccount') }}">Inlägg</a>
-                </li>
-     </ul>
-  </div>
+<div id="nav2">
+    <ul class="nav nav-tabs">
+        <li class="nav-item active ">
+            <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Profil</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('myaccount') }}">Inlägg</a>
+        </li>
+    </ul>
+</div>
 
 {% endblock nav %}
 {% block app_content %}
@@ -20,12 +20,15 @@
     <p>För att ändra ett betyg så trycker du på pennan.</p>
     <ul>
         {%for rating in my_ratings%}
-            <li><a href="{{ url_for('place', name=rating[1], placeid=rating[2]) }}"><span class="name" id="{{ rating[2] }}">{{ rating[1] }}</span></a> <span class="my_rating" id="rating{{ loop.index }}">{{rating.ratings }}</span> <i class="fas fa-pencil-alt change_rating" style="cursor:pointer"></i></li>
-        
+        <li><a href="{{ url_for('place', name=rating[1], placeid=rating[2]) }}"><span class="name"
+                    id="{{ rating[2] }}">{{ rating[1] }}</span></a> <span class="my_rating"
+                id="rating{{ loop.index }}">{{rating.ratings }}</span> <i class="fas fa-pencil-alt change_rating"
+                style="cursor:pointer"></i></li>
         {%endfor%}
     </ul>
 </div>
-<button type="button" class="btn btn-light"><a href="{{ url_for('user', username=current_user.username) }}">Tillbaka</a></button>
+<button type="button" class="btn btn-light"><a
+        href="{{ url_for('user', username=current_user.username) }}">Tillbaka</a></button>
 {%endblock%}
 
 {% block scripts %}

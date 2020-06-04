@@ -267,6 +267,7 @@ body {
 
 #index>ul {
     columns: 3;
+    list-style-type: none;
 }
 
 /*=======GALLERY==========*/

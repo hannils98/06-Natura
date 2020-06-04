@@ -415,6 +415,14 @@ body {
 
 }
 
+#my_places > ul {
+    list-style-type: none;
+}
+
+#my_ratings > ul {
+    list-style-type: none;
+}
+
 /*============FOOTER===========*/
 .text-center {
     color: rgba(47, 160, 8, 1);

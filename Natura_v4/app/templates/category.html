@@ -4,7 +4,7 @@
 <div id="page-whole">
 <h2>{{ category }}</h2>
 {%for place in places%}
-<div class="card" style="width: 18rem;">
+  <div class="card" style="width: 18rem;">
     <img src="/app/static/card_images/{{ place.id }}.jpg" class="card-img-top" alt="{{ place.name }}">
     <div class="card-body">
       <a href="{{ url_for('place', name=place.name, placeid=place.id) }}" class="btn btn-success">{{place.name}}</a>

@@ -3,21 +3,20 @@
 {% block title %}Mitt Konto{% endblock title %}
 
 {% block nav %}
-    <div id="nav2">
-     <ul class="nav nav-tabs">
-                 <li class="nav-item active ">
-                    <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Profil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('myaccount') }}">Inlägg</a>
-                </li>
-     </ul>
-  </div>
+<div id="nav2">
+    <ul class="nav nav-tabs">
+        <li class="nav-item active ">
+             <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Profil</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('myaccount') }}">Inlägg</a>
+        </li>
+    </ul>
+</div>
 
 {% endblock nav %}
 {% block app_content %}
 <div id="delete">
-
     <h1>Radera konto</h1>
     <div class="row">
         <div class="col-md-4">

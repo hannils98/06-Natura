@@ -28,8 +28,8 @@
     height: 135px !important;
     margin:0px !important;
 }
-/*=============@Media========*/
 
+/*=============@Media========*/
 @media only screen and (max-width: 640px) {
 
     #map {

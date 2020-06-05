@@ -185,7 +185,7 @@ def edit_profile():
         current_user.username = form.username.data
         current_user.about_me = form.about_me.data
         db.session.commit()
-        flash('Dina profil har uppdaterats!')
+        flash('Din profil har uppdaterats!')
         return redirect(url_for('user', username=current_user.username))
     elif request.method == 'GET':
         form.username.data = current_user.username
@@ -250,7 +250,7 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-        flash('Kontrollera din e-post för instruktioner för att återställa ditt lösenord')
+        flash('Kontrollera din e-post för instruktioner om att återställa ditt lösenord')
         return redirect(url_for('login'))
     return render_template('reset_password_request.html', drop_down_cats=drop_down_cats,
                            title='Reset Password', form=form)
@@ -329,7 +329,7 @@ def contact():
     email=form.email.data
     if form.validate_on_submit():
         contact_email(email)
-        flash('Tack för ditt meddelande. Vi kommer återkomma så fort vi kan!')
+        flash('Tack för ditt meddelande. Vi återkommer så fort vi kan!')
         return redirect(url_for('index'))
     else:
         return render_template('contact.html', drop_down_cats=drop_down_cats, form=form)

@@ -16,7 +16,7 @@
 
 <ul class="nav nav-pills">
     <li class="nav-item">
-        <a class="nav-link active" href="{{ url_for('myaccount') }}">Inlägg</a>
+        <a class="nav-link active" href="{{ url_for('myaccount') }}">Mitt flöde</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ url_for('explore') }}">Alla Inlägg</a>
@@ -28,7 +28,7 @@
 {% block app_content %}
 
 <div id="profile-page">
-    <h1>{{ current_user.username }}s inlägg</h1>
+    <h1>Inlägg</h1>
     {% if form %}
     {{ wtf.quick_form(form) }}
     <br>

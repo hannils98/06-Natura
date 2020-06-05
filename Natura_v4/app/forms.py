@@ -22,12 +22,12 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, username):
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
-            raise ValidationError('Välj ett annat användarnamn.')
+            raise ValidationError('Användarnamnet är upptaget, välj ett annat.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
-            raise ValidationError('Använd en annan e-postadress.')
+            raise ValidationError('E-postadress är upptagen, använda en annan.')
 
 
 class EditProfileForm(FlaskForm):
@@ -43,7 +43,7 @@ class EditProfileForm(FlaskForm):
         if username.data != self.original_username:
             user = User.query.filter_by(username=self.username.data).first()
             if user is not None:
-                raise ValidationError('Välj ett annat användarnamn.')
+                raise ValidationError('Användarnamnet är upptaget, välj ett annat.')
 
 
 class PostForm(FlaskForm):
@@ -71,7 +71,7 @@ class DeleteUserForm(FlaskForm):
 
 class ContactForm(FlaskForm):
     name = StringField('Ditt namn', validators=[DataRequired()])
-    email = StringField('Din e-post (ifall du vill att vi kontakta dig)')
+    email = StringField('Din e-post (ifall du vill att vi kontaktar dig)')
     subject= StringField('Ämne')
     message = TextAreaField('Vad vill du säga till oss?', validators=[DataRequired(), Length(min=1, max=140)])
     submit = SubmitField('Skicka')

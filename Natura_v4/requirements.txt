@@ -3,7 +3,7 @@ antiorm==1.2.1
 appdirs==1.4.3
 astroid==2.3.3
 blinker==1.4
-bottle==0.12.18
+bottle==0.12.19
 click==7.1.1
 colorama==0.4.3
 db==0.1.1
